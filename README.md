@@ -1,3 +1,6 @@
+# my_event_buddy_front
+Frontend development with react, typescript and MUI for my_event_buddy application
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
