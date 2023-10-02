@@ -8,10 +8,11 @@ export const Login = () => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    });
+    const user = {
+      email: data.get('email')?.toString() ?? '',
+      password: data.get('password')?.toString() ?? ''
+    }
+    console.log({ user });
   };
 
   return (

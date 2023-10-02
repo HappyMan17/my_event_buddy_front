@@ -33,6 +33,7 @@ module.exports = {
     '@typescript-eslint/space-before-function-paren': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off'
   }
 }
