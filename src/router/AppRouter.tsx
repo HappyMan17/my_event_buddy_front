@@ -9,7 +9,7 @@ export const AppRouter = () => {
         <Route path="/auth/*" element={ <AuthRouter /> } />
 
         {/* Default page */}
-        {/* <Route path="/*" element={ </> } /> */}
+        <Route path="/*" element={ <AuthRouter/> } />
 
     </Routes>
   )

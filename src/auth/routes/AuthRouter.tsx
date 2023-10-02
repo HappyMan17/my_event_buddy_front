@@ -9,7 +9,7 @@ export const AuthRouter = () => {
         <Route path="login" element={ <Login /> } />
 
         {/* Defult page */}
-        {/* <Route path="/*" element={ < /> } /> */}
+        <Route path="/*" element={ <Login /> } />
 
     </Routes>
   )

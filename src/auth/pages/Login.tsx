@@ -43,8 +43,8 @@ export const Login = () => {
           <Grid item xs={12} sm={8} sx={{
             bgcolor: 'white',
             height: { sm: '500px', xs: '100vh' },
-            maxWidth: '500px',
-            minWidth: '300px',
+            maxWidth: { xs: '500px', sm: '600px' },
+            minWidth: '600px',
             borderRadius: { sm: 8, xs: 0 }
           }}>
             <Box sx={{
