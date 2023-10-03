@@ -11,7 +11,7 @@ export const getAllUsers = async () => {
   }
 }
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: User): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.REGISTER}`
   const { data, error } = await put(url, user)
   if (error != null) {

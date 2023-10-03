@@ -1,62 +1,87 @@
-import React from 'react'
 import { Box, Grid, TextField, Button, Link } from '@mui/material'
 import { AuthLayout } from './layout';
 import { Copyright } from '../../components';
 import { createUser, type User } from '../../helpers'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+
+interface Inputs {
+  userName: string
+  nickName: string
+  email: string
+  password: string
+}
 
 export const Register = () => {
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const data = new FormData(event.currentTarget);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Inputs>()
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const newUser: User = {
-      email: data.get('email')?.toString() ?? '',
-      password: data.get('password')?.toString() ?? '',
-      user_name: data.get('userName')?.toString() ?? '',
-      nick_name: data.get('nickName')?.toString() ?? '',
+      email: data.email,
+      password: data.password,
+      user_name: data.userName,
+      nick_name: data.nickName,
       profile_image: ''
     }
     const response = await createUser(newUser)
-
-    // const response = await getAllUsers()
-    console.log({ response, ms: 'user created' });
-  };
+    if (!response) {
+      // make alert user not created
+    } else {
+      // make alert user created
+    }
+  }
 
   return (
     <AuthLayout props={{ title: 'Register', minHeight: '620px' }}>
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <TextField
+          error={!!errors.userName}
+          helperText={errors.userName?.message}
           margin="normal"
           required fullWidth
           id="userName"
           label="Nombre de usuario"
           type="text"
-          name="userName"
+          {...register('userName', { required: 'Field required.' })}
         />
         <TextField
+          error={!!errors.nickName}
+          helperText={errors.nickName?.message}
           margin="normal"
           required fullWidth
           id="nickName"
           label="Nick Name"
           type="text"
-          name="nickName"
+          {...register('nickName', { required: 'Field required.' })}
         />
         <TextField
+          error={!!errors.email}
+          helperText={errors.email?.message}
           margin="normal"
           required fullWidth
           id="email"
           label="Email"
-          name="email"
           autoComplete="email"
           autoFocus
+          {...register('email', { required: 'Field required.' })}
         />
         <TextField
+          error={!!errors.password}
+          helperText={errors.password?.message}
           margin="normal"
           required fullWidth
           id="password"
           label="Contraseña"
           type="password"
-          name="password"
+          {...register('password', {
+            required: 'Field required',
+            minLength: {
+              value: 8,
+              message: 'Password must have 8 characteres.'
+            }
+          })}
         />
         <Button
           type="submit"
