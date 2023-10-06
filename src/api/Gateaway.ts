@@ -22,12 +22,12 @@ export const get = async (url: string) => {
 }
 
 // creates a user
-export const put = async (url: string, body: any) => {
+export const post = async (url: string, body: any) => {
   let data = null
   let error = null
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await axios.put(url, body)
+    const response = await axios.post(url, body)
     if (response.status === 200) {
       data = response.data
     } else {
