@@ -22,6 +22,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "./.eslintrc.cjs"],
+  "include": ["src", "test", "./.eslintrc.cjs", "test/components", "./babel.config.cjs", "jest.config.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
