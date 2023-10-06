@@ -1,8 +1,9 @@
-import { Box, Grid, TextField, Button, Link } from '@mui/material'
+import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { Copyright } from '../../components';
 import { createUser, type User } from '../../helpers'
 import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useState } from 'react';
 
 interface Inputs {
   userName: string
@@ -17,6 +18,7 @@ export const Register = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>()
+  const [alertMessage, setAlertMessage] = useState<string | null>(null); //
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const newUser: User = {
       email: data.email,
@@ -27,9 +29,9 @@ export const Register = () => {
     }
     const response = await createUser(newUser)
     if (!response) {
-      // make alert user not created
+      setAlertMessage('No se pudo crear el usuario. Por favor, inténtalo nuevamente.');
     } else {
-      // make alert user created
+      setAlertMessage('Usuario creado con éxito.');
     }
   }
 
@@ -90,6 +92,11 @@ export const Register = () => {
         >
           Register
         </Button>
+        {alertMessage && (
+          <Alert severity='error'>
+            {alertMessage}
+          </Alert>
+        )}
         <Grid container>
           <Grid item xs>
             <Link href="login" variant="body2">Already have an account?</Link>
