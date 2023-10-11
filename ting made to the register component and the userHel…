@@ -1,0 +1,66 @@
+[33mcommit 5a68182c4f148b1977de87fd93e275a82012612e[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/login_views[m[33m, [m[1;31morigin/feature/login_views[m[33m)[m
+Author: AndreaSoCa <andreasoca1212@outlook.es>
+Date:   Thu Oct 5 22:13:57 2023 -0500
+
+    feat(Alert):Alertas correspondientes al registro del usuario
+
+[33mcommit 6501a7c3043e6a69e5cc60f4698d9a6f0c0c13ab[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Mon Oct 2 21:44:33 2023 -0500
+
+    feature(react-hook-form) dependencie install for form validation.
+
+[33mcommit 2910d9f08aed787db9e0f206362a4f8014bf886e[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Mon Oct 2 11:09:25 2023 -0500
+
+    feat(Register): partial commit, user created in api but error handler missing.
+
+[33mcommit 972fe18a8e425639cc98d84e8b73d2227fde8892[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Mon Oct 2 08:39:57 2023 -0500
+
+    feat(AuthLayout): AuthLayout created.
+
+[33mcommit ee712433e2657769dbcb83febe827d4f8f9e8458[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Mon Oct 2 07:29:49 2023 -0500
+
+    feat(userRegister): Styles updated.
+
+[33mcommit 21600460dff9ebf9887a1d933b39b8306f164fb5[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Thu Sep 28 09:52:02 2023 -0500
+
+    fix(Eslint): ESlinter configuration fixed and now working propertly.
+
+[33mcommit 57102fe85706ea1b3925a29f3aac1f145a62c708[m
+Author: AndreaSoCa <andreasoca1212@outlook.es>
+Date:   Wed Sep 27 19:23:50 2023 -0500
+
+    feat(Login):Vistas iniciales del login
+
+[33mcommit 86c78c50c9ea419cc1e88d802a0a0e3fa093185d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: e23705d 8878add
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Wed Sep 27 10:46:55 2023 -0500
+
+    feat(structure): Folder structure created.
+
+[33mcommit e23705dcd564610ccbe12720f6be47b1e5181866[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Wed Sep 27 10:45:14 2023 -0500
+
+    feat(structure): Folder structure created.
+
+[33mcommit 78d4b49e24ac5477a278a209e3067f5b40b3a3c9[m
+Author: HappyMan17 <sebasgrisales16@gmail.com>
+Date:   Wed Sep 27 10:12:57 2023 -0500
+
+    first commit.
+
+[33mcommit 8878add4e71c2c39e0004c75c272a1560b27eb2e[m
+Author: Sebastian Grisales <87830098+HappyMan17@users.noreply.github.com>
+Date:   Wed Sep 27 10:02:22 2023 -0500
+
+    Initial commit

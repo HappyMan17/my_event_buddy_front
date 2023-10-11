@@ -12,8 +12,8 @@ export const Home = () => {
         <Grid>
           <Button>Home</Button>
           <Button>About</Button>
-          <Button>Sing in</Button>
-          <Button>Log in</Button>
+          <Button href='login'>Sing in</Button>
+          <Button href='register'>Log in</Button>
         </Grid>
       </Box>
     </HomeLayout>

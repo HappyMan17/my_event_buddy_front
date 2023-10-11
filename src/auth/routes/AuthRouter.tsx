@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { Login, Register, Home } from '../pages/';
+import { Login, Register, Home, HomeUser} from '../pages/';
 
 export const AuthRouter = () => {
   return (
     <Routes>
+
+        <Route path="homeUser" element={ <HomeUser /> } />
 
         {/* Home page */}
         <Route path="home" element={ <Home /> } />
