@@ -29,9 +29,9 @@ export const Register = () => {
     }
     const response = await createUser(newUser)
     if (!response) {
-      setAlertMessage('No se pudo crear el usuario. Por favor, inténtalo nuevamente.');
+      setAlertMessage('User creation failed. Please try again.');
     } else {
-      setAlertMessage('Usuario creado con éxito.');
+      setAlertMessage('User created successfully');
     }
   }
 
@@ -44,7 +44,7 @@ export const Register = () => {
           margin="normal"
           required fullWidth
           id="userName"
-          label="Nombre de usuario"
+          label="Name"
           type="text"
           {...register('userName', { required: 'Field required.' })}
         />
@@ -75,7 +75,7 @@ export const Register = () => {
           margin="normal"
           required fullWidth
           id="password"
-          label="Contraseña"
+          label="Password"
           type="password"
           {...register('password', {
             required: 'Field required',
@@ -106,4 +106,5 @@ export const Register = () => {
       </Box>
     </AuthLayout>
   );
+  
 };
