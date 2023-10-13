@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { FormControlLabel, Checkbox, TextField } from '@mui/material'
-import { FormLayout } from './FormLayout'
+import { FormLayout } from '../FormLayout'
 
-export const InactivateProfileForm = () => {
+export const DeleteContactForm = () => {
 
     const [checked, setChecked] = useState(false);
 
@@ -12,7 +12,7 @@ export const InactivateProfileForm = () => {
 
     return (
 
-        <FormLayout props={{ title: "Inactivate profile", buttonText: "Save Changes" }}>
+        <FormLayout props={{ title: "Delete Contact", buttonText: "Save Changes" }}>
             <TextField
                 margin="normal"
                 required
@@ -22,6 +22,7 @@ export const InactivateProfileForm = () => {
                 autoComplete="email"
                 autoFocus
             />
+
             <TextField
                 margin="normal"
                 required
@@ -33,7 +34,7 @@ export const InactivateProfileForm = () => {
 
             <FormControlLabel
                 control={<Checkbox checked={checked} onChange={handleChange} />}
-                label="You want to inactivate your account"
+                label="You want to delete contact "
             />
 
         </FormLayout>

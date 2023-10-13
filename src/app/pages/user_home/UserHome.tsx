@@ -1,8 +1,10 @@
 import { Grid, Link } from '@mui/material';
-import { DropdownMenu, ModifyProfileForm, InactivateProfileForm} from '../../../components/';
-import React, { useState } from 'react';
+import { DropdownMenu, ModifyProfileForm, InactivateProfileForm, AddContactForm, DeleteContactForm, AddEventForm, ModifyEventForm} from '../../../components/';
+import { useState } from 'react';
 
-export const UserHome = () => {
+export const UserHome = () => { 
+
+  //Caso base: Solo me permite visualizar el ModifyProfileForm
   // const [showProfileForm, setShowProfileForm] = useState(false);
 
   // const handleModifyProfileClick = () => {
@@ -16,8 +18,8 @@ export const UserHome = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={4}>
+    <Grid container wrap="nowrap">
+      <Grid item xs={4} sx={{overflowY: 'auto'}}>
         <Grid container sx={{
           display: 'flex',
           flexDirection: "column",
@@ -25,11 +27,12 @@ export const UserHome = () => {
           justifyContent: 'center',
           height: '100vh'
         }}>
+
           <Grid item>
             <Link href="home">
               <img
                 // src='src\assets\logoUser.png'
-                src='../../../assets/logoUser.png'
+                src='src/assets/logoUser.png'
                 alt="EventBuddy"
                 style={{ width: '100px', height: '100px' }}
               />
@@ -46,22 +49,25 @@ export const UserHome = () => {
             />
           </Grid>
 
-          {/* <Grid>
+          <Grid>
             <DropdownMenu
               props={{
                 title: 'Contacts',
                 buttonList: ['Add Contacts', 'Delete Contacts']
-              }} />
+              }} 
+              onItemClick={handleMenuItemClick}
+            />
           </Grid>
 
           <Grid>
             <DropdownMenu
               props={{
                 title: 'Events',
-                buttonList: ['Add Event', 'Edit Event']
-              }} />
-          </Grid> */}
-
+                buttonList: ['Add Event', 'Modify Event']
+              }} 
+              onItemClick={handleMenuItemClick}
+            />
+          </Grid>
         </Grid>
       </Grid>
 
@@ -72,6 +78,10 @@ export const UserHome = () => {
         }}>
           {activeForm === 'Modify Profile' && <ModifyProfileForm />}
           {activeForm === 'Inactivate Profile' && <InactivateProfileForm />}
+          {activeForm === 'Add Contacts' && <AddContactForm />}
+          {activeForm === 'Delete Contacts' && <DeleteContactForm />}
+          {activeForm === 'Add Event' && <AddEventForm />}
+          {activeForm === 'Modify Event' && <ModifyEventForm />}
         </Grid>
       </Grid>
     </Grid>

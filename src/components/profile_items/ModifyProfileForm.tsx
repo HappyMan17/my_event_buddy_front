@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import { FormLayout } from './FormLayout'
+import { FormLayout } from '../FormLayout'
 
 export const ModifyProfileForm = () => {
 
