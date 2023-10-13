@@ -1,5 +1,5 @@
 export * from './Copyright'
-export * from './MenuProfile'
-export * from './MenuContacts'
-export * from './MenuEvents'
-
+export * from './DropdownMenu'
+export * from './ModifyProfileForm'
+export * from './FormLayout'
+export * from './InactivateProfileForm'

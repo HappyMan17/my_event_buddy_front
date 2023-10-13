@@ -31,7 +31,7 @@ export const Login = () => {
           margin="normal"
           required fullWidth
           id="password"
-          label="Contraseña"
+          label="Password"
           type="password"
           name="password"
         />
@@ -44,10 +44,10 @@ export const Login = () => {
         </Button>
         <Grid container>
           <Grid item xs>
-            <Link href="#" variant="body2">¿Olvidaste tu contraseña?</Link>
+            <Link href="#" variant="body2">Forgot your password?</Link>
           </Grid>
           <Grid item xs>
-            <Link href="register" variant="body2">¿No tienes cuenta? Registrate</Link>
+            <Link href="register" variant="body2">Don't have an account? Register</Link>
           </Grid>
         </Grid>
         <Copyright sx={{ mt: 5 }} />
