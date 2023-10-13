@@ -1,1 +1,6 @@
 export * from './Copyright'
+export * from './MenuProfile'
+export * from './MenuContacts'
+export * from './MenuEvents'
+export * from './AppBar'
+export * from './GridHome'
