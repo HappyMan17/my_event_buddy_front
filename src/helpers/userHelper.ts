@@ -31,3 +31,16 @@ export const loginUser = async (user: LoginUser): Promise<any | null> => {
   }
   return data
 }
+
+export const checkIfTokenExist = (): boolean => {
+  const userToken = localStorage.getItem('userToken')
+  if (!userToken) {
+    return false
+  }
+  // validate token if false, localStorage.removeItem('userToken')
+  return true
+}
+
+export const saveToken = (token: string) => {
+  localStorage.setItem('userToken', JSON.stringify(token));
+}

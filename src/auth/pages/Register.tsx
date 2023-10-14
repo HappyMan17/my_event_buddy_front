@@ -4,6 +4,7 @@ import { Copyright } from '../../components';
 import { createUser, type User } from '../../helpers'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 interface Inputs {
   userName: string
@@ -13,6 +14,7 @@ interface Inputs {
 }
 
 export const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ export const Register = () => {
       setAlertMessage('User creation failed. Please try again.');
     } else {
       setAlertMessage('User created successfully');
+      navigate('/login')
     }
   }
 

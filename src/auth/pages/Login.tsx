@@ -1,9 +1,10 @@
+import { useContext, useState } from 'react';
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Copyright } from '../../components';
-import { useState } from 'react';
-import { loginUser } from '../../helpers';
+import { loginUser, saveToken } from '../../helpers';
+import { UserContext } from '../../context';
 
 interface Inputs {
   email: string
@@ -17,6 +18,8 @@ export const Login = () => {
     formState: { errors }
   } = useForm<Inputs>()
 
+  const { loginUser: login } = useContext(UserContext);
+
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -26,12 +29,14 @@ export const Login = () => {
     }
     // console.log({ user });
     const response = await loginUser(user)
-    if (!response) {
+    if (!response?.token) {
       setAlertMessage('User creation failed. Please try again.');
+      return;
     } else {
       setAlertMessage('User created successfully');
     }
-    // console.log({response})
+    login()
+    saveToken(response.token)
   };
 
   return (
