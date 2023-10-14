@@ -1,5 +1,5 @@
 import { Button, styled, Typography, Link, Grid, Paper, Box } from '@mui/material';
-import backgroundImage from '../app/images/ImageHome.png';
+import backgroundImage from '../assets/images/ImageHome.png';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : 'transparent',
