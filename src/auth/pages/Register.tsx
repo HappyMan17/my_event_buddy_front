@@ -4,6 +4,7 @@ import { Copyright } from '../../components';
 import { createUser, type User } from '../../helpers'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 interface Inputs {
   userName: string
@@ -13,6 +14,7 @@ interface Inputs {
 }
 
 export const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,9 +31,10 @@ export const Register = () => {
     }
     const response = await createUser(newUser)
     if (!response) {
-      setAlertMessage('No se pudo crear el usuario. Por favor, inténtalo nuevamente.');
+      setAlertMessage('User creation failed. Please try again.');
     } else {
-      setAlertMessage('Usuario creado con éxito.');
+      setAlertMessage('User created successfully');
+      navigate('/login')
     }
   }
 
@@ -44,7 +47,7 @@ export const Register = () => {
           margin="normal"
           required fullWidth
           id="userName"
-          label="Nombre de usuario"
+          label="Name"
           type="text"
           {...register('userName', { required: 'Field required.' })}
         />
@@ -75,7 +78,7 @@ export const Register = () => {
           margin="normal"
           required fullWidth
           id="password"
-          label="Contraseña"
+          label="Password"
           type="password"
           {...register('password', {
             required: 'Field required',

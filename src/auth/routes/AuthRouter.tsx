@@ -1,19 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import { Login, Register, HomeUser } from '../pages/';
+import { Login, Register } from '../pages/';
+import { Home } from '../../app/pages';
 
 export const AuthRouter = () => {
   return (
     <Routes>
-        {/* useContext to access the PagesRouter */}
-        {/* {isUserLogIn && <PagesRouter />} */}
-        <Route path="homeUser" element={ <HomeUser /> } />
-
         {/* Login y Registro */}
         <Route path="login" element={ <Login /> } />
         <Route path="register" element={ <Register /> } />
+        <Route path="home" element={ <Home /> } />
 
         {/* Defult page */}
-        <Route path="/*" element={ <Login /> } />
+        <Route path="/*" element={ <Home /> } />
 
     </Routes>
   )

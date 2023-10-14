@@ -1,39 +1,73 @@
-import React from 'react'
-import { Box, Grid, TextField, Button, Link } from '@mui/material'
+import { useContext, useState } from 'react';
+import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Copyright } from '../../components';
+import { loginUser, saveToken } from '../../helpers';
+import { UserContext } from '../../context';
+
+interface Inputs {
+  email: string
+  password: string
+}
 
 export const Login = () => {
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<Inputs>()
 
-    const data = new FormData(event.currentTarget);
+  const { loginUser: login } = useContext(UserContext);
+
+  const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = {
-      email: data.get('email')?.toString() ?? '',
-      password: data.get('password')?.toString() ?? ''
+      email: data.email,
+      password: data.password
     }
-    console.log({ user });
+    // console.log({ user });
+    const response = await loginUser(user)
+    if (!response?.token) {
+      setAlertMessage('User creation failed. Please try again.');
+      return;
+    } else {
+      setAlertMessage('User created successfully');
+    }
+    login()
+    saveToken(response.token)
   };
 
   return (
     <AuthLayout props={{ title: 'Login', minHeight: '500px' }} >
-      <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <TextField
+          error={!!errors.email}
+          helperText={errors.email?.message}
           margin="normal"
           required fullWidth
           id="email"
           label="Email"
-          name="email"
           autoComplete="email"
           autoFocus
+          {...register('email', { required: 'Field required.' })}
         />
         <TextField
+          error={!!errors.password}
+          helperText={errors.password?.message}
           margin="normal"
           required fullWidth
           id="password"
-          label="Contraseña"
+          label="Password"
           type="password"
-          name="password"
+          {...register('password', {
+            required: 'Field required',
+            minLength: {
+              value: 8,
+              message: 'Password must have 8 characteres.'
+            }
+          })}
         />
         <Button
           type="submit"
@@ -42,12 +76,17 @@ export const Login = () => {
         >
           SING IN
         </Button>
+        {alertMessage && (
+          <Alert severity='error'>
+            {alertMessage}
+          </Alert>
+        )}
         <Grid container>
           <Grid item xs>
-            <Link href="#" variant="body2">¿Olvidaste tu contraseña?</Link>
+            <Link href="#" variant="body2">Forgot your password?</Link>
           </Grid>
           <Grid item xs>
-            <Link href="register" variant="body2">¿No tienes cuenta? Registrate</Link>
+            <Link href="register" variant="body2">Dont have an account? Register</Link>
           </Grid>
         </Grid>
         <Copyright sx={{ mt: 5 }} />

@@ -1,19 +1,24 @@
+import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AuthRouter } from '../auth/routes/AuthRouter';
-import { Home } from '../app/pages';
+import { PagesRouter } from '../app/router/'
+import { UserContext } from '../context';
+import { AuthRouter } from '../auth';
+
+interface NavigatorProps {
+  isSignUp: boolean
+}
+
+const Navigator = ({ isSignUp }: NavigatorProps) => {
+  return isSignUp ? <PagesRouter /> : <AuthRouter />
+}
 
 export const AppRouter = () => {
+  const { isUserLogin } = useContext(UserContext);
+
   return (
     <Routes>
 
-        {/* Login y Registro */}
-        <Route path="/auth/*" element={ <AuthRouter /> } />
-
-        {/* Home */}
-        <Route path="/home" element={ <Home /> } />
-
-        {/* Default page */}
-        <Route path="/*" element={ <AuthRouter/> } />
+      <Route path="/*" element={ <Navigator isSignUp={ isUserLogin } /> } />
 
     </Routes>
   )

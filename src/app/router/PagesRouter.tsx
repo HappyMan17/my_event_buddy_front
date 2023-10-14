@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import { HomeUser } from '../../auth';
+import { UserHome } from '../pages/user_home/UserHome';
 
-export const AuthRouter = () => {
+export const PagesRouter = () => {
   return (
     <Routes>
 
-        <Route path="homeUser" element={ <HomeUser /> } />
+        <Route path="userHome" element={ <UserHome /> } />
 
         {/* Defult page */}
-        <Route path="/*" element={ <HomeUser /> } />
+        <Route path="/*" element={ <UserHome /> } />
 
     </Routes>
   )
