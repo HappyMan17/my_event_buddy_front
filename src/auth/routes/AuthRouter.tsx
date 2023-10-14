@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Login, Register } from '../pages/';
+import { Home } from '../../app/pages';
 
 export const AuthRouter = () => {
   return (
@@ -7,9 +8,10 @@ export const AuthRouter = () => {
         {/* Login y Registro */}
         <Route path="login" element={ <Login /> } />
         <Route path="register" element={ <Register /> } />
+        <Route path="home" element={ <Home /> } />
 
         {/* Defult page */}
-        <Route path="/*" element={ <Login /> } />
+        <Route path="/*" element={ <Home /> } />
 
     </Routes>
   )

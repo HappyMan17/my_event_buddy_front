@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Home } from '../app/pages';
 import { PagesRouter } from '../app/router/'
 import { UserContext } from '../context';
+import { AuthRouter } from '../auth';
 
 interface NavigatorProps {
   isSignUp: boolean
 }
 
 const Navigator = ({ isSignUp }: NavigatorProps) => {
-  return isSignUp ? <PagesRouter /> : <Home />
+  return isSignUp ? <PagesRouter /> : <AuthRouter />
 }
 
 export const AppRouter = () => {
