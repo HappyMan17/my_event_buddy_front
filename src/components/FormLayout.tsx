@@ -2,21 +2,21 @@ import React, { type ReactNode } from 'react'
 import { Box, Grid, Button, Typography } from '@mui/material';
 
 interface LayoutFormProps {
-    title: string
-    buttonText: string
+  title: string
+  buttonText: string
 }
 
 interface AuthLayoutFormProps {
-    children: ReactNode
-    props: LayoutFormProps
-  }
+  children: ReactNode
+  props: LayoutFormProps
+}
 
 export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) => {
-    const { title, buttonText} = props
+  const { title, buttonText } = props
   return (
     <Grid container sx={{
       display: 'flex',
-      flexDirection: "column",
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       margin: 0
@@ -28,7 +28,7 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
         borderRadius: 4,
         padding: 3,
         display: 'flex',
-        flexDirection: "column",
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         width: '70%'

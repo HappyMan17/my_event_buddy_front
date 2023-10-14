@@ -47,7 +47,7 @@ export const Login = () => {
             <Link href="#" variant="body2">Forgot your password?</Link>
           </Grid>
           <Grid item xs>
-            <Link href="register" variant="body2">Don't have an account? Register</Link>
+            <Link href="register" variant="body2">Dont have an account? Register</Link>
           </Grid>
         </Grid>
         <Copyright sx={{ mt: 5 }} />

@@ -11,13 +11,6 @@ import {
 import { useState } from 'react';
 
 export const UserHome = () => {
-  // Caso base: Solo me permite visualizar el ModifyProfileForm
-  // const [showProfileForm, setShowProfileForm] = useState(false);
-
-  // const handleModifyProfileClick = () => {
-  //   setShowProfileForm(true);
-  // };
-
   const [activeForm, setActiveForm] = useState<string | null>(null);
 
   const handleMenuItemClick = (formName: string) => {
@@ -39,7 +32,7 @@ export const UserHome = () => {
             <Link href="home">
               <img
                 // src='src\assets\logoUser.png'
-                src='src/assets/logoUser.png'
+                src='src\assets\images\logoUser.png'
                 alt="EventBuddy"
                 style={{ width: '100px', height: '100px' }}
               />
