@@ -12,9 +12,11 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText
+  ListItemText,
+  Breadcrumbs
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import logoImage from '../assets/images/logoHome.png'
 
 interface Props {
   /**
@@ -25,8 +27,8 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Sign in', 'Register'];
-const links = ['', '', 'login', 'register'];
+const navItems = ['About', 'Sign in', 'Register'];
+const links = ['', 'login', 'register'];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
@@ -36,6 +38,7 @@ export default function DrawerAppBar(props: Props) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  // Drawer for top bar
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -62,7 +65,10 @@ export default function DrawerAppBar(props: Props) {
     }}>
       <CssBaseline />
       <AppBar elevation={0} component="nav" sx={{ bgcolor: 'transparent' }}>
-        <Toolbar>
+        <Toolbar sx={{
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -72,19 +78,23 @@ export default function DrawerAppBar(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Event Buddy
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item, index) => (
-              <Button key={item} href={links[index]} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+          <img
+            style={{ display: 'block' }}
+            src={logoImage}
+            alt='logo_image'
+            width='13%'
+          />
+          <Box sx={{
+            display: { xs: 'none', sm: 'block' },
+            position: 'block'
+          }}>
+            <Breadcrumbs separator='/' color='#ffffff'>
+              {navItems.map((item, index) => (
+                <Button key={item} href={links[index]} sx={{ color: '#fff' }}>
+                    {item}
+                </Button>
+              )) }
+            </Breadcrumbs>
           </Box>
         </Toolbar>
       </AppBar>
