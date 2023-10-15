@@ -16,7 +16,7 @@ import {
   Breadcrumbs
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import logoImage from '../assets/images/logoHome.png'
+import logoImage from '../assets/images/logoHomeWhite.png'
 
 interface Props {
   /**
