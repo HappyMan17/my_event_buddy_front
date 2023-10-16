@@ -2,62 +2,38 @@ import * as React from 'react';
 import {
   IconButton,
   Toolbar,
-  Typography,
   Button,
   AppBar,
   Box,
   CssBaseline,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Breadcrumbs
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import logoImage from '../assets/images/logoHomeWhite.png'
+import { SideBar } from './side_bar/SideBar';
+import { type NavItemType } from './types';
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window
-}
+const navItems: NavItemType[] = [
+  {
+    buttonName: 'About',
+    pageLink: ''
+  },
+  {
+    buttonName: 'Sign in',
+    pageLink: 'login'
+  },
+  {
+    buttonName: 'Register',
+    pageLink: 'register'
+  }
+]
 
-const drawerWidth = 240;
-const navItems = ['About', 'Sign in', 'Register'];
-const links = ['', 'login', 'register'];
-
-export default function DrawerAppBar(props: Props) {
-  const { window } = props;
+export default function DrawerAppBar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
-  // Drawer for top bar
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        EventBuddy
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item, index) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton href={links[index]} sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{
@@ -79,42 +55,31 @@ export default function DrawerAppBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <img
-            style={{ display: 'block' }}
+            style={{ display: 'block', marginTop: 10 }}
             src={logoImage}
             alt='logo_image'
-            width='13%'
+            width='100px'
           />
           <Box sx={{
             display: { xs: 'none', sm: 'block' },
             position: 'block'
           }}>
             <Breadcrumbs separator='/' color='#ffffff'>
-              {navItems.map((item, index) => (
-                <Button key={item} href={links[index]} sx={{ color: '#fff' }}>
-                    {item}
+              {navItems.map((item) => (
+                <Button key={item.buttonName} href={item.pageLink} sx={{ color: '#fff' }}>
+                    {item.buttonName}
                 </Button>
               )) }
             </Breadcrumbs>
           </Box>
         </Toolbar>
       </AppBar>
-      <nav>
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </nav>
+      {/* SideBar component */}
+      <SideBar
+        navItems={navItems}
+        toggleHandler={handleDrawerToggle}
+        isMenuOpen={mobileOpen}
+      />
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
       </Box>
