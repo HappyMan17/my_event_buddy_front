@@ -24,14 +24,15 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
       <Box component="form" sx={{
         mt: 1,
         bgcolor: 'white',
-        margin: 3,
+        margin: { sm: 3, sx: 0 },
         borderRadius: 4,
         padding: 3,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '70%'
+        minWidth: '200px',
+        width: { sm: '600px', sx: '100%' }
       }}>
 
         <Typography component="h1" variant="h5">{title}</Typography>
