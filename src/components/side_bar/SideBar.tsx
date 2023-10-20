@@ -65,16 +65,18 @@ export const SideBar: React.FC<SideBarProps> = ({
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
         }}
       >
-        <Grid sx={{ display: 'flex', justifyContent: 'flex-end' }} >
-          <IconButton
-            color="inherit"
-            edge="end"
-            onClick={ toggleHandler }
-            sx={{ mr: 2 }}
-          >
-            <CancelIcon />
-          </IconButton>
-        </Grid>
+        {hasCloseButton && (
+          <Grid sx={{ display: 'flex', justifyContent: 'flex-end' }} >
+            <IconButton
+              color="inherit"
+              edge="end"
+              onClick={ toggleHandler }
+              sx={{ mr: 2 }}
+            >
+              <CancelIcon />
+            </IconButton>
+          </Grid>
+        )}
         <Box
           onClick={ hasCloseButton ? () => null : toggleHandler }
           sx={{ textAlign: 'center' }}
