@@ -1,6 +1,6 @@
 import { k } from '.'
-import { get, post } from '../api'
-import { type LoginUser, type User } from './types'
+import { get, post, put } from '../api'
+import { type UserUpdate, type LoginUser, type User } from './types'
 
 export const getAllUsers = async () => {
   const url = `${k.api.BASE_URL}/api/auth/all`
@@ -22,10 +22,20 @@ export const createUser = async (user: User): Promise<any | null> => {
   return data
 }
 
+export const updateUser = async (user: UserUpdate): Promise<any | null> => {
+  const url = `${k.api.BASE_URL}${k.api.UPDATE}`
+  const { data, error } = await put(url, user)
+  if (error != null) {
+    console.log('error updating user')
+    return null
+  }
+  return data
+}
+
 export const loginUser = async (user: LoginUser): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.LOGIN}`
   const { data, error } = await post(url, user)
-  if (error != null) {
+  if (error) {
     console.log('error login user')
     return null
   }

@@ -44,3 +44,27 @@ export const post = async (url: string, body: any) => {
     error
   }
 }
+
+// update a user
+export const put = async (url: string, body: any) => {
+  let data = null
+  let error = null
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const response = await axios.put(url, body)
+    if (response.status === 200) {
+      data = response.data
+    } else {
+      error = new Error(`Request failed with status ${response.status}`)
+    }
+  } catch (error) {
+    return {
+      data: null,
+      error: new Error('Request failed')
+    }
+  }
+  return {
+    data,
+    error
+  }
+}
