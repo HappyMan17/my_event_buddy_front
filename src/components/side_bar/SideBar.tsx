@@ -16,8 +16,12 @@ interface SideBarProps {
     window?: () => Window
     display?: { xs: string, sm: string } | string
     hasCloseButton?: boolean
+    hasLogoutButton?: boolean
+    logout?: () => void
   }
 }
+
+const initLogout = () => null
 
 /**
  * To show this side bar is necessary a button to toggle this menu
@@ -36,7 +40,7 @@ export const SideBar: React.FC<SideBarProps> = ({
   handleMenuItemClick = () => null,
   props = {}
 }) => {
-  const { window, drawerWidth = 240, display = 'flex', hasCloseButton = false } = props
+  const { window, drawerWidth = 240, display = 'flex', hasCloseButton = false, hasLogoutButton = false, logout = initLogout } = props
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -79,7 +83,7 @@ export const SideBar: React.FC<SideBarProps> = ({
         )}
         <Box
           onClick={ hasCloseButton ? () => null : toggleHandler }
-          sx={{ textAlign: 'center' }}
+          sx={{ textAlign: 'center', flex: '1' }}
         >
           <Typography variant="h6" sx={{ my: 2 }}>
             Event Buddy
@@ -87,25 +91,38 @@ export const SideBar: React.FC<SideBarProps> = ({
           <Divider />
           {hasDropdown
             ? (
-              <List>
-                {navItems.map((item) => (
-                  <ListItem key={item.buttonName} disablePadding>
+              <>
+                <List sx={{ display: 'flex', flexDirection: 'column' }}>
+                  {navItems.map((item) => (
+                    <ListItem key={item.buttonName} disablePadding>
+                      <ListItemButton
+                        id={item.buttonName}
+                        onClick={handleClick}
+                        sx={{ textAlign: 'center' }}
+                      >
+                        <ListItemText primary={item.buttonName} />
+                        <MenuComponent
+                          anchorEl={anchorEl}
+                          menuId={item.buttonName}
+                          buttonNameList={item.dropdownButtonsName ?? ['']}
+                          handleClose={handleClose}
+                          handleMenuItemClick={handleMenuItemClick}/>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+                {hasLogoutButton && (
+                  <ListItem key={'logout'} sx={{ alignItems: 'flex-end' }} >
                     <ListItemButton
-                      id={item.buttonName}
-                      onClick={handleClick}
+                      // href={'home'}
                       sx={{ textAlign: 'center' }}
+                      onClick={logout}
                     >
-                      <ListItemText primary={item.buttonName} />
-                      <MenuComponent
-                        anchorEl={anchorEl}
-                        menuId={item.buttonName}
-                        buttonNameList={item.dropdownButtonsName ?? ['']}
-                        handleClose={handleClose}
-                        handleMenuItemClick={handleMenuItemClick}/>
+                      <ListItemText primary={'Logout'} />
                     </ListItemButton>
                   </ListItem>
-                ))}
-              </List>
+                )}
+              </>
               )
             : (
               <List>

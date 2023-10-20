@@ -10,7 +10,12 @@ export interface UserStateProps {
   user: User | null
   isUserLogin: boolean
   loginUser: () => void
+  logout: () => void
   setUser: (user: User) => void
+}
+
+const clearLocal = (key: string) => {
+  localStorage.removeItem(key)
 }
 
 const saveInLocal = <T, > (key: string, value: T) => {
@@ -27,6 +32,7 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = ({ childr
     user: null,
     isUserLogin: false,
     loginUser: () => null,
+    logout: () => null,
     setUser: () => null
   });
 
@@ -41,7 +47,8 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = ({ childr
       ...prevState,
       loginUser: login,
       user: getFromLocal('user'),
-      setUser
+      setUser,
+      logout
     }))
   }, [])
 
@@ -49,6 +56,16 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = ({ childr
     setUserState(prevState => ({
       ...prevState,
       isUserLogin: true
+    }))
+  }
+
+  const logout = () => {
+    clearLocal('user')
+    clearLocal('userToken')
+    setUserState(prevState => ({
+      ...prevState,
+      user: null,
+      isUserLogin: false
     }))
   }
 

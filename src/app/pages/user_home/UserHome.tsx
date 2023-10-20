@@ -9,10 +9,12 @@ import {
   SideBar
 } from '../../../components/';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { userHomeNavItems } from '../../../components/data';
+import { UserContext } from '../../../context';
 
 export const UserHome = () => {
+  const { logout } = useContext(UserContext)
   const [activeForm, setActiveForm] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -45,7 +47,7 @@ export const UserHome = () => {
         toggleHandler={handleDrawerToggle}
         hasDropdown={true}
         handleMenuItemClick={handleMenuItemClick}
-        props={{ hasCloseButton: true }}
+        props={{ hasCloseButton: true, hasLogoutButton: true, logout }}
       />
       <Grid item xs={12}>
         <Grid container sx={{
