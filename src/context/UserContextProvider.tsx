@@ -1,24 +1,39 @@
 import { type ReactNode, useState, useEffect } from 'react';
 import { UserContext } from './UserContext';
-import { checkIfTokenExist } from '../helpers';
+import { type User, checkIfTokenExist } from '../helpers';
 
 interface UserContextProviderProps {
   children: ReactNode
 }
 
 export interface UserStateProps {
-  userId: string | null
-  userName: string | null
+  user: User | null
   isUserLogin: boolean
   loginUser: () => void
+  logout: () => void
+  setUser: (user: User) => void
+}
+
+const clearLocal = (key: string) => {
+  localStorage.removeItem(key)
+}
+
+const saveInLocal = <T, > (key: string, value: T) => {
+  localStorage.setItem(key, JSON.stringify({ ...value }))
+}
+
+const getFromLocal = (key: string) => {
+  const value = localStorage.getItem(key)
+  return value ? JSON.parse(value) : null
 }
 
 export const UserContextProvider: React.FC<UserContextProviderProps> = ({ children }) => {
   const [userState, setUserState] = useState<UserStateProps>({
-    userId: null,
-    userName: null,
+    user: null,
     isUserLogin: false,
-    loginUser: () => null
+    loginUser: () => null,
+    logout: () => null,
+    setUser: () => null
   });
 
   useEffect(() => {
@@ -30,7 +45,10 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = ({ childr
     }
     setUserState(prevState => ({
       ...prevState,
-      loginUser: login
+      loginUser: login,
+      user: getFromLocal('user'),
+      setUser,
+      logout
     }))
   }, [])
 
@@ -38,6 +56,24 @@ export const UserContextProvider: React.FC<UserContextProviderProps> = ({ childr
     setUserState(prevState => ({
       ...prevState,
       isUserLogin: true
+    }))
+  }
+
+  const logout = () => {
+    clearLocal('user')
+    clearLocal('userToken')
+    setUserState(prevState => ({
+      ...prevState,
+      user: null,
+      isUserLogin: false
+    }))
+  }
+
+  const setUser = (user: User) => {
+    saveInLocal<User>('user', user)
+    setUserState(prevState => ({
+      ...prevState,
+      user
     }))
   }
 

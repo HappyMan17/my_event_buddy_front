@@ -1,77 +1,55 @@
-import { Grid, Link } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import {
-  DropdownMenu,
   ModifyProfileForm,
   InactivateProfileForm,
   AddContactForm,
   DeleteContactForm,
   AddEventForm,
-  ModifyEventForm
+  ModifyEventForm,
+  SideBar
 } from '../../../components/';
-import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useContext, useState } from 'react';
+import { userHomeNavItems } from '../../../components/data';
+import { UserContext } from '../../../context';
 
 export const UserHome = () => {
+  const { logout } = useContext(UserContext)
   const [activeForm, setActiveForm] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
   const handleMenuItemClick = (formName: string) => {
     setActiveForm(formName);
+    handleDrawerToggle();
   };
 
   return (
-    <Grid container wrap="nowrap">
-      <Grid item xs={4} sx={{ overflowY: 'auto' }}>
-        <Grid container sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh'
-        }}>
-
-          <Grid item>
-            <Link href="home">
-              <img
-                // src='src\assets\logoUser.png'
-                src='src\assets\images\logoUser.png'
-                alt="EventBuddy"
-                style={{ width: '100px', height: '100px' }}
-              />
-            </Link>
-          </Grid>
-
-          <Grid>
-            <DropdownMenu
-              props={{
-                title: 'Profile',
-                buttonList: ['Modify Profile', 'Inactivate Profile']
-              }}
-              onItemClick={handleMenuItemClick}
-            />
-          </Grid>
-
-          <Grid>
-            <DropdownMenu
-              props={{
-                title: 'Contacts',
-                buttonList: ['Add Contacts', 'Delete Contacts']
-              }}
-              onItemClick={handleMenuItemClick}
-            />
-          </Grid>
-
-          <Grid>
-            <DropdownMenu
-              props={{
-                title: 'Events',
-                buttonList: ['Add Event', 'Modify Event']
-              }}
-              onItemClick={handleMenuItemClick}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid item xs={8}>
+    <Grid container wrap="nowrap" sx={{ width: '100%' }}>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        edge="start"
+        onClick={handleDrawerToggle}
+        sx={{
+          m: 2,
+          position: 'absolute',
+          backgroundColor: 'white'
+        }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <SideBar
+        navItems={userHomeNavItems}
+        isMenuOpen={mobileOpen}
+        toggleHandler={handleDrawerToggle}
+        hasDropdown={true}
+        handleMenuItemClick={handleMenuItemClick}
+        props={{ hasCloseButton: true, hasLogoutButton: true, logout }}
+      />
+      <Grid item xs={12}>
         <Grid container sx={{
           height: '100vh',
           background: 'linear-gradient(45deg, #253469, #525D93, #111E31, #230E30)'

@@ -18,7 +18,7 @@ export const Login = () => {
     formState: { errors }
   } = useForm<Inputs>()
 
-  const { loginUser: login } = useContext(UserContext);
+  const { loginUser: login, setUser } = useContext(UserContext);
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
 
@@ -27,12 +27,13 @@ export const Login = () => {
       email: data.email,
       password: data.password
     }
-    // console.log({ user });
     const response = await loginUser(user)
     if (!response?.token) {
       setAlertMessage('User creation failed. Please try again.');
       return;
     } else {
+      // console.log({ user, ms: 'login' });
+      setUser(response.user)
       setAlertMessage('User created successfully');
     }
     login()
