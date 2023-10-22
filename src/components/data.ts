@@ -4,24 +4,24 @@ export const userHomeNavItems: NavItemType[] = [
   {
     buttonName: 'Profile',
     dropdownButtonsName: [
-      'Modify Profile',
-      'Inactivate Profile'
+      { buttonName: 'Modify Profile', pageLink: 'modify-account' },
+      { buttonName: 'Inactivate Profile', pageLink: 'inactivate-account' }
     ],
     pageLink: ''
   },
   {
     buttonName: 'Contacts',
     dropdownButtonsName: [
-      'Add Contacts',
-      'Delete Contacts'
+      { buttonName: 'Add Contacts', pageLink: 'add-contact' },
+      { buttonName: 'Delete Contacts', pageLink: 'delete-contact' }
     ],
     pageLink: ''
   },
   {
     buttonName: 'Events',
     dropdownButtonsName: [
-      'Add Event',
-      'Modify Event'
+      { buttonName: 'Add Event', pageLink: 'add-event' },
+      { buttonName: 'Modify Event', pageLink: 'modify-event' }
     ],
     pageLink: ''
   }
