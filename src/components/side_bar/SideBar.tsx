@@ -9,7 +9,6 @@ interface SideBarProps {
   navItems: NavItemType[]
   toggleHandler: () => void
   isMenuOpen: boolean
-  handleMenuItemClick?: (name: string) => void
   hasDropdown?: boolean
   props?: {
     drawerWidth?: number
@@ -37,7 +36,6 @@ export const SideBar: React.FC<SideBarProps> = ({
   toggleHandler,
   isMenuOpen,
   hasDropdown = false,
-  handleMenuItemClick = () => null,
   props = {}
 }) => {
   const { window, drawerWidth = 240, display = 'flex', hasCloseButton = false, hasLogoutButton = false, logout = initLogout } = props
@@ -104,9 +102,10 @@ export const SideBar: React.FC<SideBarProps> = ({
                         <MenuComponent
                           anchorEl={anchorEl}
                           menuId={item.buttonName}
-                          buttonNameList={item.dropdownButtonsName ?? ['']}
+                          buttonNameList={item.dropdownButtonsName ?? []}
                           handleClose={handleClose}
-                          handleMenuItemClick={handleMenuItemClick}/>
+                          toggleHandler={toggleHandler}
+                        />
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -114,7 +113,6 @@ export const SideBar: React.FC<SideBarProps> = ({
                 {hasLogoutButton && (
                   <ListItem key={'logout'} sx={{ alignItems: 'flex-end' }} >
                     <ListItemButton
-                      // href={'home'}
                       sx={{ textAlign: 'center' }}
                       onClick={logout}
                     >
