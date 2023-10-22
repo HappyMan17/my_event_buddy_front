@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react'
 import { Menu, MenuItem } from '@mui/material';
+import { type NavItemType } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 interface MenuComponentProps {
   menuId: string
-  buttonNameList: string[]
+  buttonNameList: NavItemType[]
   anchorEl: null | HTMLElement
   handleClose: () => void
-  handleMenuItemClick: (name: string) => void
+  toggleHandler?: () => void
 }
 
 export const MenuComponent: React.FC <MenuComponentProps> = ({
   menuId,
   buttonNameList,
-  handleMenuItemClick,
   anchorEl,
-  handleClose
+  handleClose,
+  toggleHandler = () => null
 }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (anchorEl && anchorEl?.id === menuId) {
@@ -24,8 +27,10 @@ export const MenuComponent: React.FC <MenuComponentProps> = ({
     }
   }, [anchorEl])
 
-  const handleIsOpen = () => {
+  const handleIsOpen = (pageLink: string) => {
     setIsOpen(false)
+    toggleHandler()
+    navigate(pageLink)
   }
 
   return (
@@ -40,15 +45,10 @@ export const MenuComponent: React.FC <MenuComponentProps> = ({
     >
       {buttonNameList.map(item => (
         <MenuItem
-          onClick={
-            () => {
-              handleMenuItemClick(item)
-              handleIsOpen()
-            }
-          }
-          key={item}
+          key={item.buttonName}
+          onClick={() => { handleIsOpen(item.pageLink) }}
         >
-          {item}
+          {item.buttonName}
         </MenuItem>
       ))}
     </Menu>

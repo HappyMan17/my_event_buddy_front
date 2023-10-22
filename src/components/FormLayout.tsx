@@ -1,6 +1,6 @@
 import React, { type BaseSyntheticEvent, type ReactNode } from 'react'
 import { Box, Grid, Button, Typography } from '@mui/material';
-import { type Inputs } from '../helpers';
+import { type Inputs } from '../models';
 
 interface LayoutFormProps {
   title: string
@@ -20,7 +20,8 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
+      // backgroundColor: 'red',
       margin: 0
     }}>
       <Box

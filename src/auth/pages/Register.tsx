@@ -1,10 +1,11 @@
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { Copyright } from '../../components';
-import { createUser, type Inputs, type User } from '../../helpers'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { type Inputs, type User } from '../../models';
+import { createUser } from '../../api';
 
 export const Register = () => {
   const navigate = useNavigate();

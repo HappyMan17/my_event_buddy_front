@@ -1,5 +1,5 @@
 export interface NavItemType {
   buttonName: string
-  dropdownButtonsName?: string[]
+  dropdownButtonsName?: NavItemType[]
   pageLink: string
 }

@@ -1,0 +1,99 @@
+import { type ReactNode, useState, useContext } from 'react';
+import {
+  IconButton,
+  Toolbar,
+  Button,
+  AppBar,
+  Box,
+  CssBaseline,
+  Breadcrumbs,
+  Grid
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { type NavItemType } from '../types';
+import { SideBar } from '..';
+import { UserContext } from '../../context';
+
+interface NavbarProps {
+  children: ReactNode
+  props: {
+    navbarItem: NavItemType[]
+    sideBarItems: NavItemType[]
+  }
+}
+
+export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
+  const { navbarItem, sideBarItems } = props
+
+  const { logout } = useContext(UserContext)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  const handleSideBarToggle = () => {
+    setIsSideBarOpen((prevState) => !prevState);
+  };
+
+  return (
+    <Box sx={{
+      display: 'flex',
+      height: '70px',
+      backgroundColor: 'blue'
+    }}>
+      <CssBaseline />
+      <AppBar elevation={0} component="nav" sx={{ bgcolor: 'transparent' }}>
+        <Toolbar sx={{
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleSideBarToggle}
+            sx={{ m: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          {/* <img
+            style={{ display: 'block', marginTop: 10 }}
+            src={logoImage}
+            alt='logo_image'
+            width='100px'
+          /> */}
+          <Box sx={{
+            display: { xs: 'none', sm: 'block' },
+            position: 'block'
+          }}>
+            <Breadcrumbs separator='/' color='#ffffff'>
+              {navbarItem.map((item) => (
+                <Button key={item.buttonName} href={item.pageLink} sx={{ color: '#fff' }}>
+                    {item.buttonName}
+                </Button>
+              )) }
+            </Breadcrumbs>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {/* SideBar component */}
+      <SideBar
+        navItems={sideBarItems}
+        isMenuOpen={isSideBarOpen}
+        toggleHandler={handleSideBarToggle}
+        hasDropdown={true}
+        props={{ hasCloseButton: true, hasLogoutButton: true, logout }}
+      />
+      <Box component="main" sx={{ p: 3 }}>
+        <Toolbar />
+        {/* responsive code */}
+        <Grid sx={{
+          display: 'flex',
+          height: window.screen.height,
+          width: { lg: window.screen.width - 50, sm: '1150px' }
+        }} >
+          {children}
+        </Grid>
+      </Box>
+    </Box>
+  );
+}
+
+export default Navbar
