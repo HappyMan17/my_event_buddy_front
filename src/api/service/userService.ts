@@ -1,6 +1,6 @@
-import { k } from '.'
-import { get, post, put } from '../api'
-import { type UserUpdate, type LoginUser, type User } from './types'
+import { k } from '../../helpers'
+import { get, post, put } from '..'
+import { type UserUpdate, type LoginUser, type User } from '../../models/userTypes'
 
 export const getAllUsers = async () => {
   const url = `${k.api.BASE_URL}/api/auth/all`

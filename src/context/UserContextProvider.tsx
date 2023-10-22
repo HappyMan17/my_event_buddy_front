@@ -1,6 +1,7 @@
 import { type ReactNode, useState, useEffect } from 'react';
 import { UserContext } from './UserContext';
-import { type User, checkIfTokenExist } from '../helpers';
+import { type User } from '../models';
+import { checkIfTokenExist } from '../api';
 
 interface UserContextProviderProps {
   children: ReactNode

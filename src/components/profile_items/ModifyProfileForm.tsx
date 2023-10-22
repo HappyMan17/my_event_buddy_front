@@ -1,9 +1,10 @@
 import { TextField, Alert, type AlertColor } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { type UserUpdate, type Inputs, updateUser } from '../../helpers'
+import { type UserUpdate, type Inputs } from '../../models'
 import { useContext, useState } from 'react'
 import { UserContext } from '../../context'
+import { updateUser } from '../../api/service/userService'
 
 interface AlertObject {
   alertType: AlertColor
