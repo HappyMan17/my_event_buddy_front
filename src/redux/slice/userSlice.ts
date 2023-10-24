@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type User } from '../../models'
 import { clearLocal, getFromLocal, saveInLocal } from '../../helpers'
+import { checkIfTokenExist } from '../../api'
 
 export interface UserState {
   user: User | null
@@ -10,7 +11,7 @@ export interface UserState {
 
 const initialState: UserState = {
   user: getFromLocal('user'),
-  isUserLogin: false
+  isUserLogin: checkIfTokenExist()
 }
 
 export const userSlice = createSlice({
