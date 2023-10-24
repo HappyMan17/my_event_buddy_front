@@ -2,8 +2,9 @@ import { createContext } from 'react';
 import { type UserStateProps } from '.';
 
 export const UserContext = createContext<UserStateProps>({
-  userId: null,
-  userName: null,
+  user: null,
   isUserLogin: false,
-  loginUser: () => null
+  loginUser: () => null,
+  logout: () => null,
+  setUser: () => null
 });
