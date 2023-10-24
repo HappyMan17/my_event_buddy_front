@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from 'react';
 import { FormControlLabel, Checkbox, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 
-export const DeleteContactForm = () => {
+const DeleteContactForm = () => {
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,3 +35,5 @@ export const DeleteContactForm = () => {
     </FormLayout>
   );
 };
+
+export default DeleteContactForm;

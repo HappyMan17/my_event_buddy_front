@@ -11,7 +11,7 @@ interface AlertObject {
   message: string
 }
 
-export const ModifyProfileForm = () => {
+const ModifyProfileForm = () => {
   const { user, setUser } = useContext(UserContext);
   const {
     register,
@@ -80,3 +80,5 @@ export const ModifyProfileForm = () => {
     </FormLayout>
   );
 };
+
+export default ModifyProfileForm;

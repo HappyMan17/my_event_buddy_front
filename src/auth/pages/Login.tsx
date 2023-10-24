@@ -11,7 +11,7 @@ interface Inputs {
   password: string
 }
 
-export const Login = () => {
+const Login = () => {
   const {
     register,
     handleSubmit,
@@ -95,3 +95,5 @@ export const Login = () => {
     </AuthLayout>
   );
 };
+
+export default Login;
