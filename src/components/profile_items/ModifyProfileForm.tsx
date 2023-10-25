@@ -13,9 +13,10 @@ interface AlertObject {
   message: string
 }
 
-export const ModifyProfileForm = () => {
-  const { user } = useSelector((state: RootState) => state.user);
+const ModifyProfileForm = () => {
+  const { user } = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
+
   const {
     register,
     handleSubmit,
@@ -83,3 +84,5 @@ export const ModifyProfileForm = () => {
     </FormLayout>
   );
 };
+
+export default ModifyProfileForm;

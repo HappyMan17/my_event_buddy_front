@@ -2,7 +2,7 @@ import { useState, type ChangeEvent } from 'react';
 import { FormControlLabel, Checkbox, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 
-export const InactivateProfileForm = () => {
+const InactivateProfileForm = () => {
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -10,7 +10,7 @@ export const InactivateProfileForm = () => {
   };
 
   return (
-    <FormLayout props={{ title: 'Inactivate profile', buttonText: 'Save Changes' }}>
+    <FormLayout props={{ title: 'Inactivate profile', buttonText: 'Save Changes'}}>
         <TextField
             margin="normal"
             required
@@ -35,3 +35,5 @@ export const InactivateProfileForm = () => {
     </FormLayout>
   );
 };
+
+export default InactivateProfileForm;

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { type Inputs, type User } from '../../models';
 import { createUser } from '../../api';
 
-export const Register = () => {
+const Register = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -104,3 +104,5 @@ export const Register = () => {
     </AuthLayout>
   );
 };
+
+export default Register;

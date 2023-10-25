@@ -2,7 +2,7 @@ import { MenuItem, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useState, type ChangeEvent } from 'react';
 
-export const AddEventForm = () => {
+const AddEventForm = () => {
   const currencies = ['Viaje Familiar', 'Viaje En Pareja', 'Reunion De Amigos'];
 
   const [selectedCurrency, setSelectedCurrency] = useState('');
@@ -57,3 +57,5 @@ export const AddEventForm = () => {
     </FormLayout>
   );
 };
+
+export default AddEventForm;
