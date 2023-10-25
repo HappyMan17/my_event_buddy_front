@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Copyright } from '../../components';
-import { UserContext } from '../../context';
 import { loginUser, saveToken } from '../../api';
+import { useDispatch } from 'react-redux'
+import { login, setUser } from '../../redux/slice/userSlice';
 
 interface Inputs {
   email: string
@@ -18,7 +19,7 @@ const Login = () => {
     formState: { errors }
   } = useForm<Inputs>()
 
-  const { loginUser: login, setUser } = useContext(UserContext);
+  const dispatch = useDispatch()
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
 
@@ -29,14 +30,14 @@ const Login = () => {
     }
     const response = await loginUser(user)
     if (!response?.token) {
-      setAlertMessage('User creation failed. Please try again.');
+      setAlertMessage('User not found. Please try again.');
       return;
     } else {
       // console.log({ user, ms: 'login' });
-      setUser(response.user)
-      setAlertMessage('User created successfully');
+      dispatch(setUser(response.user))
+      setAlertMessage('Login');
     }
-    login()
+    dispatch(login())
     saveToken(response.token)
   };
 

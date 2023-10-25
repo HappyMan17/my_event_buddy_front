@@ -1,7 +1,7 @@
-import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { PagesRouter } from '../app/router/'
-import { UserContext } from '../context';
+import { useSelector } from 'react-redux';
+import { type RootState } from '../redux';
 import { AuthRouter } from '../auth';
 
 interface NavigatorProps {
@@ -13,7 +13,7 @@ const Navigator = ({ isSignUp }: NavigatorProps) => {
 }
 
 export const AppRouter = () => {
-  const { isUserLogin } = useContext(UserContext);
+  const { isUserLogin } = useSelector((state: RootState) => state.user)
 
   return (
     <Routes>
