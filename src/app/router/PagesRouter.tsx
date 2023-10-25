@@ -13,11 +13,13 @@ const ModifyEventForm = lazy(async () => await import('../../components/event_it
 
 const Layout = () => {
   return (
-    <Suspense fallback={<Grid>Loading...</Grid>}>
+    <>
       <Navbar props={{ navbarItem: userHomeNavItems, sideBarItems: userHomeNavItems }} >
-        <Outlet />
+        <Suspense fallback={<Grid>Loading...</Grid>}>
+          <Outlet />
+        </Suspense>
       </Navbar>
-    </Suspense>
+    </>
   )
 }
 
