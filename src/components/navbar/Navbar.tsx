@@ -1,4 +1,4 @@
-import { type ReactNode, useState, useContext } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   IconButton,
   Toolbar,
@@ -12,7 +12,8 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { type NavItemType } from '../types';
 import { SideBar } from '..';
-import { UserContext } from '../../context';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/slice/userSlice';
 
 interface NavbarProps {
   children: ReactNode
@@ -25,12 +26,16 @@ interface NavbarProps {
 export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
   const { navbarItem, sideBarItems } = props
 
-  const { logout } = useContext(UserContext)
+  const dispatch = useDispatch()
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const handleSideBarToggle = () => {
     setIsSideBarOpen((prevState) => !prevState);
   };
+
+  const componentLogout = () => {
+    dispatch(logout())
+  }
 
   return (
     <Box sx={{
@@ -79,7 +84,7 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
         isMenuOpen={isSideBarOpen}
         toggleHandler={handleSideBarToggle}
         hasDropdown={true}
-        props={{ hasCloseButton: true, hasLogoutButton: true, logout }}
+        props={{ hasCloseButton: true, hasLogoutButton: true, logout: componentLogout }}
       />
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />

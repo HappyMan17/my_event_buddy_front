@@ -2,9 +2,11 @@ import { TextField, Alert, type AlertColor } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { type UserUpdate, type Inputs } from '../../models'
-import { useContext, useState } from 'react'
-import { UserContext } from '../../context'
+import { useState } from 'react'
 import { updateUser } from '../../api/service/userService'
+import { useDispatch, useSelector } from 'react-redux'
+import { type RootState } from '../../redux'
+import { setUser } from '../../redux/slice/userSlice'
 
 interface AlertObject {
   alertType: AlertColor
@@ -12,7 +14,8 @@ interface AlertObject {
 }
 
 export const ModifyProfileForm = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -37,7 +40,7 @@ export const ModifyProfileForm = () => {
     if (!response) {
       setAlertState({ message: 'User update failed. Please try again.', alertType: 'error' });
     } else {
-      setUser({ ...user!, ...userUpdateData })
+      dispatch(setUser({ ...user!, ...userUpdateData }))
       setAlertState({ message: 'User updated successfully', alertType: 'success' });
       // navigate('/login')
     }
