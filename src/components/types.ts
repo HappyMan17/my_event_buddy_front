@@ -3,3 +3,8 @@ export interface NavItemType {
   dropdownButtonsName?: NavItemType[]
   pageLink: string
 }
+
+export interface ImageState {
+  image: string | ArrayBuffer | null
+  hasBeenUploaded: boolean
+}

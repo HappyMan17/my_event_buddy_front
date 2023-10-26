@@ -51,7 +51,11 @@ export const put = async (url: string, body: any) => {
   let error = null
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await axios.put(url, body)
+    const response = await axios.put(url, body, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     if (response.status === 200) {
       data = response.data
     } else {
