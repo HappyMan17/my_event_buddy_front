@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/userSlice'
 import { deepOrange } from '@mui/material/colors'
-import { type ImageState } from '../types'
+// import { type ImageState } from '../types'
 
 interface AlertObject {
   alertType: AlertColor
@@ -16,10 +16,6 @@ interface AlertObject {
 }
 
 const ModifyProfileForm = () => {
-  const [imageState, setImageState] = useState<ImageState>({
-    image: null,
-    hasBeenUploaded: false
-  })
   const { user } = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
 
@@ -58,8 +54,9 @@ const ModifyProfileForm = () => {
       nick_name: data.nickName,
       profile_image: ''
     }
-    // console.log({ userUpdateData })
-    const response = await updateUser(userUpdateData)
+    const files = document.getElementById('profileImage')
+
+    const response = await updateUser(userUpdateData, files)
     if (!response) {
       setAlertState({ message: 'User update failed. Please try again.', alertType: 'error' });
     } else {
