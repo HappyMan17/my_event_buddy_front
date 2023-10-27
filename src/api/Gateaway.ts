@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getFromLocal } from '../helpers'
 
 // get users
 export const get = async (url: string) => {
@@ -46,14 +47,15 @@ export const post = async (url: string, body: any) => {
 }
 
 // update a user
-export const put = async (url: string, body: any) => {
+export const put = async (url: string, body: any, hasFiles: boolean = false) => {
   let data = null
   let error = null
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await axios.put(url, body, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': hasFiles ? 'multipart/form-data' : 'application/json',
+        Authorization: `Bearer ${getFromLocal('userToken')}`
       }
     })
     if (response.status === 200) {
