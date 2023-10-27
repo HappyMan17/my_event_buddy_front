@@ -37,6 +37,10 @@ export const updateUser = async (user: UserUpdate): Promise<any | null> => {
 export const updateUserProfileImage = async (user: UserUpdate, file: any): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.UPDATE_USER_PROFILE_IMAGE}`
 
+  if (!file.files[0]) {
+    return null
+  }
+
   const formData = new FormData();
   // formData.append('files', { ...file.files[0], userid: user.user_id })
   formData.append('userId', user.user_id)
