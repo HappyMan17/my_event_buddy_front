@@ -7,7 +7,11 @@ export const get = async (url: string) => {
   let error = null
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await axios.get(url)
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${getFromLocal('userToken')}`
+      }
+    })
     if (response.status === 200) {
       data = response.data
     } else {
