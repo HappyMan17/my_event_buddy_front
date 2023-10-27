@@ -3,11 +3,12 @@ import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { type UserUpdate, type Inputs } from '../../models'
 import { useState } from 'react'
-import { updateUser } from '../../api/service/userService'
+import { updateUser, updateUserProfileImage } from '../../api/service/userService'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/userSlice'
 import { deepOrange } from '@mui/material/colors'
+import { k } from '../../helpers'
 // import { type ImageState } from '../types'
 
 interface AlertObject {
@@ -56,11 +57,17 @@ const ModifyProfileForm = () => {
     }
     const files = document.getElementById('profileImage')
 
-    const response = await updateUser(userUpdateData, files)
+    const response = await updateUser(userUpdateData)
     if (!response) {
       setAlertState({ message: 'User update failed. Please try again.', alertType: 'error' });
     } else {
-      dispatch(setUser({ ...user!, ...userUpdateData }))
+      const imageResponse = await updateUserProfileImage(userUpdateData, files)
+      if (!imageResponse) {
+        console.log({ ms: 'image not uploaded' })
+        dispatch(setUser({ ...user!, ...userUpdateData }))
+      } else {
+        dispatch(setUser({ ...user!, ...userUpdateData, profile_image: imageResponse.profile_image }))
+      }
       setAlertState({ message: 'User updated successfully', alertType: 'success' });
       // navigate('/login')
     }
@@ -74,10 +81,12 @@ const ModifyProfileForm = () => {
       >
         { (user?.profile_image && user.profile_image !== '')
           ? (
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              <Avatar
+                sx={{ width: '85px', height: '85px' }}
+                alt="Remy Sharp" src={`${k.api.BASE_URL}${k.api.USER_PROFILE_IMAGE}${user.profile_image}`} />
             )
           : (
-            <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ user?.nick_name.at(0) ?? 'P' }</Avatar>
+              <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ user?.nick_name.at(0) ?? 'P' }</Avatar>
             )}
       </Button>
       <TextField
