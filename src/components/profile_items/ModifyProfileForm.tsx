@@ -1,12 +1,15 @@
-import { TextField, Alert, type AlertColor } from '@mui/material'
+import { TextField, Alert, type AlertColor, Avatar, Button } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { type UserUpdate, type Inputs } from '../../models'
 import { useState } from 'react'
-import { updateUser } from '../../api/service/userService'
+import { updateUser, updateUserProfileImage } from '../../api/service/userService'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/userSlice'
+import { deepOrange } from '@mui/material/colors'
+import { k } from '../../helpers'
+// import { type ImageState } from '../types'
 
 interface AlertObject {
   alertType: AlertColor
@@ -28,6 +31,22 @@ const ModifyProfileForm = () => {
     }
   })
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
+
+  const handleUploadClick = () => {
+    // show modal with the image
+    // const reader = new FileReader();
+    // const file = event.target.files[0];
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    //   reader.onloadend = function () {
+    //     setImageState(() => ({
+    //       image: reader.result,
+    //       hasBeenUploaded: true
+    //     }));
+    //   };
+    // }
+  };
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const userUpdateData: UserUpdate = {
       // password: data.password,
@@ -36,51 +55,71 @@ const ModifyProfileForm = () => {
       nick_name: data.nickName,
       profile_image: ''
     }
-    // console.log({ userUpdateData })
+    const files = document.getElementById('profileImage')
+
     const response = await updateUser(userUpdateData)
     if (!response) {
       setAlertState({ message: 'User update failed. Please try again.', alertType: 'error' });
     } else {
-      dispatch(setUser({ ...user!, ...userUpdateData }))
+      const imageResponse = await updateUserProfileImage(userUpdateData, files)
+      if (!imageResponse) {
+        console.log({ ms: 'image not uploaded' })
+        dispatch(setUser({ ...user!, ...userUpdateData }))
+      } else {
+        dispatch(setUser({ ...user!, ...userUpdateData, profile_image: imageResponse.profile_image }))
+      }
       setAlertState({ message: 'User updated successfully', alertType: 'success' });
       // navigate('/login')
     }
   }
   return (
     <FormLayout props={{ title: 'Modify Profile', buttonText: 'Save Changes', handleSubmit: handleSubmit(onSubmit) }}>
-        <TextField
-          error={!!errors.userName}
+      <Button
+        variant='contained'
+        onClick={handleUploadClick}
+        sx={{ width: '80px', height: '80px', borderRadius: 10, backgroundColor: 'transparent', margin: 3 }}
+      >
+        { (user?.profile_image && user.profile_image !== '')
+          ? (
+              <Avatar
+                sx={{ width: '85px', height: '85px' }}
+                alt="Remy Sharp" src={`${k.api.BASE_URL}${k.api.USER_PROFILE_IMAGE}${user.profile_image}`} />
+            )
+          : (
+              <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ user?.nick_name.at(0) ?? 'P' }</Avatar>
+            )}
+      </Button>
+      <TextField
+        error={!!errors.userName}
+        margin="normal"
+        required
+        fullWidth
+        id="userName"
+        label="Name"
+        type="text"
+        {...register('userName', { required: 'Field required.' })}
+      />
+      <TextField
+        error={!!errors.nickName}
+        margin="normal"
+        required
+        fullWidth
+        id="nickName"
+        label="Nick Name"
+        type="text"
+        {...register('nickName', { required: 'Field required.' })}
+      />
+      <TextField
+          id="profileImage"
           margin="normal"
-          required
           fullWidth
-          id="userName"
-          label="Name"
-          type="text"
-          {...register('userName', { required: 'Field required.' })}
-        />
-        <TextField
-          error={!!errors.nickName}
-          margin="normal"
-          required
-          fullWidth
-          id="nickName"
-          label="Nick Name"
-          type="text"
-          {...register('nickName', { required: 'Field required.' })}
-        />
-        {/* <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            type="password"
-        /> */}
-        {alertState && (
-          <Alert severity={alertState.alertType}>
-            {alertState.message}
-          </Alert>
-        )}
+          type="file"
+      />
+      {alertState && (
+        <Alert severity={alertState.alertType}>
+          {alertState.message}
+        </Alert>
+      )}
     </FormLayout>
   );
 };

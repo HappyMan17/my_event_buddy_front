@@ -24,9 +24,32 @@ export const createUser = async (user: User): Promise<any | null> => {
 
 export const updateUser = async (user: UserUpdate): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.UPDATE}`
+
   const { data, error } = await put(url, user)
-  if (error != null) {
-    console.log('error updating user')
+  // const { data, error } = await put(url, user)
+  if (error !== null) {
+    console.log('error updating user: ', error)
+    return null
+  }
+  return data
+}
+
+export const updateUserProfileImage = async (user: UserUpdate, file: any): Promise<any | null> => {
+  const url = `${k.api.BASE_URL}${k.api.UPDATE_USER_PROFILE_IMAGE}`
+
+  if (!file.files[0]) {
+    return null
+  }
+
+  const formData = new FormData();
+  // formData.append('files', { ...file.files[0], userid: user.user_id })
+  formData.append('userId', user.user_id)
+  formData.append('files', file.files[0])
+
+  const { data, error } = await put(url, formData, true)
+
+  if (error !== null) {
+    console.log('error updating user: ', error)
     return null
   }
   return data
