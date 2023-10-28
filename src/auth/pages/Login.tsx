@@ -23,7 +23,6 @@ const Login = () => {
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [alertState, setAlertState] = useState('offScreen');
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setButtonDisabled(true);
@@ -35,7 +34,6 @@ const Login = () => {
     if (!response?.token) {
       setAlertMessage('User not found. Please try again.');
       setButtonDisabled(false);
-      setAlertState('onScreen');
       return;
     } else {
       // console.log({ user, ms: 'login' });
@@ -97,7 +95,7 @@ const Login = () => {
             <Link href="register" variant="body2">Dont have an account? Register</Link>
           </Grid>
         </Grid>
-        <Copyright sx={{ mt: alertState === 'offScreen' ? 5 : 2 }} />
+        <Copyright sx={{ mt: 5 }} />
       </Box>
     </AuthLayout>
   );

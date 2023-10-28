@@ -17,7 +17,6 @@ const Register = () => {
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [alertState, setAlertState] = useState('offScreen');
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setButtonDisabled(true);
@@ -31,7 +30,6 @@ const Register = () => {
     const response = await createUser(newUser)
     if (!response) {
       setAlertMessage('User creation failed. Please try again.');
-      setAlertState('onScreen');
       setButtonDisabled(false);
     } else {
       setAlertMessage('User created successfully');
@@ -107,7 +105,7 @@ const Register = () => {
             <Link href="login" variant="body2">Already have an account?</Link>
           </Grid>
         </Grid>
-        <Copyright sx={{ mt: alertState === 'offScreen' ? 5 : 1 }} />
+        <Copyright sx={{ mt: 5 }} />
       </Box>
     </AuthLayout>
   );
