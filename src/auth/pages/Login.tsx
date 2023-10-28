@@ -22,8 +22,11 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [alertState, setAlertState] = useState('offScreen');
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setButtonDisabled(true);
     const user = {
       email: data.email,
       password: data.password
@@ -31,6 +34,8 @@ const Login = () => {
     const response = await loginUser(user)
     if (!response?.token) {
       setAlertMessage('User not found. Please try again.');
+      setButtonDisabled(false);
+      setAlertState('onScreen');
       return;
     } else {
       // console.log({ user, ms: 'login' });
@@ -42,7 +47,7 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout props={{ title: 'Login', minHeight: '500px' }} >
+    <AuthLayout props={{ title: 'Login', minHeight: '470px' }} >
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <TextField
           error={!!errors.email}
@@ -75,6 +80,7 @@ const Login = () => {
           type="submit"
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={isButtonDisabled}
         >
           SING IN
         </Button>
@@ -91,7 +97,7 @@ const Login = () => {
             <Link href="register" variant="body2">Dont have an account? Register</Link>
           </Grid>
         </Grid>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: alertState === 'offScreen' ? 5 : 2 }} />
       </Box>
     </AuthLayout>
   );

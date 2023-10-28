@@ -14,8 +14,13 @@ const Register = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>()
+
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const [alertState, setAlertState] = useState('offScreen');
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setButtonDisabled(true);
     const newUser: User = {
       email: data.email,
       password: data.password,
@@ -26,6 +31,8 @@ const Register = () => {
     const response = await createUser(newUser)
     if (!response) {
       setAlertMessage('User creation failed. Please try again.');
+      setAlertState('onScreen');
+      setButtonDisabled(false);
     } else {
       setAlertMessage('User created successfully');
       navigate('/login')
@@ -83,6 +90,7 @@ const Register = () => {
           })}
         />
         <Button
+          disabled={isButtonDisabled}
           type="submit"
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}
@@ -99,7 +107,7 @@ const Register = () => {
             <Link href="login" variant="body2">Already have an account?</Link>
           </Grid>
         </Grid>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: alertState === 'offScreen' ? 5 : 1 }} />
       </Box>
     </AuthLayout>
   );
