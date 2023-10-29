@@ -1,4 +1,4 @@
-import { TextField, Alert, type AlertColor, Avatar, Button } from '@mui/material'
+import { TextField, Alert, type AlertColor, Button } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { type UserUpdate, type Inputs } from '../../models'
@@ -7,8 +7,7 @@ import { updateUser, updateUserProfileImage } from '../../api/service/userServic
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/userSlice'
-import { deepOrange } from '@mui/material/colors'
-import { k } from '../../helpers'
+import { UserProfileImage } from '..'
 // import { type ImageState } from '../types'
 
 interface AlertObject {
@@ -34,22 +33,10 @@ const ModifyProfileForm = () => {
 
   const handleUploadClick = () => {
     // show modal with the image
-    // const reader = new FileReader();
-    // const file = event.target.files[0];
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    //   reader.onloadend = function () {
-    //     setImageState(() => ({
-    //       image: reader.result,
-    //       hasBeenUploaded: true
-    //     }));
-    //   };
-    // }
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const userUpdateData: UserUpdate = {
-      // password: data.password,
       user_id: user?.user_id ?? '',
       user_name: data.userName,
       nick_name: data.nickName,
@@ -79,15 +66,7 @@ const ModifyProfileForm = () => {
         onClick={handleUploadClick}
         sx={{ width: '80px', height: '80px', borderRadius: 10, backgroundColor: 'transparent', margin: 3 }}
       >
-        { (user?.profile_image && user.profile_image !== '')
-          ? (
-              <Avatar
-                sx={{ width: '85px', height: '85px' }}
-                alt="Remy Sharp" src={`${k.api.BASE_URL}${k.api.USER_PROFILE_IMAGE}${user.profile_image}`} />
-            )
-          : (
-              <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ user?.nick_name.at(0) ?? 'P' }</Avatar>
-            )}
+        <UserProfileImage user={user} />
       </Button>
       <TextField
         error={!!errors.userName}
