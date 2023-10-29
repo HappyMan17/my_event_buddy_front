@@ -6,7 +6,9 @@ const constants = {
     GET_USER: '/api/user/',
     UPDATE: '/api/user/update',
     UPDATE_USER_PROFILE_IMAGE: '/api/user/upload',
-    USER_PROFILE_IMAGE: '/profile_images/'
+    USER_PROFILE_IMAGE: '/profile_images/',
+    CREATE_EVENT: '/api/event/create',
+    GET_EVENT: '/api/event'
   }
 }
 
