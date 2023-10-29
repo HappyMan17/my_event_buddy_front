@@ -1,10 +1,14 @@
 import { type AnyAction, type Dispatch } from 'redux'
-import { setIsLoadingUser } from './userSlice'
+import { setIsLoadingUser, setUser } from './userSlice'
+import { getUser } from '../../../api'
+import { userMapper } from '../../../helpers/userMapper'
 
 export const getUserById = () => {
-  return async (dispatch: Dispatch<AnyAction>, getState) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(setIsLoadingUser())
-    // todo http request
-    // dispatch(setUser(data))
+
+    const data = await getUser()
+
+    dispatch(setUser(userMapper(data.user)))
   }
 }
