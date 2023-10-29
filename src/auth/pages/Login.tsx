@@ -21,7 +21,7 @@ const Login = () => {
 
   const dispatch = useDispatch()
 
-  const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = {

@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import UserHome from '../pages/user_home/UserHome';
 import { userHomeNavItems } from '../../components/data';
@@ -35,7 +35,7 @@ export const PagesRouter = () => {
           <Route path="add-event" element={ <AddEventForm /> } />
           <Route path="modify-event" element={ <ModifyEventForm /> } />
           {/* Defult page */}
-          <Route path="/*" element={ <UserHome /> } />
+          <Route path="/*" element={ <Navigate to="/" replace={true} /> } />
         </Route>
     </Routes>
   )
