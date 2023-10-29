@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { updateUser, updateUserProfileImage } from '../../api/service/userService'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
-import { setUser } from '../../redux/slice/userSlice'
+import { setUser } from '../../redux/slice/user/userSlice'
 import { UserProfileImage } from '..'
 // import { type ImageState } from '../types'
 

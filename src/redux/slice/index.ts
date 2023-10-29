@@ -1,1 +1,2 @@
-export { default as userReducer } from './userSlice';
+export { default as userReducer } from './user/userSlice';
+export * from './user/thunks';
