@@ -5,7 +5,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { Copyright } from '../../components';
 import { loginUser, saveToken } from '../../api';
 import { useDispatch } from 'react-redux'
-import { login, setUser } from '../../redux/slice/userSlice';
+import { login, setUser } from '../../redux/slice/user/userSlice';
 
 interface Inputs {
   email: string
@@ -21,7 +21,7 @@ const Login = () => {
 
   const dispatch = useDispatch()
 
-  const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = {

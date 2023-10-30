@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { type NavItemType } from '../types';
 import { SideBar } from '..';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/slice/userSlice';
+import { logout } from '../../redux/slice/user/userSlice';
 
 interface NavbarProps {
   children: ReactNode
