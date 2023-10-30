@@ -1,3 +1,5 @@
+import { type AlertColor } from '@mui/material/Alert'
+
 export interface NavItemType {
   buttonName: string
   dropdownButtonsName?: NavItemType[]
@@ -7,4 +9,9 @@ export interface NavItemType {
 export interface ImageState {
   image: string | ArrayBuffer | null
   hasBeenUploaded: boolean
+}
+
+export interface AlertObject {
+  alertType: AlertColor
+  message: string
 }

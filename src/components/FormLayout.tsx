@@ -1,11 +1,10 @@
 import React, { type BaseSyntheticEvent, type ReactNode } from 'react'
 import { Box, Grid, Button, Typography } from '@mui/material';
-import { type Inputs } from '../models';
 
 interface LayoutFormProps {
   title: string
   buttonText: string
-  handleSubmit: (submit: BaseSyntheticEvent<Inputs | Event>) => Promise<void>
+  handleSubmit: (submit: BaseSyntheticEvent<any>) => Promise<void>
 }
 
 interface AuthLayoutFormProps {

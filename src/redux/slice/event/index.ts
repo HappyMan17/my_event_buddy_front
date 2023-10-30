@@ -1,2 +1,2 @@
-export { default as eventSlice } from './eventSlice'
+export { default as eventReducer } from './eventSlice'
 export * from './thunks'

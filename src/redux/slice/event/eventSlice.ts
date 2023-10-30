@@ -1,11 +1,12 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { type Event } from '../../../models'
 import { saveInLocal } from '../../../helpers'
+import { type AlertObject } from '../../../components/types'
 
 interface EventState {
   event: Event | null
   isLoading: boolean
-  errorMessage: string | null
+  errorMessage: AlertObject | null
 }
 
 const initialState: EventState = {
@@ -15,11 +16,14 @@ const initialState: EventState = {
 }
 
 export const eventSlice = createSlice({
-  name: 'user',
+  name: 'event',
   initialState,
   reducers: {
     setIsLoading: (state) => {
       state.isLoading = true
+    },
+    setEventError: (state, action: PayloadAction<AlertObject>) => {
+      state.errorMessage = action.payload
     },
     setEvent: (state, action: PayloadAction<Event>) => {
       state.isLoading = false
@@ -31,6 +35,6 @@ export const eventSlice = createSlice({
   }
 })
 
-export const { setIsLoading, setEvent } = eventSlice.actions
+export const { setIsLoading, setEvent, setEventError } = eventSlice.actions
 
 export default eventSlice.reducer

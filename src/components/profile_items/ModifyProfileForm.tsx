@@ -1,4 +1,4 @@
-import { TextField, Alert, type AlertColor, Button } from '@mui/material'
+import { TextField, Alert, Button } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { type UserUpdate, type Inputs } from '../../models'
@@ -8,12 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/user/userSlice'
 import { UserProfileImage } from '..'
+import { type AlertObject } from '../types'
 // import { type ImageState } from '../types'
-
-interface AlertObject {
-  alertType: AlertColor
-  message: string
-}
 
 const ModifyProfileForm = () => {
   const { user } = useSelector((state: RootState) => state.user)
