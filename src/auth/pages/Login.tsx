@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout props={{ title: 'Login', minHeight: '500px' }} >
+    <AuthLayout props={{ title: 'Login', minHeight: 'auto' }} >
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <TextField
           error={!!errors.email}

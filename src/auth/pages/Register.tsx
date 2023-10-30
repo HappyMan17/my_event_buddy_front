@@ -33,7 +33,7 @@ const Register = () => {
   }
 
   return (
-    <AuthLayout props={{ title: 'Register', minHeight: '620px' }}>
+    <AuthLayout props={{ title: 'Register', minHeight: 'auto' }}>
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <TextField
           error={!!errors.userName}
