@@ -86,13 +86,12 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
         hasDropdown={true}
         props={{ hasCloseButton: true, hasLogoutButton: true, logout: componentLogout }}
       />
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 2, flexGrow: 1 }}>
         <Toolbar />
         {/* responsive code */}
         <Grid sx={{
           display: 'flex',
-          height: window.screen.height,
-          width: { lg: window.screen.width - 50, sm: '1150px' }
+          height: 'auto'
         }} >
           {children}
         </Grid>
