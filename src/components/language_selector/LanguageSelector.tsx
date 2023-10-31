@@ -13,8 +13,8 @@ const LanguageSelector = () => {
 
   return (
       <select defaultValue={selectedLanguage} onChange={chooseLanguage} >
-          <option value="es">Español</option>
-          <option value="en">English</option>
+          <option value="es">English</option>
+          <option value="en">Español</option>
           {/* <option value="it">Italian</option> */}
       </select>
   );
