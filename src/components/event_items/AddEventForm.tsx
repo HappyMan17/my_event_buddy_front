@@ -82,7 +82,7 @@ const AddEventForm = () => {
         label="Event Type"
         value={selectedCurrency}
         onChange={handleCurrencyChange}
-        helperText="Please select your currency"
+        helperText="Please select your type"
       >
         {currencies.map((option) => (
           <MenuItem key={option} value={option}>

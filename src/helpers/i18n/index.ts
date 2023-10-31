@@ -2,8 +2,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getFromLocal } from '..';
 
-import { EN } from '../../languages';
-import { ES } from '../../languages';
+import { EN, ES } from '../../languages';
+// import { ES } from '../../languages';
 
 // the translations
 const resources = {
@@ -20,7 +20,7 @@ const resources = {
 
 const lngSelected: string = getFromLocal('lng')?.toString() ?? 'es';
 
-i18n
+void i18n
   .use(initReactI18next)
   .init({
     resources,

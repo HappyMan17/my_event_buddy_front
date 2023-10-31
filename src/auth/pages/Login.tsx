@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { Copyright } from '../../components';
+import { Copyright, LanguageSelector } from '../../components';
 import { loginUser, saveToken } from '../../api';
 import { useDispatch } from 'react-redux'
 import { login, setUser } from '../../redux/slice/user/userSlice';
@@ -44,6 +44,7 @@ const Login = () => {
   return (
     <AuthLayout props={{ title: 'Login', minHeight: '500px' }} >
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+        <LanguageSelector/>
         <TextField
           error={!!errors.email}
           helperText={errors.email?.message}
