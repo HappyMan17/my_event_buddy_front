@@ -1,9 +1,12 @@
 import { MenuItem, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useState, type ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ModifyEventForm = () => {
-  const currencies = ['Viaje Familiar', 'Viaje En Pareja', 'Reunion De Amigos'];
+  const { t } = useTranslation();
+
+  const currencies = [t('family_travel'), t('couples_travel'), t('friends_reunion')];
 
   const [selectedCurrency, setSelectedCurrency] = useState('');
 
@@ -12,20 +15,20 @@ const ModifyEventForm = () => {
   };
 
   return (
-    <FormLayout props={{ title: 'Modify Event', buttonText: 'Save Changes' }}>
+    <FormLayout props={{ title: (t('modify_event')), buttonText: (t('button_save')) }}>
         <TextField
             margin="normal"
             required
             fullWidth
             id="eventName"
-            label="Name"
+            label={t('name')}
             type="text"
         />
         <TextField
             margin="normal"
             required
             fullWidth
-            id="eventDescription"
+            id={t('event_description')}
             label="Description"
             type="text"
         />
@@ -33,11 +36,11 @@ const ModifyEventForm = () => {
             margin="normal"
             select
             fullWidth
-            id="travelType"
-            label="Travel Type"
+            id="eventType"
+            label={t('event_type')}
             value={selectedCurrency}
             onChange={handleCurrencyChange}
-            helperText="Please select your currency"
+            helperText={t('helper_textevent_type')}
         >
             {currencies.map((option) => (
                 <MenuItem key={option} value={option}>
@@ -50,7 +53,7 @@ const ModifyEventForm = () => {
             required
             fullWidth
             id="addContact"
-            label="Add Contact"
+            label={t('add_contact')}
             autoComplete="email"
             autoFocus
         />
@@ -59,7 +62,7 @@ const ModifyEventForm = () => {
             required
             fullWidth
             id="deleteContact"
-            label="Delete Contact"
+            label={t('delete_contact')}
             autoComplete="email"
             autoFocus
         />

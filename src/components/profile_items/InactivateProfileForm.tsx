@@ -1,22 +1,25 @@
 import { useState, type ChangeEvent } from 'react';
 import { FormControlLabel, Checkbox, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
+import { useTranslation } from 'react-i18next';
 
 const InactivateProfileForm = () => {
   const [checked, setChecked] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
 
   return (
-    <FormLayout props={{ title: 'Inactivate profile', buttonText: 'Save Changes'}}>
+    <FormLayout props={{ title: (t('inactivate_account')), buttonText: (t('button_inactivate'))}}>
         <TextField
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email"
+            label={t('email')}
             autoComplete="email"
             autoFocus
         />
@@ -25,12 +28,12 @@ const InactivateProfileForm = () => {
             required
             fullWidth
             id="password"
-            label="Password"
+            label={t('password')}
             type="password"
         />
         <FormControlLabel
             control={<Checkbox checked={checked} onChange={handleChange} />}
-            label="You want to inactivate your account"
+            label={t('checkbox_inactivate_account')}
         />
     </FormLayout>
   );

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { Copyright } from '../../components';
+import { Copyright, LanguageSelector } from '../../components';
 import { loginUser, saveToken } from '../../api';
 import { useDispatch } from 'react-redux'
 import { login, setUser } from '../../redux/slice/user/userSlice';
+import { useTranslation } from 'react-i18next';
 
 interface Inputs {
   email: string
@@ -23,6 +24,8 @@ const Login = () => {
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
+  const { t } = useTranslation();
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = {
       email: data.email,
@@ -30,30 +33,31 @@ const Login = () => {
     }
     const response = await loginUser(user)
     if (!response?.token) {
-      setAlertMessage('User not found. Please try again.');
+      setAlertMessage(t('login_error'));
       return;
     } else {
       // console.log({ user, ms: 'login' });
       dispatch(setUser(response.user))
-      setAlertMessage('Login');
+      setAlertMessage(t('login'));
     }
     dispatch(login())
     saveToken(response.token)
   };
 
   return (
-    <AuthLayout props={{ title: 'Login', minHeight: '500px' }} >
+    <AuthLayout props={{ title: (t('login')), minHeight: '500px' }} >
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+        <LanguageSelector/>
         <TextField
           error={!!errors.email}
           helperText={errors.email?.message}
           margin="normal"
           required fullWidth
           id="email"
-          label="Email"
+          label={t('email')}
           autoComplete="email"
           autoFocus
-          {...register('email', { required: 'Field required.' })}
+          {...register('email', { required: (t('field_required')) })}
         />
         <TextField
           error={!!errors.password}
@@ -61,13 +65,13 @@ const Login = () => {
           margin="normal"
           required fullWidth
           id="password"
-          label="Password"
+          label={t('password')}
           type="password"
           {...register('password', {
-            required: 'Field required',
+            required: (t('field_required')),
             minLength: {
               value: 8,
-              message: 'Password must have 8 characteres.'
+              message: (t('password_error'))
             }
           })}
         />
@@ -76,7 +80,7 @@ const Login = () => {
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          SING IN
+          {t('button_login')}
         </Button>
         {alertMessage && (
           <Alert severity='error'>
@@ -85,10 +89,10 @@ const Login = () => {
         )}
         <Grid container>
           <Grid item xs>
-            <Link href="#" variant="body2">Forgot your password?</Link>
+            <Link href="#" variant="body2">{t('forgot_password')}</Link>
           </Grid>
           <Grid item xs>
-            <Link href="register" variant="body2">Dont have an account? Register</Link>
+            <Link href="register" variant="body2">{t('without_account')}</Link>
           </Grid>
         </Grid>
         <Copyright sx={{ mt: 5 }} />
