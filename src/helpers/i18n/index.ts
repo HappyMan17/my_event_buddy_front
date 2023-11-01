@@ -1,6 +1,5 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { getFromLocal } from '..';
 
 import { EN, ES } from '../../languages';
 // import { ES } from '../../languages';

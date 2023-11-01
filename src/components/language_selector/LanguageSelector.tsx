@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from 'react';
-import { i18n, saveInLocal } from '../../helpers';
+import { i18n } from '../../helpers';
 
 const LanguageSelector = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language); // i18n.language contains the language assigned to lng in i18n.js file.
