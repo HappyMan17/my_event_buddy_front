@@ -1,24 +1,24 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
-import { setActivity, setActivityError, setIsLoading } from './activitySlice'
-import { createActivity } from '../../../api'
+import { resetActivities, setActivity, setActivityError, setIsLoading } from './activitySlice'
+import { createActivity, getActivitiesByEvent } from '../../../api'
 import { activityMapper } from '../../../mappers/'
 import { type Activity } from '../../../models'
 
 export const getActivities = (eventId: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(setIsLoading())
+    console.log({ eventId })
+    const data = await getActivitiesByEvent(eventId)
 
-    // const data = await getEventsByUserId(eventId)
-
-    // if (!data) {
-    //   return
-    // }
-    // dispatch(resetActivities())
-    // // eslint-disable-next-line array-callback-return
-    // void data.map((activity: Event) => {
-    //   const newActivity = activityMapper(activity)
-    //   dispatch(setActivity(newActivity))
-    // })
+    if (!data) {
+      return
+    }
+    dispatch(resetActivities())
+    // eslint-disable-next-line array-callback-return
+    void data.activities.map((activity: Activity) => {
+      const newActivity = activityMapper(activity)
+      dispatch(setActivity(newActivity))
+    })
   }
 }
 

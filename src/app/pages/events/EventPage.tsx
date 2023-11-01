@@ -3,29 +3,34 @@ import { type Event } from '../../../models'
 import { PageWithTable } from '../layouts'
 import { useEffect } from 'react';
 import { Grid, Typography, Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { type AppDispatch, type RootState, getActivities } from '../../../redux';
 
 const EventPage = () => {
+  const { activities } = useSelector((state: RootState) => state.activities)
+  const dispatch = useDispatch<AppDispatch>()
   const location = useLocation();
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!location.state) {
+    if (!location?.state) {
       navigate('/')
+      return
     }
-  }, [location])
+    void dispatch(getActivities(location.state.event_id ?? ''))
+  }, [])
 
-  const event: Event = location.state
+  const event: Event = location.state ?? {}
   const title = event?.description ?? 'title'
 
   const handleButtonClick = (route: string) => {
-    console.log({ route })
     navigate(route, {
       state: event
     })
   }
 
   return (
-    <PageWithTable entities={[]} props={{ title, notFoundMessage: 'Activities not created', eyeRoute: 'entity-info' }} >
+    <PageWithTable entities={activities} props={{ title, notFoundMessage: 'Activities not created', eyeRoute: 'entity-info' }} >
       <Grid item sx={{ marginBlock: 3, flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Typography
           variant="h6"

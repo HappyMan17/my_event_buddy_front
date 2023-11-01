@@ -37,9 +37,9 @@ const AddActivityForm = () => {
   }, [errorMessage])
 
   useEffect(() => {
-    console.log({ state: location.state })
     if (!location.state) {
       navigate('/')
+      return
     }
   }, [location])
 
