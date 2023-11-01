@@ -5,23 +5,44 @@ interface GridTableInfo {
   rows: Array<Record<string, any>>
 }
 
+const notShownHeaders = ['user_id', 'logo', 'event_id']
+
 export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): GridTableInfo => {
   const objectKeys = Object.keys(entityList[0])
+  let counter = 0
+  const columns: GridColDef[] = [{
+    field: 'id',
+    headerName: 'id',
+    width: 150,
+    editable: true,
+    align: 'center',
+    headerAlign: 'center'
+  }]
 
-  const columns: GridColDef[] = objectKeys.map(header => {
-    return {
+  for (const header of objectKeys) {
+    if (notShownHeaders.includes(header)) {
+      continue
+    }
+    columns.push({
       field: header,
       headerName: header,
       width: 150,
       editable: true,
       align: 'center',
       headerAlign: 'center'
-    }
+    })
+  }
+  let rows = entityList.slice()
+  // eslint-disable-next-line array-callback-return
+  rows = rows.map(entity => {
+    const id = counter
+    counter++
+    return { ...entity, id }
   })
 
   return {
     columns,
-    rows: entityList
+    rows
   }
 }
 
