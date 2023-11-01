@@ -41,7 +41,7 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
         onSubmit={handleSubmit}
       >
 
-        <Typography component="h1" variant="h5">{title}</Typography>
+        <Typography component="h1" variant="h4">{title}</Typography>
 
         {children}
 

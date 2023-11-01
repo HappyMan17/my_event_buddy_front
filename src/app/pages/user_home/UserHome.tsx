@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
-import { type AppDispatch, getUserById, getEvents } from '../../../redux'
-import { useDispatch } from 'react-redux'
+import { type AppDispatch, getUserById, getEvents, type RootState } from '../../../redux'
+import { useDispatch, useSelector } from 'react-redux'
+import PageWithTable from '../layouts/PageWithTable'
 
 const UserHome = () => {
+  const { events } = useSelector((state: RootState) => state.event)
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
     void dispatch(getUserById())
@@ -10,7 +12,8 @@ const UserHome = () => {
   }, [])
 
   return (
-    <div>newUserHome</div>
+    <PageWithTable entities={events} props={{ title: 'Events table', notFoundMessage: 'No Events Created Yet' }} >
+    </PageWithTable>
   )
 }
 

@@ -1,16 +1,15 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { type Event } from '../../../models'
-import { saveInLocal } from '../../../helpers'
 import { type AlertObject } from '../../../components/types'
 
 interface EventState {
-  event: Event | null
+  events: Event[]
   isLoading: boolean
   errorMessage: AlertObject | null
 }
 
 const initialState: EventState = {
-  event: null,
+  events: [],
   isLoading: false,
   errorMessage: null
 }
@@ -29,12 +28,14 @@ export const eventSlice = createSlice({
       state.isLoading = false
       state.errorMessage = null
       const newEventData = action.payload
-      saveInLocal<Event>('event', newEventData)
-      state.event = newEventData
+      state.events.push(newEventData)
+    },
+    resetEvents: (state) => {
+      state.events = []
     }
   }
 })
 
-export const { setIsLoading, setEvent, setEventError } = eventSlice.actions
+export const { setIsLoading, setEvent, setEventError, resetEvents } = eventSlice.actions
 
 export default eventSlice.reducer
