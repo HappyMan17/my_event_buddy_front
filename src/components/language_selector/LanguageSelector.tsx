@@ -8,7 +8,7 @@ const LanguageSelector = () => {
     e.preventDefault();
     void i18n.changeLanguage(e.target.value)
     setSelectedLanguage(e.target.value)
-    saveInLocal('lng', e.target.value)
+    localStorage.setItem('lng', e.target.value)
   }
 
   return (

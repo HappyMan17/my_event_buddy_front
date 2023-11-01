@@ -18,7 +18,7 @@ const resources = {
   // },
 };
 
-const lngSelected: string = getFromLocal('lng')?.toString() ?? 'es';
+const lngSelected: string = localStorage.getItem('lng')?.toString() ?? 'es';
 
 void i18n
   .use(initReactI18next)
