@@ -20,19 +20,24 @@ export default {
   register_successfully: 'Usuario creado correctamente',
 
   // Profile
+  // Update profile form
   modify_account: 'Modificar perfil',
   image_error: 'Imagen no cargada',
   button_save: 'Guardar cambios',
   update_account_error: 'Error en la actualización de usuario. Por favor, inténtelo de nuevo.',
   update_account_successfully: 'Usuario actualizado correctamente',
+  // Inactivate profile form
   inactivate_account: 'Inactivar perfil',
-  checkbox_inactivate_account: 'Quieres desactivar tu cuenta',
+  checkbox_inactivate_account: '¿Estás seguro de que deseas desactivar tu cuenta?',
+  button_inactivate: 'Inactivar perfil',
 
   // Contacts
   add_contact: 'Añadir contacto',
   delete_contact: 'Borrar contacto',
+  checkbox_delete_contact: '¿Estas seguro de que deseas eliminar este contacto?',
 
   // Events
+  // Add event form
   add_event: 'Añadir evento',
   event_description: 'Descripción del evento',
   event_type: 'Tipo de Evento',
@@ -40,5 +45,7 @@ export default {
   couples_travel: 'Viaje en Pareja',
   friends_reunion: 'Reunion de Amigos',
   helper_textevent_type: 'Seleccione su tipo',
+  button_add_event: 'Crear Evento',
+  // Update event form
   modify_event: 'Modificar evento'
 }

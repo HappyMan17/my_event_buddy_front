@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event } from '../../models';
+import { useTranslation } from 'react-i18next';
 
 export interface EventInputs {
   eventName: string
@@ -15,6 +16,7 @@ export interface EventInputs {
 
 const AddEventForm = () => {
   const { event, errorMessage } = useSelector((state: RootState) => state.event)
+
   const dispatch = useDispatch<AppDispatch>()
 
   const {
@@ -22,9 +24,12 @@ const AddEventForm = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<EventInputs>()
+
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
 
-  const currencies = ['Viaje Familiar', 'Viaje En Pareja', 'Reunion De Amigos'];
+  const { t } = useTranslation();
+
+  const currencies = [t('family_travel'), t('couples_travel'), t('friends_reunion')];
 
   const [selectedCurrency, setSelectedCurrency] = useState('');
 
@@ -53,16 +58,16 @@ const AddEventForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: 'Add Event', buttonText: 'Create Event', handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: (t('add_event')), buttonText: (t('button_add_event')), handleSubmit: handleSubmit(onSubmit) }}>
       <TextField
         error={!!errors.eventName}
         margin="normal"
         required
         fullWidth
         id="eventName"
-        label="Name"
+        label={t('name')}
         type="text"
-        {...register('eventName', { required: 'Field required.' })}
+        {...register('eventName', { required: (t('field_required')) })}
       />
       <TextField
         error={!!errors.eventDescription}
@@ -70,19 +75,19 @@ const AddEventForm = () => {
         required
         fullWidth
         id="eventDescription"
-        label="Description"
+        label={t('event_description')}
         type="text"
-        {...register('eventDescription', { required: 'Field required.' })}
+        {...register('eventDescription', { required: (t('field_required')) })}
       />
       <TextField
         margin="normal"
         select
         fullWidth
         id="eventType"
-        label="Event Type"
+        label={t('event_type')}
         value={selectedCurrency}
         onChange={handleCurrencyChange}
-        helperText="Please select your type"
+        helperText={t('helper_textevent_type')}
       >
         {currencies.map((option) => (
           <MenuItem key={option} value={option}>
