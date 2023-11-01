@@ -14,7 +14,7 @@ export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): 
     field: 'id',
     headerName: 'id',
     width: 150,
-    editable: true,
+    editable: false,
     align: 'center',
     headerAlign: 'center'
   }]
@@ -27,7 +27,7 @@ export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): 
       field: header,
       headerName: header,
       width: 150,
-      editable: true,
+      editable: false,
       align: 'center',
       headerAlign: 'center'
     })

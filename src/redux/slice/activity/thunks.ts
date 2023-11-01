@@ -7,7 +7,7 @@ import { type Activity } from '../../../models'
 export const getActivities = (eventId: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(setIsLoading())
-    console.log({ eventId })
+
     const data = await getActivitiesByEvent(eventId)
 
     if (!data) {

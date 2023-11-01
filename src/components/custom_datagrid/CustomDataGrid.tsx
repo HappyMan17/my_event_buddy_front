@@ -56,6 +56,7 @@ const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns
       <DataGrid
         rows={rows}
         columns={gridColumns}
+        disableRowSelectionOnClick
         initialState={{
           pagination: {
             paginationModel: {
@@ -64,7 +65,6 @@ const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns
           }
         }}
         pageSizeOptions={[5]}
-        disableRowSelectionOnClick
         sx={{
           width: { xs: '350px', sm: 'auto' }
         }}

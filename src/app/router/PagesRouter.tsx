@@ -37,7 +37,7 @@ export const PagesRouter = () => {
           <Route path="add-event" element={ <AddEventForm /> } />
           <Route path="modify-event" element={ <ModifyEventForm /> } />
           <Route path="add-activity" element={ <AddActivityForm /> } />
-          <Route path="entity-info" element={ <EventPage /> } />
+          <Route path="event-info" element={ <EventPage /> } />
           {/* Defult page */}
           <Route path="/*" element={ <Navigate to="/" replace={true} /> } />
         </Route>
