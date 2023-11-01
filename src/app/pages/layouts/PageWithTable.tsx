@@ -5,6 +5,7 @@ import { CustomDataGrid } from '../../../components'
 interface LayoutProps {
   title: string
   notFoundMessage: string
+  eyeRoute?: string
 }
 interface PageProps {
   children: ReactNode
@@ -13,7 +14,7 @@ interface PageProps {
 }
 
 const PageWithTable: React.FC<PageProps> = ({ children, entities, props }) => {
-  const { title, notFoundMessage } = props
+  const { title, notFoundMessage, eyeRoute } = props
 
   return (
     <Grid container sx={{
@@ -50,7 +51,7 @@ const PageWithTable: React.FC<PageProps> = ({ children, entities, props }) => {
         {/* body */}
         {(entities && entities.length > 0)
           ? (
-              <CustomDataGrid entities={ entities } hasEye={true} />
+              <CustomDataGrid entities={ entities } hasEye={true} eyeRoute={eyeRoute} />
             )
           : (
               <Typography

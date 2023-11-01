@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 // import { Login, Register } from '../pages/';
 import { Home } from '../../app/pages';
 import { Suspense, lazy } from 'react';
@@ -13,7 +13,7 @@ export const AuthRouter = () => {
       <Route path="login" element={<Suspense fallback={<Grid>Loading...</Grid>}><Login /></Suspense>} />
       <Route path="register" element={<Suspense fallback={<Grid>Loading...</Grid>}><Register /></Suspense>} />
       <Route path="home" element={<Home />} />
-      <Route path="/*" element={<Home />} />
+      <Route path="/*" element={ <Navigate to="/home" replace={true} /> } />
     </Routes>
   );
 }

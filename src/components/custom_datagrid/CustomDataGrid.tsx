@@ -10,6 +10,7 @@ interface CustomDataGridProps {
   entities: any[]
   customColumns?: GridColDef[]
   hasEye?: boolean
+  eyeRoute?: string
 }
 
 const getEyeColumn = (handleClick: (param: any) => void): GridColDef[] => [
@@ -30,13 +31,12 @@ const getEyeColumn = (handleClick: (param: any) => void): GridColDef[] => [
   }
 ]
 
-const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns, hasEye = false }) => {
+const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns, hasEye = false, eyeRoute }) => {
   const { columns, rows } = buildDataGridTableInfo(entities)
   const navigate = useNavigate()
 
   const handleButtonClickWatch = (params: any) => {
-    console.log({ params })
-    navigate('entity-info', {
+    navigate(eyeRoute ?? '/', {
       state: params
     })
   }
@@ -56,6 +56,7 @@ const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns
       <DataGrid
         rows={rows}
         columns={gridColumns}
+        disableRowSelectionOnClick
         initialState={{
           pagination: {
             paginationModel: {
@@ -64,7 +65,6 @@ const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns
           }
         }}
         pageSizeOptions={[5]}
-        disableRowSelectionOnClick
         sx={{
           width: { xs: '350px', sm: 'auto' }
         }}

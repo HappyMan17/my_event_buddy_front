@@ -5,7 +5,7 @@ interface GridTableInfo {
   rows: Array<Record<string, any>>
 }
 
-const notShownHeaders = ['user_id', 'logo', 'event_id']
+const notShownHeaders = ['user_id', 'logo', 'event_id', 'activity_id']
 
 export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): GridTableInfo => {
   const objectKeys = Object.keys(entityList[0])
@@ -14,7 +14,7 @@ export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): 
     field: 'id',
     headerName: 'id',
     width: 150,
-    editable: true,
+    editable: false,
     align: 'center',
     headerAlign: 'center'
   }]
@@ -27,7 +27,7 @@ export const buildDataGridTableInfo = (entityList: Array<Record<string, any>>): 
       field: header,
       headerName: header,
       width: 150,
-      editable: true,
+      editable: false,
       align: 'center',
       headerAlign: 'center'
     })
