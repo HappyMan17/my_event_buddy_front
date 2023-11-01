@@ -9,6 +9,7 @@ import { type RootState } from '../../redux'
 import { setUser } from '../../redux/slice/user/userSlice'
 import { UserProfileImage } from '..'
 import { type AlertObject } from '../types'
+import { useTranslation } from 'react-i18next';
 // import { type ImageState } from '../types'
 
 const ModifyProfileForm = () => {
@@ -25,7 +26,10 @@ const ModifyProfileForm = () => {
       nickName: user?.nick_name
     }
   })
+
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
+
+  const { t } = useTranslation();
 
   const handleUploadClick = () => {
     // show modal with the image
@@ -42,21 +46,22 @@ const ModifyProfileForm = () => {
 
     const response = await updateUser(userUpdateData)
     if (!response) {
-      setAlertState({ message: 'User update failed. Please try again.', alertType: 'error' });
+      setAlertState({ message: (t('update_account_error')), alertType: 'error' });
     } else {
       const imageResponse = await updateUserProfileImage(userUpdateData, files)
       if (!imageResponse) {
-        console.log({ ms: 'image not uploaded' })
+        console.log({ ms: (t('image_error')) })
         dispatch(setUser({ ...user!, ...userUpdateData }))
       } else {
         dispatch(setUser({ ...user!, ...userUpdateData, profile_image: imageResponse.profile_image }))
       }
-      setAlertState({ message: 'User updated successfully', alertType: 'success' });
+      setAlertState({ message: (t('update_account_successfully')), alertType: 'success' });
       // navigate('/login')
     }
   }
+
   return (
-    <FormLayout props={{ title: 'Modify Profile', buttonText: 'Save Changes', handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: (t('modify_account')), buttonText: (t('button_save')), handleSubmit: handleSubmit(onSubmit) }}>
       <Button
         variant='contained'
         onClick={handleUploadClick}
@@ -70,9 +75,9 @@ const ModifyProfileForm = () => {
         required
         fullWidth
         id="userName"
-        label="Name"
+        label={t('name')}
         type="text"
-        {...register('userName', { required: 'Field required.' })}
+        {...register('userName', { required: (t('field_required')) })}
       />
       <TextField
         error={!!errors.nickName}
@@ -80,9 +85,9 @@ const ModifyProfileForm = () => {
         required
         fullWidth
         id="nickName"
-        label="Nick Name"
+        label={t('nick_name')}
         type="text"
-        {...register('nickName', { required: 'Field required.' })}
+        {...register('nickName', { required: (t('field_required')) })}
       />
       <TextField
           id="profileImage"
