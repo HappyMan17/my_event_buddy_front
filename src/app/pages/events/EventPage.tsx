@@ -9,7 +9,6 @@ const EventPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('called')
     if (!location.state) {
       navigate('/')
     }
@@ -18,8 +17,15 @@ const EventPage = () => {
   const event: Event = location.state
   const title = event?.description ?? 'title'
 
+  const handleButtonClick = (route: string) => {
+    console.log({ route })
+    navigate(route, {
+      state: event
+    })
+  }
+
   return (
-    <PageWithTable entities={[]} props={{ title, notFoundMessage: 'Activities not created' }} >
+    <PageWithTable entities={[]} props={{ title, notFoundMessage: 'Activities not created', eyeRoute: 'entity-info' }} >
       <Grid item sx={{ marginBlock: 3, flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Typography
           variant="h6"
@@ -37,7 +43,16 @@ const EventPage = () => {
             <Button variant='contained'> Edit Event </Button>
           </Grid>
           <Grid item>
-            <Button variant='contained'> Complete Event </Button>
+            <Button
+              variant='contained'
+              color='success'
+              onClick={() => { handleButtonClick('/add-activity'); }}
+            >
+              Create Activity
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color="error"> Complete Event </Button>
           </Grid>
         </Grid>
         <Typography variant="h4" align="center" sx={{ marginTop: 5 }}>

@@ -12,7 +12,7 @@ const UserHome = () => {
   }, [])
 
   return (
-    <PageWithTable entities={events} props={{ title: 'Events table', notFoundMessage: 'No Events Created Yet' }} >
+    <PageWithTable entities={events} props={{ title: 'Events table', notFoundMessage: 'No Events Created Yet', eyeRoute: 'entity-info' }} >
     </PageWithTable>
   )
 }

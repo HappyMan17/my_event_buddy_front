@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { eventReducer, userReducer } from '../slice/'
+import { eventReducer, userReducer, activityReducer } from '../slice/'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    event: eventReducer
+    event: eventReducer,
+    activities: activityReducer
   }
 })
 

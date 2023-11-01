@@ -7,7 +7,7 @@ export const getEventsByUserId = async () => {
 
   const { data, error } = await get(url)
   if (error != null) {
-    console.log('error getting users')
+    console.log('error getting event')
     return null
   }
   return data;
@@ -17,7 +17,7 @@ export const createEvent = async (event: Event): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.CREATE_EVENT}`
   const { data, error } = await post(url, event)
   if (error != null) {
-    console.log('error creating user')
+    console.log('error creating event')
     return null
   }
   return data
@@ -38,7 +38,7 @@ export const updateEventLogo = async (eventId: string, file: any): Promise<any |
   const { data, error } = await put(url, formData, true)
 
   if (error !== null) {
-    console.log('error updating user: ', error)
+    console.log('error updating event: ', error)
     return null
   }
   return data

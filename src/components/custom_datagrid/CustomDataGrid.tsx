@@ -10,6 +10,7 @@ interface CustomDataGridProps {
   entities: any[]
   customColumns?: GridColDef[]
   hasEye?: boolean
+  eyeRoute?: string
 }
 
 const getEyeColumn = (handleClick: (param: any) => void): GridColDef[] => [
@@ -30,13 +31,12 @@ const getEyeColumn = (handleClick: (param: any) => void): GridColDef[] => [
   }
 ]
 
-const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns, hasEye = false }) => {
+const CustomDataGrid: React.FC<CustomDataGridProps> = ({ entities, customColumns, hasEye = false, eyeRoute }) => {
   const { columns, rows } = buildDataGridTableInfo(entities)
   const navigate = useNavigate()
 
   const handleButtonClickWatch = (params: any) => {
-    console.log({ params })
-    navigate('entity-info', {
+    navigate(eyeRoute ?? '/', {
       state: params
     })
   }

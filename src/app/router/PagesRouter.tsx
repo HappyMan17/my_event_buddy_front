@@ -5,6 +5,7 @@ import { userHomeNavItems } from '../../components/data';
 import { Suspense, lazy } from 'react';
 import { Grid } from '@mui/material';
 import { EventPage } from '../pages/';
+import { AddActivityForm } from '../../components';
 const ModifyProfileForm = lazy(async () => await import('../../components/profile_items/ModifyProfileForm'));
 const InactivateProfileForm = lazy(async () => await import('../../components/profile_items/InactivateProfileForm'));
 const AddContactForm = lazy(async () => await import('../../components/contacts_items/AddContactForm'));
@@ -35,6 +36,7 @@ export const PagesRouter = () => {
           <Route path="delete-contact" element={ <DeleteContactForm /> } />
           <Route path="add-event" element={ <AddEventForm /> } />
           <Route path="modify-event" element={ <ModifyEventForm /> } />
+          <Route path="add-activity" element={ <AddActivityForm /> } />
           <Route path="entity-info" element={ <EventPage /> } />
           {/* Defult page */}
           <Route path="/*" element={ <Navigate to="/" replace={true} /> } />
