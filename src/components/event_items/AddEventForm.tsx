@@ -14,7 +14,7 @@ export interface EventInputs {
 }
 
 const AddEventForm = () => {
-  const { event, errorMessage } = useSelector((state: RootState) => state.event)
+  const { errorMessage } = useSelector((state: RootState) => state.event)
   const dispatch = useDispatch<AppDispatch>()
 
   const {
@@ -41,7 +41,7 @@ const AddEventForm = () => {
   const onSubmit: SubmitHandler<EventInputs> = async (data) => {
     console.log({ data })
     const newEvent: Event = {
-      event_id: event?.event_id ?? '',
+      event_id: '',
       event_name: data.eventName,
       description: data.eventDescription,
       type: selectedCurrency,

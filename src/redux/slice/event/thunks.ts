@@ -1,5 +1,5 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
-import { setEvent, setEventError, setIsLoading } from './eventSlice'
+import { resetEvents, setEvent, setEventError, setIsLoading } from './eventSlice'
 import { getEventsByUserId, createEvent, updateEventLogo } from '../../../api/service'
 import { eventMapper } from '../../../mappers'
 import { type Event } from '../../../models'
@@ -13,8 +13,12 @@ export const getEvents = () => {
     if (!data) {
       return
     }
-
-    dispatch(setEvent(eventMapper(data)))
+    dispatch(resetEvents())
+    // eslint-disable-next-line array-callback-return
+    void data.map((event: Event) => {
+      const newEvent = eventMapper(event)
+      dispatch(setEvent(newEvent))
+    })
   }
 }
 
@@ -34,6 +38,7 @@ export const createNewEvent = (newEvent: Event, file: any) => {
       console.log({ ms: 'image not created' })
       return
     }
+
     data.logo = image.logo
     dispatch(setEvent(eventMapper(data.event)))
     dispatch(setEventError({ message: 'Event created.', alertType: 'success' }))
