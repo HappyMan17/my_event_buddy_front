@@ -5,6 +5,7 @@ interface LayoutFormProps {
   title: string
   buttonText: string
   handleSubmit: (submit: BaseSyntheticEvent<any>) => Promise<void>
+  isLoading?: boolean
 }
 
 interface AuthLayoutFormProps {
@@ -13,7 +14,7 @@ interface AuthLayoutFormProps {
 }
 
 export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) => {
-  const { title, buttonText, handleSubmit } = props
+  const { title, buttonText, handleSubmit, isLoading = false } = props
   return (
     <Grid container sx={{
       display: 'flex',
@@ -50,6 +51,7 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={isLoading}
         >
           {buttonText}
         </Button>
