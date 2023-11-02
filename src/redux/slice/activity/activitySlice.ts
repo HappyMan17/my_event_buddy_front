@@ -22,6 +22,7 @@ export const activitySlice = createSlice({
       state.isLoading = true
     },
     setActivityError: (state, action: PayloadAction<AlertObject>) => {
+      state.isLoading = false
       state.errorMessage = action.payload
     },
     setActivity: (state, action: PayloadAction<Activity>) => {
@@ -31,6 +32,7 @@ export const activitySlice = createSlice({
       state.activities.push(newActivityData)
     },
     resetActivities: (state) => {
+      state.isLoading = false
       state.activities = []
     }
   }

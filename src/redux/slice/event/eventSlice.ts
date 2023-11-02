@@ -22,6 +22,7 @@ export const eventSlice = createSlice({
       state.isLoading = true
     },
     setEventError: (state, action: PayloadAction<AlertObject>) => {
+      state.isLoading = false
       state.errorMessage = action.payload
     },
     setEvent: (state, action: PayloadAction<Event>) => {
@@ -31,6 +32,7 @@ export const eventSlice = createSlice({
       state.events.push(newEventData)
     },
     resetEvents: (state) => {
+      state.isLoading = false
       state.events = []
     }
   }
