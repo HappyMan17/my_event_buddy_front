@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 // import { type ImageState } from '../types'
 
 const ModifyProfileForm = () => {
-  const { user } = useSelector((state: RootState) => state.user)
+  const { user, isLoading } = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
 
   const {
@@ -61,7 +61,7 @@ const ModifyProfileForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: (t('modify_account')), buttonText: (t('button_save')), handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: (t('modify_account')), buttonText: (t('button_save')), handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <Button
         variant='contained'
         onClick={handleUploadClick}

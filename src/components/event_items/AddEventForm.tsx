@@ -7,6 +7,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event } from '../../models';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export interface EventInputs {
   eventName: string
@@ -15,8 +16,9 @@ export interface EventInputs {
 }
 
 const AddEventForm = () => {
-  const { errorMessage } = useSelector((state: RootState) => state.event)
+  const { errorMessage, isLoading } = useSelector((state: RootState) => state.event)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -36,6 +38,9 @@ const AddEventForm = () => {
     if (errorMessage) {
       setAlertState(errorMessage)
     }
+    if (errorMessage?.alertType === 'success') {
+      navigate('/')
+    }
   }, [errorMessage])
 
   const handleCurrencyChange = (event: ChangeEvent<{ value: unknown }>) => {
@@ -43,7 +48,6 @@ const AddEventForm = () => {
   };
 
   const onSubmit: SubmitHandler<EventInputs> = async (data) => {
-    console.log({ data })
     const newEvent: Event = {
       event_id: '',
       event_name: data.eventName,
@@ -57,7 +61,7 @@ const AddEventForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: (t('add_event')), buttonText: (t('button_add_event')), handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: (t('add_event')), buttonText: (t('button_add_event')), handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
         error={!!errors.eventName}
         margin="normal"

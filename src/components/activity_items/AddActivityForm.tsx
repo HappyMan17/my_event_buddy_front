@@ -16,7 +16,7 @@ export interface ActivityInputs {
 }
 
 const AddActivityForm = () => {
-  const { errorMessage } = useSelector((state: RootState) => state.activities)
+  const { errorMessage, isLoading } = useSelector((state: RootState) => state.activities)
   const dispatch = useDispatch<AppDispatch>()
   const [isByPersentage, setIsByPersentage] = useState<boolean>(true)
 
@@ -34,20 +34,22 @@ const AddActivityForm = () => {
     if (errorMessage) {
       setAlertState(errorMessage)
     }
+    if (errorMessage?.alertType === 'success') {
+      navigate('/')
+    }
   }, [errorMessage])
 
   useEffect(() => {
     if (!location.state) {
       navigate('/')
-      return
     }
-  }, [location])
+  }, [])
 
   const onSubmit: SubmitHandler<ActivityInputs> = async (data) => {
     const event: Event = location.state
     console.log({ data, event })
     const newActivity: Activity = {
-      event_id: event.event_id ?? '',
+      event_id: event?.event_id ?? '',
       description: data.description,
       total_activity_value: data.total_activity_value,
       is_by_percentage: !!isByPersentage
@@ -60,14 +62,14 @@ const AddActivityForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: 'Create Activity', buttonText: 'Create', handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: 'Create Activity', buttonText: 'Create', handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
         disabled
         margin="normal"
         fullWidth
         id="eventDescription"
         label="Event"
-        defaultValue={location.state.event_name}
+        defaultValue={location.state?.event_name ?? ''}
       />
       <TextField
         error={!!errors.description}
