@@ -7,6 +7,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Activity, type Event } from '../../models';
 import { useLocation, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export interface ActivityInputs {
   event_id: string
@@ -19,6 +20,8 @@ const AddActivityForm = () => {
   const { errorMessage } = useSelector((state: RootState) => state.activities)
   const dispatch = useDispatch<AppDispatch>()
   const [isByPersentage, setIsByPersentage] = useState<boolean>(true)
+
+  const { t } = useTranslation();
 
   const location = useLocation();
   const navigate = useNavigate()
@@ -60,7 +63,7 @@ const AddActivityForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: 'Create Activity', buttonText: 'Create', handleSubmit: handleSubmit(onSubmit) }}>
+    <FormLayout props={{ title: (t('create_activity')), buttonText: (t('button_create_activity')), handleSubmit: handleSubmit(onSubmit) }}>
       <TextField
         disabled
         margin="normal"
@@ -75,7 +78,7 @@ const AddActivityForm = () => {
         required
         fullWidth
         id="description"
-        label="description"
+        label={t('activity_description')}
         type="text"
         {...register('description', { required: 'Field required.' })}
       />
@@ -85,7 +88,7 @@ const AddActivityForm = () => {
         required
         fullWidth
         id="total_activity_value"
-        label="total_activity_value"
+        label={t('total_activity_value')}
         type="text"
         {...register('total_activity_value', { required: 'Field required.' })}
       />
@@ -94,7 +97,7 @@ const AddActivityForm = () => {
         align="center"
         sx={{ marginTop: 5 }}
       >
-        Same percentage for every participant?
+        {t('same_percentaje_text')}
       </Typography>
       <Grid container sx={{ marginTop: 0.3, justifyContent: 'center' }} spacing={3}>
         <Grid item>
@@ -124,11 +127,6 @@ const AddActivityForm = () => {
           : 'The amount to pay by participant will be asked when it is added'
         }
       </Typography>
-      {alertState && (
-        <Alert severity={alertState.alertType}>
-          {alertState.message}
-        </Alert>
-      )}
     </FormLayout>
   );
 };

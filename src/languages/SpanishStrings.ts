@@ -26,6 +26,7 @@ export default {
   button_save: 'Guardar cambios',
   update_account_error: 'Error en la actualización de usuario. Por favor, inténtelo de nuevo.',
   update_account_successfully: 'Usuario actualizado correctamente',
+
   // Inactivate profile form
   inactivate_account: 'Inactivar perfil',
   checkbox_inactivate_account: '¿Estás seguro de que deseas desactivar tu cuenta?',
@@ -46,6 +47,21 @@ export default {
   friends_reunion: 'Reunion de Amigos',
   helper_textevent_type: 'Seleccione su tipo',
   button_add_event: 'Crear Evento',
+
   // Update event form
-  modify_event: 'Modificar evento'
+  modify_event: 'Modificar evento',
+
+  // Activity
+  // Create Activity
+  create_activity: 'Crear Actividad',
+  button_create_activity: 'Crear',
+  activity_description: 'Descripción actividad',
+  total_activity_value: 'Valor total actividad',
+  same_percentaje_text: '¿El mismo porcentaje para todos los participantes?',
+
+  // Update Activity
+  update_activity: 'Modificar Actividad',
+  finish_activity_text: 'Quieres dar por finalizada la actividad',
+  button_finish_activity: 'Completar Actividad'
+
 }
