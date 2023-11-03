@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type User } from '../../../models'
 import { clearLocal, getFromLocal, saveInLocal } from '../../../helpers'
-import { checkIfTokenExist, isTokenValid } from '../../../api'
+import { checkIfTokenExist } from '../../../api'
 
 export interface UserState {
   user: User | null
