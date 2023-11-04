@@ -11,6 +11,7 @@ export const getEvents = () => {
     const data = await getEventsByUserId()
 
     if (!data) {
+      dispatch(resetEvents())
       return
     }
     dispatch(resetEvents())
