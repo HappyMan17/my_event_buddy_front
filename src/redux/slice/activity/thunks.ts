@@ -11,6 +11,7 @@ export const getActivities = (eventId: string) => {
     const data = await getActivitiesByEvent(eventId)
 
     if (!data) {
+      dispatch(resetActivities())
       return
     }
     dispatch(resetActivities())
