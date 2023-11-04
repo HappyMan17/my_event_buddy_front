@@ -8,6 +8,11 @@ import { type AlertObject } from '../types';
 import { type Event } from '../../models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { type Dayjs } from 'dayjs';
 
 export interface EventInputs {
   eventName: string
@@ -27,12 +32,12 @@ const AddEventForm = () => {
   } = useForm<EventInputs>()
 
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [eventDate, setEventDate] = useState<Dayjs | null | string>(null);
 
   const { t } = useTranslation();
 
   const currencies = [t('family_travel'), t('couples_travel'), t('friends_reunion')];
-
-  const [selectedCurrency, setSelectedCurrency] = useState('');
 
   useEffect(() => {
     if (errorMessage) {
@@ -48,8 +53,14 @@ const AddEventForm = () => {
   };
 
   const onSubmit: SubmitHandler<EventInputs> = async (data) => {
+    if (!eventDate) {
+      setAlertState({ alertType: 'error', message: 'Event not created, date required' })
+      return;
+    }
+    console.log({ date: new Date(eventDate as string) })
     const newEvent: Event = {
       event_id: '',
+      event_date: new Date(eventDate as string),
       event_name: data.eventName,
       description: data.eventDescription,
       type: selectedCurrency,
@@ -82,6 +93,16 @@ const AddEventForm = () => {
         type="text"
         {...register('eventDescription', { required: (t('field_required')) })}
       />
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        <DemoContainer components={['DatePicker', 'DatePicker']} sx={{ width: '100%' }}>
+          <DatePicker
+            label="Event Date"
+            value={eventDate}
+            sx={{ width: '100%' }}
+            onChange={setEventDate}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
       <TextField
         margin="normal"
         select
