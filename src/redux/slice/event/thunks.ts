@@ -3,6 +3,7 @@ import { resetEvents, setEvent, setEventError, setIsLoading } from './eventSlice
 import { getEventsByUserId, createEvent, updateEventLogo } from '../../../api/service'
 import { eventMapper } from '../../../mappers'
 import { type Event } from '../../../models'
+import { checkUserToken } from '..'
 
 export const getEvents = () => {
   return async (dispatch: Dispatch<AnyAction>) => {
@@ -11,6 +12,9 @@ export const getEvents = () => {
     const data = await getEventsByUserId()
 
     if (!data) {
+      console.log('first')
+      dispatch(checkUserToken())
+      dispatch(resetEvents())
       return
     }
     dispatch(resetEvents())
@@ -30,6 +34,7 @@ export const createNewEvent = (newEvent: Event, file: any) => {
 
     if (!data) {
       dispatch(setEventError({ message: 'Event not created. Please try again.', alertType: 'error' }))
+      checkUserToken()
       return
     }
 

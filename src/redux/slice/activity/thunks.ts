@@ -3,6 +3,7 @@ import { resetActivities, setActivity, setActivityError, setIsLoading } from './
 import { createActivity, getActivitiesByEvent } from '../../../api'
 import { activityMapper } from '../../../mappers/'
 import { type Activity } from '../../../models'
+import { checkUserToken } from '..'
 
 export const getActivities = (eventId: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
@@ -11,6 +12,8 @@ export const getActivities = (eventId: string) => {
     const data = await getActivitiesByEvent(eventId)
 
     if (!data) {
+      checkUserToken()
+      dispatch(resetActivities())
       return
     }
     dispatch(resetActivities())
@@ -30,9 +33,9 @@ export const createNewActivity = (newActivity: Activity) => {
 
     if (!data) {
       dispatch(setActivityError({ message: 'Activity not created. Please try again.', alertType: 'error' }))
+      checkUserToken()
       return
     }
-    console.log({ data, act: data.activity })
 
     dispatch(setActivity(activityMapper(data.activity)))
     dispatch(setActivityError({ message: 'Activity created.', alertType: 'success' }))

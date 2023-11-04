@@ -1,5 +1,29 @@
 import axios from 'axios'
-import { getFromLocal } from '../helpers'
+import { getFromLocal, k } from '../helpers'
+
+// check jwt users
+export const isTokenValid = async () => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const url = `${k.api.BASE_URL}${k.api.GET_USER}`
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${getFromLocal('userToken')}`
+      }
+    })
+    // console.log({ response })
+    if (response.status === 401) {
+      return false
+    }
+  } catch (error: any) {
+    // console.log({ error, status: error.response.status })
+    if (error.response.status === 401) {
+      return false
+    }
+    return false
+  }
+  return true
+}
 
 // get users
 export const get = async (url: string) => {
@@ -18,7 +42,10 @@ export const get = async (url: string) => {
       error = new Error(`Request failed with status ${response.status}`)
     }
   } catch (error) {
-    throw error
+    return {
+      data: null,
+      error: new Error('Request failed')
+    }
   }
   return {
     data,

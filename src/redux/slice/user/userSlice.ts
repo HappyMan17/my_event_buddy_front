@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type User } from '../../../models'
 import { clearLocal, getFromLocal, saveInLocal } from '../../../helpers'
-import { checkIfTokenExist, isTokenValid } from '../../../api'
+import { checkIfTokenExist } from '../../../api'
 
 export interface UserState {
   user: User | null
@@ -36,16 +36,10 @@ export const userSlice = createSlice({
       saveInLocal<User>('user', newUserData)
       state.user = newUserData
       state.isLoading = false
-    },
-    checkUserToken: (state) => {
-      if (!isTokenValid()) {
-        logout()
-      }
-      state.isLoading = false
     }
   }
 })
 
-export const { login, logout, setUser, setIsLoadingUser, checkUserToken } = userSlice.actions
+export const { login, logout, setUser, setIsLoadingUser } = userSlice.actions
 
 export default userSlice.reducer
