@@ -24,5 +24,9 @@ export const userHomeNavItems: NavItemType[] = [
       { buttonName: 'Modify Event', pageLink: 'modify-event' }
     ],
     pageLink: ''
+  },
+  {
+    buttonName: 'Home',
+    pageLink: '/'
   }
 ]

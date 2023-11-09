@@ -91,7 +91,7 @@ export const SideBar: React.FC<SideBarProps> = ({
             ? (
               <>
                 <List sx={{ display: 'flex', flexDirection: 'column' }}>
-                  {navItems.map((item) => (
+                  {navItems.filter(item => item.buttonName !== 'Home').map((item) => (
                     <ListItem key={item.buttonName} disablePadding>
                       <ListItemButton
                         id={item.buttonName}
@@ -124,7 +124,7 @@ export const SideBar: React.FC<SideBarProps> = ({
               )
             : (
               <List>
-                {navItems.map((item) => (
+                {navItems.filter(item => item.buttonName !== 'Home').map((item) => (
                   <ListItem key={item.buttonName} disablePadding>
                     <ListItemButton href={item.pageLink} sx={{ textAlign: 'center' }}>
                       <ListItemText primary={item.buttonName} />
