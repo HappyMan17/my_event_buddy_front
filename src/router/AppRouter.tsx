@@ -18,7 +18,7 @@ export const AppRouter = () => {
   return (
     <Routes>
 
-      <Route path="/*" element={ <Navigator isSignUp={ true } /> } />
+      <Route path="/*" element={ <Navigator isSignUp={ isUserLogin } /> } />
 
     </Routes>
   )
