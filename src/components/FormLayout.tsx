@@ -1,11 +1,11 @@
 import React, { type BaseSyntheticEvent, type ReactNode } from 'react'
 import { Box, Grid, Button, Typography } from '@mui/material';
-import { type Inputs } from '../models';
 
 interface LayoutFormProps {
   title: string
   buttonText: string
-  handleSubmit: (submit: BaseSyntheticEvent<Inputs | Event>) => Promise<void>
+  handleSubmit: (submit: BaseSyntheticEvent<any>) => Promise<void>
+  isLoading?: boolean
 }
 
 interface AuthLayoutFormProps {
@@ -14,7 +14,7 @@ interface AuthLayoutFormProps {
 }
 
 export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) => {
-  const { title, buttonText, handleSubmit } = props
+  const { title, buttonText, handleSubmit, isLoading = false } = props
   return (
     <Grid container sx={{
       display: 'flex',
@@ -42,7 +42,7 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
         onSubmit={handleSubmit}
       >
 
-        <Typography component="h1" variant="h5">{title}</Typography>
+        <Typography component="h1" variant="h4">{title}</Typography>
 
         {children}
 
@@ -51,6 +51,7 @@ export const FormLayout: React.FC<AuthLayoutFormProps> = ({ children, props }) =
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={isLoading}
         >
           {buttonText}
         </Button>

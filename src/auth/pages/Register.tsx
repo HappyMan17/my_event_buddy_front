@@ -1,14 +1,16 @@
 import { Box, Grid, TextField, Button, Link, Alert } from '@mui/material'
 import { AuthLayout } from './layout';
-import { Copyright } from '../../components';
+import { Copyright, LanguageSelector } from '../../components';
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { type Inputs, type User } from '../../models';
 import { createUser } from '../../api';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,7 +18,10 @@ const Register = () => {
   } = useForm<Inputs>()
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
+
   const [isButtonDisabled, setButtonDisabled] = useState(false);
+  const { t } = useTranslation();
+
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setButtonDisabled(true);
@@ -29,26 +34,29 @@ const Register = () => {
     }
     const response = await createUser(newUser)
     if (!response) {
-      setAlertMessage('User creation failed. Please try again.');
+
+      setAlertMessage(t('register_error'));
       setButtonDisabled(false);
+      
     } else {
-      setAlertMessage('User created successfully');
+      setAlertMessage(t('register_successfully'));
       navigate('/login')
     }
   }
 
   return (
-    <AuthLayout props={{ title: 'Register', minHeight: '620px' }}>
+    <AuthLayout props={{ title: (t('register')), minHeight: '620px' }}>
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+      <LanguageSelector/>
         <TextField
           error={!!errors.userName}
           helperText={errors.userName?.message}
           margin="normal"
           required fullWidth
           id="userName"
-          label="Name"
+          label={t('name')}
           type="text"
-          {...register('userName', { required: 'Field required.' })}
+          {...register('userName', { required: (t('field_required')) })}
         />
         <TextField
           error={!!errors.nickName}
@@ -56,9 +64,9 @@ const Register = () => {
           margin="normal"
           required fullWidth
           id="nickName"
-          label="Nick Name"
+          label={t('nick_name')}
           type="text"
-          {...register('nickName', { required: 'Field required.' })}
+          {...register('nickName', { required: (t('field_required')) })}
         />
         <TextField
           error={!!errors.email}
@@ -66,10 +74,10 @@ const Register = () => {
           margin="normal"
           required fullWidth
           id="email"
-          label="Email"
+          label={t('email')}
           autoComplete="email"
           autoFocus
-          {...register('email', { required: 'Field required.' })}
+          {...register('email', { required: (t('field_required')) })}
         />
         <TextField
           error={!!errors.password}
@@ -77,13 +85,13 @@ const Register = () => {
           margin="normal"
           required fullWidth
           id="password"
-          label="Password"
+          label={t('password')}
           type="password"
           {...register('password', {
-            required: 'Field required',
+            required: (t('field_required')),
             minLength: {
               value: 8,
-              message: 'Password must have 8 characteres.'
+              message: (t('password_error'))
             }
           })}
         />
@@ -93,7 +101,7 @@ const Register = () => {
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Register
+          {t('button_register')}
         </Button>
         {alertMessage && (
           <Alert severity='error'>
@@ -102,7 +110,7 @@ const Register = () => {
         )}
         <Grid container>
           <Grid item xs>
-            <Link href="login" variant="body2">Already have an account?</Link>
+            <Link href="login" variant="body2">{t('with_account')}</Link>
           </Grid>
         </Grid>
         <Copyright sx={{ mt: 5 }} />

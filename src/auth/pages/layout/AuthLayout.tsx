@@ -15,7 +15,7 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, props }) => {
-  const { title, minHeight, isHome = false } = props
+  const { title, isHome = false } = props
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container sx={{ display: 'flex', direction: isHome ? 'column' : 'row', margin: '0' }} >
@@ -31,9 +31,9 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, props }) => {
         }}>
           <Grid item xs={12} sm={8} sx={{
             bgcolor: isHome ? 'transparent' : 'white',
-            height: { sm: minHeight, xs: '100vh' },
+            height: { sm: 'auto', xs: '100%' },
             maxWidth: { xs: '500px', sm: '600px' },
-            minWidth: isHome ? '100%' : '600px',
+            minWidth: isHome ? '100%' : { xs: '100%', sm: '600px' },
             borderRadius: isHome ? 0 : { sm: 8, xs: 0 }
           }}>
             <Box sx={{
