@@ -3,7 +3,7 @@ import { Box, Button, Grid, TextField, Typography, Alert, Checkbox } from '@mui/
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { type RootState, type AppDispatch, getAUserByEmail, AddUserContact } from '../../redux';
+import { type RootState, type AppDispatch, getAUserByEmail, AddUserContact, getAllUserContacts } from '../../redux';
 import { type AlertObject } from '../types';
 import { UserProfileImage } from '..';
 
@@ -16,9 +16,9 @@ const AddContactForm = () => {
   // const [isDisable, setIsDisable] = useState(true)
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   void dispatch(getUserContacts())
-  // }, [])
+  useEffect(() => {
+    void dispatch(getAllUserContacts())
+  }, [])
 
   useEffect(() => {
     if (errorMessage) {
@@ -30,10 +30,12 @@ const AddContactForm = () => {
   }, [errorMessage])
 
   const checkIsAlreadyFriend = (contactId: string | undefined) => {
+    // console.log({ contact: userContacts })
     const contactsIds = userContacts.map(contact => contact.contactId)
     if (!contactId) {
       return
     }
+    // console.log({ array: contactsIds, contactId })
     if (contactsIds.includes(contactId)) {
       return true
     }

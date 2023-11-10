@@ -24,9 +24,11 @@ export const contactSlice = createSlice({
       state.errorMessage = null
       state.contactSelected = action.payload
     },
-    setUserContacts: (state, action: PayloadAction<Contact>) => {
-      state.errorMessage = null
-      state.userContacts = [...state.userContacts, action.payload]
+    setUserContacts: (state, action: PayloadAction<Contact | null>) => {
+      if (action.payload) {
+        state.errorMessage = null
+        state.userContacts = [...state.userContacts, action.payload]
+      }
     },
     resetUserContacts: (state) => {
       state.errorMessage = null

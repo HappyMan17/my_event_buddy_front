@@ -50,7 +50,7 @@ const ModifyProfileForm = () => {
     } else {
       const imageResponse = await updateUserProfileImage(userUpdateData, files)
       if (!imageResponse) {
-        console.log({ ms: (t('image_error')) })
+        // console.log({ ms: (t('image_error')) })
         dispatch(setUser({ ...user!, ...userUpdateData }))
       } else {
         dispatch(setUser({ ...user!, ...userUpdateData, profile_image: imageResponse.profile_image }))
