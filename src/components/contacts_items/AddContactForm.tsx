@@ -1,18 +1,24 @@
 import { type FormEvent, useEffect } from 'react'
-import { Box, Button, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, TextField, Typography, Alert, Checkbox } from '@mui/material'
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { type RootState, type AppDispatch, getAUserByEmail } from '../../redux';
+import { type RootState, type AppDispatch, getAUserByEmail, AddUserContact } from '../../redux';
 import { type AlertObject } from '../types';
+import { UserProfileImage } from '..';
 
 const AddContactForm = () => {
-  const { errorMessage, isLoading, contactSelected } = useSelector((state: RootState) => state.contacts)
+  const { errorMessage, contactSelected, userContacts } = useSelector((state: RootState) => state.contacts)
   const dispatch = useDispatch<AppDispatch>()
 
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
+  const [isChecked, setIsChecked] = useState(false)
   // const [isDisable, setIsDisable] = useState(true)
   const { t } = useTranslation();
+
+  // useEffect(() => {
+  //   void dispatch(getUserContacts())
+  // }, [])
 
   useEffect(() => {
     if (errorMessage) {
@@ -23,6 +29,21 @@ const AddContactForm = () => {
     // }
   }, [errorMessage])
 
+  const checkIsAlreadyFriend = (contactId: string | undefined) => {
+    const contactsIds = userContacts.map(contact => contact.contactId)
+    if (!contactId) {
+      return
+    }
+    if (contactsIds.includes(contactId)) {
+      return true
+    }
+    return false
+  }
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked)
+  }
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // type management
@@ -30,6 +51,13 @@ const AddContactForm = () => {
       email: { value: string }
     };
     void dispatch(getAUserByEmail(target.email.value))
+  }
+
+  const addContact = () => {
+    if (!contactSelected?.user_id) {
+      return
+    }
+    void dispatch(AddUserContact(contactSelected?.user_id))
   }
 
   return (
@@ -58,7 +86,7 @@ const AddContactForm = () => {
         onSubmit={handleSubmit}
       >
 
-        <Typography component="h1" variant="h4"> Hello </Typography>
+        <Typography component="h1" variant="h4"> Add Contact </Typography>
 
         <Grid container sx={{ flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: { xs: 'center', sm: 'space-between' } }}>
           <TextField
@@ -80,12 +108,52 @@ const AddContactForm = () => {
           </Button>
         </Grid>
 
+        {contactSelected && (
+          <Box
+            sx={{
+              bgcolor: 'white',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              borderStyle: 'solid',
+              borderWidth: 0.5,
+              borderColor: 'gray',
+              padding: 2,
+              width: '100%',
+              borderRadius: 3,
+              marginBlock: 5
+            }}
+          >
+            {!checkIsAlreadyFriend(contactSelected.user_id)
+              ? (
+                  <Checkbox
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    sx={{ mr: 2 }}
+                  />
+                )
+              : (
+                  <Typography component="h1" variant="h5" sx={{ marginInline: 3 }}> Added </Typography>
+                )
+            }
+            <UserProfileImage userImage={contactSelected.profile_image} />
+            <Typography component="h1" variant="h5" sx={{ marginInline: 3 }}> { contactSelected.nick_name } </Typography>
+          </Box>
+        )}
+
+        {alertState && (
+          <Alert severity={alertState.alertType}>
+            {alertState.message}
+          </Alert>
+        )}
+
         <Button
-          type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          disabled={!contactSelected}
+          disabled={!isChecked}
+          onClick={addContact}
         >
           Add contact
         </Button>

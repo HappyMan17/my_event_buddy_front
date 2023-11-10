@@ -67,7 +67,7 @@ const ModifyProfileForm = () => {
         onClick={handleUploadClick}
         sx={{ width: '80px', height: '80px', borderRadius: 10, backgroundColor: 'transparent', margin: 3 }}
       >
-        <UserProfileImage user={user} />
+        <UserProfileImage userImage={user?.profile_image} />
       </Button>
       <TextField
         error={!!errors.userName}

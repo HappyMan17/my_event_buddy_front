@@ -2,7 +2,7 @@ import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
 import { getUserByEmail } from '../../../api'
 import { setContactSelected, setErrorMessage, setIsLoading } from './contactSlice'
 import { createContact } from '../../../api/service'
-import { contactMapper } from '../../../mappers'
+import { userMapper } from '../../../mappers'
 
 export const getAUserByEmail = (email: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
@@ -18,7 +18,7 @@ export const getAUserByEmail = (email: string) => {
 
     console.log({ data }) // todo remove
     dispatch(setIsLoading(false))
-    dispatch(setContactSelected(contactMapper(data.user)))
+    dispatch(setContactSelected(userMapper(data.user)))
   }
 }
 
