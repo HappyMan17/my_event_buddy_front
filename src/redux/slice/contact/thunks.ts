@@ -35,7 +35,7 @@ export const AddUserContact = (contactId: string) => {
     }
 
     console.log({ data }) // todo remove
-    dispatch(setErrorMessage({ alertType: 'error', message: 'Contact added successfully' }))
+    dispatch(setErrorMessage({ alertType: 'success', message: 'Contact added successfully' }))
     dispatch(setIsLoading(false))
   }
 }
