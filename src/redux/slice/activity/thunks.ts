@@ -33,7 +33,7 @@ export const createNewActivity = (newActivity: Activity) => {
       dispatch(setActivityError({ message: 'Activity not created. Please try again.', alertType: 'error' }))
       return
     }
-    console.log({ data, act: data.activity })
+    // console.log({ data, act: data.activity })
 
     dispatch(setActivity(activityMapper(data.activity)))
     dispatch(setActivityError({ message: 'Activity created.', alertType: 'success' }))

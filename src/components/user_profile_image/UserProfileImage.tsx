@@ -1,30 +1,29 @@
 import { Avatar } from '@mui/material'
 import { k } from '../../helpers'
-import { type User } from '../../models'
 import { deepOrange } from '@mui/material/colors'
 
 interface UserProfileImageProps {
-  user: User | null
+  userImage: string | undefined
   props?: {
     width: string
     height: string
   }
 }
 
-const UserProfileImage: React.FC<UserProfileImageProps> = ({ user, props = {} }) => {
+const UserProfileImage: React.FC<UserProfileImageProps> = ({ userImage, props = {} }) => {
   const { width = '85px', height = '85px' } = props
 
-  if (!user) {
+  if (!userImage) {
     return (
       <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ 'U' }</Avatar>
     )
   }
 
-  const profileImageUrl = `${k.api.BASE_URL}${k.api.USER_PROFILE_IMAGE}${user.profile_image}`
+  const profileImageUrl = `${k.api.BASE_URL}${k.api.USER_PROFILE_IMAGE}${userImage}`
 
   return (
     <>
-      {user.profile_image && user.profile_image !== ''
+      {userImage && userImage !== ''
         ? (
             <Avatar
               sx={{ width, height }}
@@ -32,7 +31,7 @@ const UserProfileImage: React.FC<UserProfileImageProps> = ({ user, props = {} })
             />
           )
         : (
-            <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ user.nick_name.at(0) ?? 'P' }</Avatar>
+            <Avatar sx={{ bgcolor: deepOrange[500], padding: 5 }}>{ 'P' }</Avatar>
           )
       }
     </>

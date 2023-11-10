@@ -36,7 +36,7 @@ export const createNewEvent = (newEvent: Event, file: any) => {
 
     const image = await updateEventLogo(data.event.event_id!, file)
     if (!image) {
-      console.log({ ms: 'image not created' })
+      // console.log({ ms: 'image not created' })
       return
     }
 
