@@ -1,6 +1,6 @@
 const constants = {
   api: {
-    BASE_URL: 'http://localhost:3000',
+    BASE_URL: 'http://ec2-18-222-174-9.us-east-2.compute.amazonaws.com:3000',
     LOGIN: '/api/auth/login',
     REGISTER: '/api/auth/register',
     GET_USER: '/api/user/',
