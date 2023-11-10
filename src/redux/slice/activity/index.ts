@@ -1,2 +1,2 @@
-export { default as activityReducer } from './activitySlice';
-export * from './thunks';
+export { default as activityReducer } from './activitySlice'
+export * from './thunks'

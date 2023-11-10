@@ -38,9 +38,9 @@ export const userSlice = createSlice({
       state.isLoading = false
     },
     checkUserToken: (state) => {
-      if (!isTokenValid()) {
-        logout()
-      }
+      // if (!isTokenValid()) {
+      //   logout()
+      // }
       state.isLoading = false
     }
   }

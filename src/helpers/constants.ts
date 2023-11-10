@@ -4,6 +4,7 @@ const constants = {
     LOGIN: '/api/auth/login',
     REGISTER: '/api/auth/register',
     GET_USER: '/api/user/',
+    GET_USER_BY_EMAIL: '/api/user/email/',
     UPDATE: '/api/user/update',
     UPDATE_USER_PROFILE_IMAGE: '/api/user/upload',
     USER_PROFILE_IMAGE: '/images/profile_images/',

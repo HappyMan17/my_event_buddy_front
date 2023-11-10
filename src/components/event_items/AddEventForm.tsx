@@ -57,7 +57,7 @@ const AddEventForm = () => {
       setAlertState({ alertType: 'error', message: 'Event not created, date required' })
       return;
     }
-    console.log({ date: new Date(eventDate as string) })
+    // console.log({ date: new Date(eventDate as string) })
     const newEvent: Event = {
       event_id: '',
       event_date: new Date(eventDate as string),
