@@ -1,7 +1,7 @@
 import { Outlet, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import UserHome from '../pages/user_home/UserHome';
-import { userHomeNavItems } from '../../components/data';
+import { userHomeSideBarItems, userHomeNavItems } from '../../components/data';
 import { Suspense, lazy } from 'react';
 import { Grid } from '@mui/material';
 import { EventPage } from '../pages/';
@@ -16,7 +16,7 @@ const ModifyEventForm = lazy(async () => await import('../../components/event_it
 const Layout = () => {
   return (
     <>
-      <Navbar props={{ navbarItem: userHomeNavItems, sideBarItems: userHomeNavItems }} >
+      <Navbar props={{ navbarItem: userHomeNavItems, sideBarItems: userHomeSideBarItems }} >
         <Suspense fallback={<Grid>Loading...</Grid>}>
           <Outlet />
         </Suspense>
