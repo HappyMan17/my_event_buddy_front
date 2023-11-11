@@ -1,6 +1,6 @@
 import { type NavItemType } from './types';
 
-export const userHomeNavItems: NavItemType[] = [
+export const userHomeSideBarItems: NavItemType[] = [
   {
     buttonName: 'Modify Profile',
     pageLink: 'modify-account'
@@ -28,5 +28,12 @@ export const userHomeNavItems: NavItemType[] = [
   {
     buttonName: 'User Home',
     pageLink: ''
+  }
+]
+
+export const userHomeNavItems: NavItemType[] = [
+  {
+    buttonName: 'Home',
+    pageLink: '/'
   }
 ]
