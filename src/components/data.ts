@@ -24,10 +24,6 @@ export const userHomeSideBarItems: NavItemType[] = [
   {
     buttonName: 'Modify Event',
     pageLink: 'modify-event'
-  },
-  {
-    buttonName: 'User Home',
-    pageLink: ''
   }
 ]
 
