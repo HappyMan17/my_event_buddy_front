@@ -15,7 +15,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({ props, onItemClick }
   const open = Boolean(anchorEl);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
-    console.log({ event, current: event.currentTarget })
+    // console.log({ event, current: event.currentTarget })
     setAnchorEl(event.currentTarget);
   };
 

@@ -47,7 +47,7 @@ const AddActivityForm = () => {
 
   const onSubmit: SubmitHandler<ActivityInputs> = async (data) => {
     const event: Event = location.state
-    console.log({ data, event })
+    // console.log({ data, event })
     const newActivity: Activity = {
       event_id: event?.event_id ?? '',
       description: data.description,

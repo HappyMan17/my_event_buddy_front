@@ -22,6 +22,16 @@ export const getUser = async () => {
   return data;
 }
 
+export const getUserByEmail = async (email: string): Promise<any> => {
+  const url = `${k.api.BASE_URL}${k.api.GET_USER_BY_EMAIL}${email}`
+  const { data, error } = await get(url)
+  if (error != null) {
+    console.log('error getting user')
+    return null
+  }
+  return data;
+}
+
 export const createUser = async (user: User): Promise<any | null> => {
   const url = `${k.api.BASE_URL}${k.api.REGISTER}`
   const { data, error } = await post(url, user)

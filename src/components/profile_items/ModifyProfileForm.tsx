@@ -50,7 +50,7 @@ const ModifyProfileForm = () => {
     } else {
       const imageResponse = await updateUserProfileImage(userUpdateData, files)
       if (!imageResponse) {
-        console.log({ ms: (t('image_error')) })
+        // console.log({ ms: (t('image_error')) })
         dispatch(setUser({ ...user!, ...userUpdateData }))
       } else {
         dispatch(setUser({ ...user!, ...userUpdateData, profile_image: imageResponse.profile_image }))
@@ -67,7 +67,7 @@ const ModifyProfileForm = () => {
         onClick={handleUploadClick}
         sx={{ width: '80px', height: '80px', borderRadius: 10, backgroundColor: 'transparent', margin: 3 }}
       >
-        <UserProfileImage user={user} />
+        <UserProfileImage userImage={user?.profile_image} />
       </Button>
       <TextField
         error={!!errors.userName}
