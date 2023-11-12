@@ -2,28 +2,28 @@ import { type NavItemType } from './types';
 
 export const userHomeSideBarItems: NavItemType[] = [
   {
-    buttonName: 'Profile',
-    dropdownButtonsName: [
-      { buttonName: 'Modify Profile', pageLink: 'modify-account' },
-      { buttonName: 'Inactivate Profile', pageLink: 'inactivate-account' }
-    ],
-    pageLink: ''
+    buttonName: 'Modify Profile',
+    pageLink: 'modify-account'
   },
   {
-    buttonName: 'Contacts',
-    dropdownButtonsName: [
-      { buttonName: 'Add Contacts', pageLink: 'add-contact' },
-      { buttonName: 'Delete Contacts', pageLink: 'delete-contact' }
-    ],
-    pageLink: ''
+    buttonName: 'Inactivate Profile',
+    pageLink: 'inactivate-account'
   },
   {
-    buttonName: 'Events',
-    dropdownButtonsName: [
-      { buttonName: 'Add Event', pageLink: 'add-event' },
-      { buttonName: 'Modify Event', pageLink: 'modify-event' }
-    ],
-    pageLink: ''
+    buttonName: 'Add Contacts',
+    pageLink: 'add-contact'
+  },
+  {
+    buttonName: 'Delete Contacts',
+    pageLink: 'delete-contact'
+  },
+  {
+    buttonName: 'Add Event',
+    pageLink: 'add-event'
+  },
+  {
+    buttonName: 'Modify Event',
+    pageLink: 'modify-event'
   }
 ]
 
