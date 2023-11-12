@@ -19,9 +19,12 @@ const Register = () => {
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null); //
 
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const { t } = useTranslation();
 
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setButtonDisabled(true);
     const newUser: User = {
       email: data.email,
       password: data.password,
@@ -31,7 +34,10 @@ const Register = () => {
     }
     const response = await createUser(newUser)
     if (!response) {
+
       setAlertMessage(t('register_error'));
+      setButtonDisabled(false);
+      
     } else {
       setAlertMessage(t('register_successfully'));
       navigate('/login')
@@ -90,6 +96,7 @@ const Register = () => {
           })}
         />
         <Button
+          disabled={isButtonDisabled}
           type="submit"
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}

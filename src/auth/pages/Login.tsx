@@ -22,18 +22,23 @@ const Login = () => {
 
   const dispatch = useDispatch()
 
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const { t } = useTranslation();
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setButtonDisabled(true);
     const user = {
       email: data.email,
       password: data.password
     }
     const response = await loginUser(user)
     if (!response?.token) {
+
       setAlertMessage(t('login_error'));
+
       return;
     } else {
       // console.log({ user, ms: 'login' });
@@ -45,7 +50,9 @@ const Login = () => {
   };
 
   return (
+
     <AuthLayout props={{ title: (t('login')), minHeight: '500px' }} >
+
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
         <LanguageSelector/>
         <TextField
@@ -79,6 +86,7 @@ const Login = () => {
           type="submit"
           fullWidth variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          disabled={isButtonDisabled}
         >
           {t('button_login')}
         </Button>
