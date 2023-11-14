@@ -83,8 +83,8 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
         navItems={sideBarItems}
         isMenuOpen={isSideBarOpen}
         toggleHandler={handleSideBarToggle}
-        hasDropdown={true}
-        props={{ hasCloseButton: true, hasLogoutButton: true, logout: componentLogout }}
+        hasLogoutButton={true}
+        logout={componentLogout}
       />
       <Box component="main" sx={{ p: 2, flexGrow: 1 }}>
         <Toolbar />
