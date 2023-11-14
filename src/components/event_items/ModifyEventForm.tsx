@@ -16,7 +16,7 @@ export interface UpdateInputs {
 }
 
 const ModifyEventForm = () => {
-  const { errorMessage, isLoading } = useSelector((state: RootState) => state.event)
+  const { errorMessage, isLoading, events } = useSelector((state: RootState) => state.event)
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
@@ -87,7 +87,7 @@ const ModifyEventForm = () => {
         label="Select Event"
         onChange={(e) => {
           const selectedEventId = e.target.value
-          const selected = eventsList.find((event) => event.event_id === selectedEventId)
+          const selected = events.find((event) => events.event_id === selectedEventId)
           onSelectEvent(selected ?? null)
         }}
       >
