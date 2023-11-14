@@ -1,4 +1,4 @@
-import { get, post } from '..'
+import { get, post, put } from '..'
 import { k } from '../../helpers'
 import { type Activity } from '../../models'
 
@@ -22,3 +22,19 @@ export const createActivity = async (activity: Activity): Promise<any | null> =>
   }
   return data
 }
+
+export const updateActivity = async (activityId: string, updatedData: any) => {
+  const url = `${k.api.BASE_URL}${k.api.UPDATE_ACTIVITIES}${activityId}`
+  // Se realiza una solicitud para actualizar la actividad usando la función `put` (o la que corresponda).
+  const { data, error } = await put(url, updatedData)
+
+  // Se verifica si hubo algún error en la solicitud.
+  if (error !== null) {
+    console.log('error updating activity')
+    return null
+  }
+
+  // Si no hay errores, se devuelve la data obtenida de la solicitud.
+  return data;
+}
+
