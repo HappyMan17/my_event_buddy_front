@@ -18,7 +18,11 @@ export const get = async (url: string) => {
       error = new Error(`Request failed with status ${response.status}`)
     }
   } catch (error) {
-    throw error
+    // throw error
+    return {
+      data,
+      error
+    }
   }
   return {
     data,
