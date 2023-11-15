@@ -16,41 +16,23 @@ export interface UpdateInputs {
 }
 
 const ModifyEventForm = () => {
-  const { errorMessage, isLoading, events } = useSelector((state: RootState) => state.event)
+  const { errorMessage, isLoading } = useSelector((state: RootState) => state.event)
   const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [eventsList, setEventsList] = useState<Event[]>([]);
-
-  const onSelectEvent = (event: Event | null) => {
-    setSelectedEvent(event);
-
-    if (event) {
-      setValue('eventName', event.event_name);
-      setValue('eventDescription', event.description);
-      setValue('eventType', event.type);
-    } else {
-      setValue('eventName', '');
-      setValue('eventDescription', '');
-      setValue('eventType', '');
-    }
-  };
-
   const location = useLocation();
-
+  const navigate = useNavigate()
   const { t } = useTranslation();
-
-  const currencies = [t('family_travel'), t('couples_travel'), t('friends_reunion')];
-
-  const [selectedCurrency, setSelectedCurrency] = useState('');
-
-  const {
-    // register,
-    handleSubmit,
-    // formState: { errors }
-    setValue
-  } = useForm<UpdateInputs>()
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
+  const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [event, setEvent] = useState<Event | null>(null);
+
+  useEffect(() => {
+    if (!location.state) {
+      navigate('/')
+      return
+    }
+    setEvent(location.state)
+    setSelectedCurrency(location.state.type)
+  }, [])
 
   useEffect(() => {
     if (errorMessage) {
@@ -61,16 +43,29 @@ const ModifyEventForm = () => {
     }
   }, [errorMessage])
 
+  const currencies = [t('family_travel'), t('couples_travel'), t('friends_reunion')];
+
+  const {
+    register: update,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<UpdateInputs>({
+    defaultValues: {
+      eventDescription: location.state.description,
+      eventName: location.state.event_name,
+      eventType: location.state.type
+    }
+  })
+
   const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
-    const event: Event = location.state
     // console.log({ data, event })
-    const update: Event = {
-      ...event,
+    const updatedEvent: Event = {
+      ...event!,
       event_name: data.eventName,
       description: data.eventDescription,
-      type: data.eventType
+      type: selectedCurrency
     }
-    void dispatch(updateEvent(update))
+    void dispatch(updateEvent(updatedEvent))
   }
 
   const handleCurrencyChange = (event: ChangeEvent<{ value: unknown }>) => {
@@ -79,79 +74,65 @@ const ModifyEventForm = () => {
 
   return (
     <FormLayout props={{ title: (t('modify_event')), buttonText: (t('button_save')), handleSubmit: handleSubmit(onSubmit), isLoading }}>
-        <TextField
+      <TextField
+        error={!!errors.eventName}
+        margin="normal"
+        required
+        fullWidth
+        id="eventName"
+        label={t('name')}
+        type="text"
+        autoFocus
+        {...update('eventName', { required: (t('field_required')) })}
+      />
+      <TextField
+        error={!!errors.eventDescription}
+        margin="normal"
+        required
+        fullWidth
+        id="eventDescription"
+        label={t('event_description')}
+        type="text"
+        {...update('eventDescription', { required: (t('field_required')) })}
+      />
+      <TextField
+        error={!!errors.eventType}
         margin="normal"
         select
         fullWidth
-        id="selectEvent"
-        label="Select Event"
-        onChange={(e) => {
-          const selectedEventId = e.target.value
-          const selected = events.find((event) => events.event_id === selectedEventId)
-          onSelectEvent(selected ?? null)
-        }}
+        id="eventType"
+        label={t('event_type')}
+        value={selectedCurrency}
+        onChange={handleCurrencyChange}
+        helperText={t('helper_textevent_type')}
       >
-        {eventsList.map((event) => (
-          <MenuItem key={event.event_id} value={event.event_id}>
-            {event.event_name}
+        {currencies.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
           </MenuItem>
         ))}
       </TextField>
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="eventName"
-            label={t('name')}
-            type="text"
-        />
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="eventDescription"
-            label={t('event_description')}
-            type="text"
-        />
-        <TextField
-            margin="normal"
-            select
-            fullWidth
-            id="eventType"
-            label={t('event_type')}
-            value={selectedCurrency}
-            onChange={handleCurrencyChange}
-            helperText={t('helper_textevent_type')}
-        >
-            {currencies.map((option) => (
-                <MenuItem key={option} value={option}>
-                    {option}
-                </MenuItem>
-            ))}
-        </TextField>
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="addContact"
-            label={t('add_contact')}
-            autoComplete="email"
-            autoFocus
-        />
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="deleteContact"
-            label={t('delete_contact')}
-            autoComplete="email"
-            autoFocus
-        />
-        {alertState && (
-        <Alert severity={alertState.alertType}>
-          {alertState.message}
-        </Alert>
-        )}
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="addContact"
+        label={t('add_contact')}
+        autoComplete="email"
+      />
+      <TextField
+        margin="normal"
+        required
+        fullWidth
+        id="deleteContact"
+        label={t('delete_contact')}
+        autoComplete="email"
+      />
+      {alertState && (
+      <Alert severity={alertState.alertType}>
+        {alertState.message}
+      </Alert>
+      )}
     </FormLayout>
   );
 };

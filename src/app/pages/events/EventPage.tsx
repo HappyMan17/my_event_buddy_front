@@ -64,7 +64,12 @@ const EventPage = () => {
         </Typography>
         <Grid container sx={{ justifyContent: 'center' }} spacing={3} >
           <Grid item>
-            <Button variant='contained'> Edit Event </Button>
+            <Button
+              variant='contained'
+              onClick={() => { handleButtonClick('/modify-event'); }}
+            >
+              Edit Event
+            </Button>
           </Grid>
           <Grid item>
             <Button
