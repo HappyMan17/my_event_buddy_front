@@ -43,3 +43,16 @@ export const updateEventLogo = async (eventId: string, file: any): Promise<any |
   }
   return data
 }
+
+export const updateEvent = async (updatedEvent: Event): Promise<any | null> => {
+  const url = `${k.api.BASE_URL}${k.api.UPDATE}`
+
+  const { data, error } = await put(url, updatedEvent)
+
+  if (error !== null) {
+    console.log('error updating event: ', error)
+    return null
+  }
+
+  return data
+}

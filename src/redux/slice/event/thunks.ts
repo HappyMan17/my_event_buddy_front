@@ -1,6 +1,6 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
 import { resetEvents, setEvent, setEventError, setIsLoading } from './eventSlice'
-import { getEventsByUserId, createEvent, updateEventLogo } from '../../../api/service'
+import { getEventsByUserId, createEvent, updateEventLogo, updateEvent as updateEventApi } from '../../../api/service'
 import { eventMapper } from '../../../mappers'
 import { type Event } from '../../../models'
 
@@ -43,5 +43,27 @@ export const createNewEvent = (newEvent: Event, file: any) => {
     data.logo = image.logo
     dispatch(setEvent(eventMapper(data.event)))
     dispatch(setEventError({ message: 'Event created.', alertType: 'success' }))
+  }
+}
+
+export const updateEvent = (updatedEvent: Event) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(setIsLoading());
+
+    try {
+      const updatedEventData = await updateEventApi(updatedEvent);
+
+      if (!updatedEventData) {
+        dispatch(setEventError({ message: 'Event update failed. Please try again.', alertType: 'error' }));
+        return;
+      }
+
+      const mappedUpdatedEvent = eventMapper(updatedEventData);
+      dispatch(setEvent(mappedUpdatedEvent));
+      dispatch(setEventError({ message: 'Event updated successfully.', alertType: 'success' }));
+    } catch (error) {
+      console.error('Error updating event:', error);
+      dispatch(setEventError({ message: 'An error occurred while updating the event.', alertType: 'error' }));
+    }
   }
 }

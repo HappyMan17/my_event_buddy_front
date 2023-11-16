@@ -69,7 +69,7 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
             position: 'block'
           }}>
             <Breadcrumbs separator='/' color='#ffffff'>
-              {navbarItem.map((item) => (
+              {navbarItem.filter(item => item.buttonName === 'Home').map((item) => (
                 <Button key={item.buttonName} href={item.pageLink} sx={{ color: '#fff' }}>
                     {item.buttonName}
                 </Button>
