@@ -1,5 +1,5 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
-import { resetActivities, setActivity, setActivityError, setIsLoading } from './activitySlice'
+import { resetActivities, setActivity, setActivityError, setIsLoading, updateActivityData} from './activitySlice'
 import { createActivity, getActivitiesByEvent, updateActivity as updateActivityApi } from '../../../api'
 import { activityMapper } from '../../../mappers/'
 import { type ActivityUpdate, type Activity } from '../../../models'
@@ -40,12 +40,12 @@ export const createNewActivity = (newActivity: Activity) => {
   }
 }
 
-export const updateActivity = (activityUpdate: ActivityUpdate) => {
+export const updateActivity = (activityId: string, updatedData: ActivityUpdate) => {
   return async (dispatch: Dispatch<AnyAction>) => {
     dispatch(setIsLoading())
 
     // Realiza una llamada a la API para actualizar la actividad
-    const data = await updateActivityApi(activityUpdate)
+    const data = await updateActivityApi(activityId, updatedData);
 
     // Si no se recibe algo inidca un error
     if (!data) {
@@ -53,7 +53,7 @@ export const updateActivity = (activityUpdate: ActivityUpdate) => {
       return;
     }
 
-    dispatch(setActivity(data.activity));
+    dispatch(updateActivityData(data.activity));
     dispatch(setActivityError({ message: 'Activity updated.', alertType: 'success' }));
   }
 }

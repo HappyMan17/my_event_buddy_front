@@ -2,7 +2,6 @@ import { type AlertColor } from '@mui/material/Alert'
 
 export interface NavItemType {
   buttonName: string
-  dropdownButtonsName?: NavItemType[]
   pageLink: string
 }
 
