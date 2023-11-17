@@ -7,4 +7,5 @@ export interface Event {
   type: string
   logo: string
   has_activity: boolean
+  has_been_done?: boolean
 }
