@@ -39,7 +39,7 @@ export default function DrawerAppBar() {
     <Box sx={{
       display: 'flex'
     }}>
-      <CssBaseline />
+      {<CssBaseline />}
       <AppBar elevation={0} component="nav" sx={{ bgcolor: 'transparent' }}>
         <Toolbar sx={{
           alignItems: 'center',

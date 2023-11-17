@@ -20,13 +20,13 @@ export default function BodyPage() {
     }} >
       <Grid container sx={{
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%',
         height: '70vh'
       }}>
         {/** Grid for image */}
-        <Grid item xs={6} sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'center' }}>
+        <Grid item xs={12} sm={1} sx={{ display: { xs: 'none', sm: 'block' }, justifyContent: 'center', alignItems: 'center' }}>
           <img
             style={{ display: 'block' }}
             src={pageBodyImage}
