@@ -45,7 +45,7 @@ export const updateEventLogo = async (eventId: string, file: any): Promise<any |
 }
 
 export const updateEvent = async (updatedEvent: Event): Promise<any | null> => {
-  const url = `${k.api.BASE_URL}${k.api.UPDATE}`
+  const url = `${k.api.BASE_URL}${k.api.UPDATE_EVENT}`
 
   const { data, error } = await put(url, updatedEvent)
 
