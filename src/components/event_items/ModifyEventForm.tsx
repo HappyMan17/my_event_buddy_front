@@ -12,12 +12,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { type Dayjs } from 'dayjs';
+//import { type Dayjs } from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 export interface UpdateInputs {
   eventName: string
   eventDescription: string
   eventType: string
+  eventData: Date
 }
 
 const ModifyEventForm = () => {
@@ -36,11 +38,13 @@ const ModifyEventForm = () => {
       navigate('/')
       return
     }
+    setEventDate(dayjs(location.state.event_date))
     setEvent(location.state)
     setSelectedCurrency(location.state.type)
   }, [])
 
   useEffect(() => {
+    console.log({ location })
     if (errorMessage) {
       setAlertState(errorMessage)
     }
@@ -59,16 +63,19 @@ const ModifyEventForm = () => {
     defaultValues: {
       eventDescription: location.state.description,
       eventName: location.state.event_name,
-      eventType: location.state.type
+      eventType: location.state.type,
+      eventDate: new Date(eventDate as string)
     }
   })
 
-  const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
+  const onSubmit: SubmitHandler<UpdateInputs> = async (data: UpdateInputs) => {
+    
     const updatedEvent: Event = {
       ...event!,
       event_name: data.eventName,
       description: data.eventDescription,
       type: selectedCurrency,
+      event_date: new Date(eventDate),
       has_activity: false,
       has_been_done: false
     }

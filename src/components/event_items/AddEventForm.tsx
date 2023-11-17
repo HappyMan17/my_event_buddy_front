@@ -52,7 +52,7 @@ const AddEventForm = () => {
     setSelectedCurrency(event.target.value as string);
   };
 
-  const onSubmit: SubmitHandler<EventInputs> = async (data) => {
+  const onSubmit: SubmitHandler<EventInputs> = async (data: EventInputs) => {
     if (!eventDate) {
       setAlertState({ alertType: 'error', message: 'Event not created, date required' })
       return;
