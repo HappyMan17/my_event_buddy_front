@@ -17,6 +17,7 @@ const EventPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log({ location })
     if (!location?.state) {
       navigate('/')
       return
