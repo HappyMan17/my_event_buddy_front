@@ -23,8 +23,8 @@ export const createActivity = async (activity: Activity): Promise<any | null> =>
   return data
 }
 
-export const updateActivity = async (activityId: string, updatedData: any) => {
-  const url = `${k.api.BASE_URL}${k.api.UPDATE_ACTIVITIES}${activityId}`
+export const updateActivity = async (updatedData: any) => {
+  const url = `${k.api.BASE_URL}${k.api.UPDATE_ACTIVITIES}`
   // Se realiza una solicitud para actualizar la actividad usando la función `put` (o la que corresponda).
   const { data, error } = await put(url, updatedData)
 
@@ -37,4 +37,3 @@ export const updateActivity = async (activityId: string, updatedData: any) => {
   // Si no hay errores, se devuelve la data obtenida de la solicitud.
   return data;
 }
-
