@@ -34,10 +34,24 @@ export const activitySlice = createSlice({
     resetActivities: (state) => {
       state.isLoading = false
       state.activities = []
-    }
+    },
+    updateActivityData:(state, action: PayloadAction<Activity>) => {
+      state.isLoading = false
+      state.errorMessage = null
+
+      const updatedActivityData = action.payload
+
+      // Busca la actividad existente en el estado por su ID
+      const existingActivity = state.activities.findIndex(activity => activity.activity_id === updatedActivityData.activity_id)
+
+      // Si la actividad existe, se actualiza la información
+      if (existingActivity!== -1) {
+      state.activities[existingActivity] = updatedActivityData
+      }
+    },
   }
 })
 
-export const { setIsLoading, setActivity, setActivityError, resetActivities } = activitySlice.actions
+export const { setIsLoading, setActivity, setActivityError, resetActivities, updateActivityData} = activitySlice.actions
 
 export default activitySlice.reducer

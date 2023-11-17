@@ -57,16 +57,17 @@ const UpdatedActivity = () => {
 
   const onSubmit: SubmitHandler<ActivityInputs> = async (data) => {
     const event: Event = location.state
+
     const updatedActivity: ActivityUpdate = {
       activity_id: data.activity_id,
       event_id: event?.event_id ?? '',
       description: data.description,
       total_activity_value: data.total_activity_value,
-      is_by_percentage: !!isByPersentage,
+      is_by_percentage: isByPersentage,
       has_been_done: false
     }
     // Envia la acción de actualización de actividad
-    void dispatch(updateActivity(updatedActivity))
+    void dispatch(updateActivity(updatedActivity.activity_id, updatedActivity))
   }
 
   const handleButtonClick = (selection: boolean) => {
