@@ -4,8 +4,8 @@ import UserHome from '../pages/user_home/UserHome';
 import { userHomeSideBarItems, userHomeNavItems } from '../../components/data';
 import { Suspense, lazy } from 'react';
 import { Grid } from '@mui/material';
-import { EventPage } from '../pages/';
-import { AddActivityForm } from '../../components';
+import { ActivityPage, EventPage } from '../pages/';
+import { AddActivityForm, ModifyActivity } from '../../components';
 const ModifyProfileForm = lazy(async () => await import('../../components/profile_items/ModifyProfileForm'));
 const InactivateProfileForm = lazy(async () => await import('../../components/profile_items/InactivateProfileForm'));
 const AddContactForm = lazy(async () => await import('../../components/contacts_items/AddContactForm'));
@@ -36,8 +36,10 @@ export const PagesRouter = () => {
           <Route path="delete-contact" element={ <DeleteContactForm /> } />
           <Route path="add-event" element={ <AddEventForm /> } />
           <Route path="modify-event" element={ <ModifyEventForm /> } />
-          <Route path="add-activity" element={ <AddActivityForm /> } />
           <Route path="event-info" element={ <EventPage /> } />
+          <Route path="add-activity" element={ <AddActivityForm /> } />
+          <Route path="activity-info" element={ <ActivityPage /> } />
+          <Route path="modify-activity" element={ <ModifyActivity /> } />
           {/* Defult page */}
           <Route path="/*" element={ <Navigate to="/" replace={true} /> } />
         </Route>
