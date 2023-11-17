@@ -34,7 +34,7 @@ const EventPage = () => {
   }
 
   return (
-    <PageWithTable entities={activities} props={{ title, notFoundMessage: 'Activities not created', eyeRoute: 'event-info' }} >
+    <PageWithTable entities={activities} props={{ title, notFoundMessage: 'Activities not created', eyeRoute: '/activity-info' }} >
       <Grid item sx={{ marginBlock: 3, display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Button
           variant='contained'
@@ -70,12 +70,12 @@ const EventPage = () => {
               variant='contained'
               onClick={() => {
                 if (activities?.length > 0) {
-                  handleButtonClick('/modify-event');
-                } else {
                   setErrorMessage({
                     alertType: 'error',
                     message: 'The event has activities, so it cannot be modified'
                   })
+                } else {
+                  handleButtonClick('/modify-event');
                 }
               }}
             >
