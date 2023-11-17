@@ -17,6 +17,7 @@ const constants = {
     // activities
     GET_ACTIVITIES: '/api/activity/',
     CREATE_ACTIVITY: '/api/activity/create',
+    UPDATE_ACTIVITIES: '/api/activity/update',
     // contacts
     USER_CONTACTS: '/api/contact/',
     CREATE_CONTACT: '/api/contact/create'
