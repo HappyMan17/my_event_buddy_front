@@ -20,10 +20,6 @@ export const userHomeSideBarItems: NavItemType[] = [
   {
     buttonName: 'Add Event',
     pageLink: 'add-event'
-  },
-  {
-    buttonName: 'Modify Event',
-    pageLink: 'modify-event'
   }
 ]
 
