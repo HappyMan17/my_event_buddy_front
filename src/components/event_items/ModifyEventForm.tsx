@@ -58,12 +58,13 @@ const ModifyEventForm = () => {
   })
 
   const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
-    // console.log({ data, event })
     const updatedEvent: Event = {
       ...event!,
       event_name: data.eventName,
       description: data.eventDescription,
-      type: selectedCurrency
+      type: selectedCurrency,
+      has_activity: false,
+      has_been_done: false
     }
     void dispatch(updateEvent(updatedEvent))
   }
@@ -114,7 +115,7 @@ const ModifyEventForm = () => {
       </TextField>
       <TextField
         margin="normal"
-        required
+        // required
         fullWidth
         id="addContact"
         label={t('add_contact')}
@@ -122,16 +123,16 @@ const ModifyEventForm = () => {
       />
       <TextField
         margin="normal"
-        required
+        // required
         fullWidth
         id="deleteContact"
         label={t('delete_contact')}
         autoComplete="email"
       />
       {alertState && (
-      <Alert severity={alertState.alertType}>
-        {alertState.message}
-      </Alert>
+        <Alert severity={alertState.alertType}>
+          {alertState.message}
+        </Alert>
       )}
     </FormLayout>
   );
