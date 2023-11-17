@@ -1,15 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { type Event } from '../../../models'
 import { PageWithTable } from '../layouts'
-import { useEffect } from 'react';
-import { Grid, Typography, Button, Avatar } from '@mui/material';
+import { Grid, Typography, Button, Avatar, Alert } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState, getActivities } from '../../../redux';
 import { deepOrange } from '@mui/material/colors';
 import { k } from '../../../helpers';
+import { type AlertObject } from '../../../components/types';
 
 const EventPage = () => {
   const { activities } = useSelector((state: RootState) => state.activities)
+  const [errorMessage, setErrorMessage] = useState<null | AlertObject>(null)
   const dispatch = useDispatch<AppDispatch>()
   const location = useLocation();
   const navigate = useNavigate()
@@ -66,7 +68,16 @@ const EventPage = () => {
           <Grid item>
             <Button
               variant='contained'
-              onClick={() => { handleButtonClick('/modify-event'); }}
+              onClick={() => {
+                if (activities?.length > 0) {
+                  handleButtonClick('/modify-event');
+                } else {
+                  setErrorMessage({
+                    alertType: 'error',
+                    message: 'The event has activities, so it cannot be modified'
+                  })
+                }
+              }}
             >
               Edit Event
             </Button>
@@ -88,6 +99,11 @@ const EventPage = () => {
             Activities
         </Typography>
       </Grid>
+      {errorMessage && (
+        <Alert severity={errorMessage.alertType}>
+          {errorMessage.message}
+        </Alert>
+      )}
     </PageWithTable>
   )
 }
