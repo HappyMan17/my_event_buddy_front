@@ -8,11 +8,18 @@ import { type AppDispatch, type RootState, updateEvent } from '../../redux';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event } from '../../models';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+//import { type Dayjs } from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 export interface UpdateInputs {
   eventName: string
   eventDescription: string
   eventType: string
+  eventData: Date
 }
 
 const ModifyEventForm = () => {
@@ -24,17 +31,20 @@ const ModifyEventForm = () => {
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [event, setEvent] = useState<Event | null>(null);
+  const [eventDate, setEventDate] = useState<Dayjs | null | string>(null);
 
   useEffect(() => {
     if (!location.state) {
       navigate('/')
       return
     }
+    setEventDate(dayjs(location.state.event_date))
     setEvent(location.state)
     setSelectedCurrency(location.state.type)
   }, [])
 
   useEffect(() => {
+    console.log({ location })
     if (errorMessage) {
       setAlertState(errorMessage)
     }
@@ -53,16 +63,19 @@ const ModifyEventForm = () => {
     defaultValues: {
       eventDescription: location.state.description,
       eventName: location.state.event_name,
-      eventType: location.state.type
+      eventType: location.state.type,
+      eventDate: new Date(eventDate as string)
     }
   })
 
-  const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
+  const onSubmit: SubmitHandler<UpdateInputs> = async (data: UpdateInputs) => {
+    
     const updatedEvent: Event = {
       ...event!,
       event_name: data.eventName,
       description: data.eventDescription,
       type: selectedCurrency,
+      event_date: new Date(eventDate),
       has_activity: false,
       has_been_done: false
     }
@@ -113,6 +126,22 @@ const ModifyEventForm = () => {
           </MenuItem>
         ))}
       </TextField>
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        <DemoContainer components={['DatePicker', 'DatePicker']} sx={{ width: '100%' }}>
+          <DatePicker
+            label="Event Date"
+            value={eventDate}
+            sx={{ width: '100%' }}
+            onChange={setEventDate}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
+      <TextField
+        id="eventImage"
+        margin="normal"
+        fullWidth
+        type="file"
+      />
       <TextField
         margin="normal"
         // required

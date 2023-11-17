@@ -38,6 +38,7 @@ const Login = () => {
     if (!response?.token) {
 
       setAlertMessage(t('login_error'));
+      setButtonDisabled(false);
 
       return;
     } else {
