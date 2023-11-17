@@ -22,7 +22,8 @@ const PageWithTable: React.FC<PageProps> = ({ children, entities, props }) => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      height: { xs: '100%', sm: window.screen.height - 220 },
+      height: 'auto',
+      overflow: 'hidden',
       margin: 0
     }}>
       <Box

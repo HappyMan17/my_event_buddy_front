@@ -8,6 +8,7 @@ export { default as DeleteContactForm } from './contacts_items/DeleteContactForm
 export { default as AddEventForm } from './event_items/AddEventForm'
 export { default as ModifyEventForm } from './event_items/ModifyEventForm'
 export { default as AddActivityForm } from './activity_items/AddActivityForm'
+export { default as ModifyActivity } from './activity_items/UpdatedActivity'
 export { default as UserProfileImage } from './user_profile_image/UserProfileImage'
 export * from './side_bar/SideBar'
 export { default as LanguageSelector } from './language_selector/LanguageSelector'

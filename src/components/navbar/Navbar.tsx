@@ -69,7 +69,7 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
             position: 'block'
           }}>
             <Breadcrumbs separator='/' color='#ffffff'>
-              {navbarItem.map((item) => (
+              {navbarItem.filter(item => item.buttonName === 'Home').map((item) => (
                 <Button key={item.buttonName} href={item.pageLink} sx={{ color: '#fff' }}>
                     {item.buttonName}
                 </Button>
@@ -83,8 +83,8 @@ export const Navbar: React.FC <NavbarProps> = ({ children, props }) => {
         navItems={sideBarItems}
         isMenuOpen={isSideBarOpen}
         toggleHandler={handleSideBarToggle}
-        hasDropdown={true}
-        props={{ hasCloseButton: true, hasLogoutButton: true, logout: componentLogout }}
+        hasLogoutButton={true}
+        logout={componentLogout}
       />
       <Box component="main" sx={{ p: 2, flexGrow: 1 }}>
         <Toolbar />
