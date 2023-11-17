@@ -35,7 +35,7 @@ export const activitySlice = createSlice({
       state.isLoading = false
       state.activities = []
     },
-    updateActivityData:(state, action: PayloadAction<Activity>) => {
+    updateActivityData: (state, action: PayloadAction<Activity>) => {
       state.isLoading = false
       state.errorMessage = null
 
@@ -45,13 +45,13 @@ export const activitySlice = createSlice({
       const existingActivity = state.activities.findIndex(activity => activity.activity_id === updatedActivityData.activity_id)
 
       // Si la actividad existe, se actualiza la información
-      if (existingActivity!== -1) {
-      state.activities[existingActivity] = updatedActivityData
+      if (existingActivity !== -1) {
+        state.activities[existingActivity] = updatedActivityData
       }
-    },
+    }
   }
 })
 
-export const { setIsLoading, setActivity, setActivityError, resetActivities, updateActivityData} = activitySlice.actions
+export const { setIsLoading, setActivity, setActivityError, resetActivities, updateActivityData } = activitySlice.actions
 
 export default activitySlice.reducer
