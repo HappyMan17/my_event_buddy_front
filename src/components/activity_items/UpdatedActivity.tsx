@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Alert, Button, Grid, TextField, Typography } from '@mui/material'
+import { Alert, TextField } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { type AppDispatch, type RootState, updateActivity } from '../../redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
-import { type ActivityUpdate, type Event } from '../../models';
+import { type Event, type ActivityUpdate, type Activity } from '../../models';
 import { useLocation, useNavigate } from 'react-router';
 
 export interface ActivityInputs {
@@ -13,13 +13,15 @@ export interface ActivityInputs {
   event_id: string
   description: string
   total_activity_value: number
-  is_by_percentage: boolean
+  is_by_percentage: boolean // lo podríamos quitar
 }
 
 const UpdatedActivity = () => {
   const { errorMessage, isLoading } = useSelector((state: RootState) => state.activities)
+  const { events } = useSelector((state: RootState) => state.event)
+  const [currentEvent, setCurrentEvent] = useState<null | Event>(null)
+  const [currentActivity, setCurrentActivity] = useState<null | Activity>(null)
   const dispatch = useDispatch<AppDispatch>()
-  const [isByPersentage, setIsByPersentage] = useState<boolean>(true)
 
   const location = useLocation();
   const navigate = useNavigate()
@@ -37,52 +39,47 @@ const UpdatedActivity = () => {
       setAlertState(errorMessage)
     }
     if (errorMessage?.alertType === 'success') {
-      navigate('/')
+      navigate('/activity-info', { state: currentActivity })
     }
   }, [errorMessage])
 
   useEffect(() => {
     if (location.state) {
       const activityToUpdate: ActivityUpdate = location.state;
-      // Establece los valores iniciales del formulario con los datos de la actividad existente
-      setValue('activity_id', activityToUpdate.activity_id); // Establece el ID de la actividad
-      setValue('event_id', activityToUpdate.event_id);
       setValue('description', activityToUpdate.description);
       setValue('total_activity_value', activityToUpdate.total_activity_value);
-      setIsByPersentage(activityToUpdate.is_by_percentage);
+      // find current event
+      const event = events.find(event => event.event_id === activityToUpdate.event_id);
+      // set current event
+      event && setCurrentEvent(event)
     } else {
       navigate('/')
     }
-  }, [location.state]);
+  }, []);
 
   const onSubmit: SubmitHandler<ActivityInputs> = async (data) => {
-    const event: Event = location.state
+    const activity: ActivityUpdate = location.state
 
     const updatedActivity: ActivityUpdate = {
-      activity_id: data.activity_id,
-      event_id: event?.event_id ?? '',
+      ...activity,
       description: data.description,
       total_activity_value: data.total_activity_value,
-      is_by_percentage: isByPersentage,
       has_been_done: false
     }
+    setCurrentActivity(updatedActivity);
     // Envia la acción de actualización de actividad
-    void dispatch(updateActivity(updatedActivity.activity_id, updatedActivity))
-  }
-
-  const handleButtonClick = (selection: boolean) => {
-    setIsByPersentage(selection)
+    void dispatch(updateActivity(updatedActivity))
   }
 
   return (
-    <FormLayout props={{ title: 'Create Activity', buttonText: 'Create', handleSubmit: handleSubmit(onSubmit), isLoading }}>
+    <FormLayout props={{ title: 'Modify Activity', buttonText: 'Update', handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
         disabled
         margin="normal"
         fullWidth
         id="eventDescription"
         label="Event"
-        defaultValue={location.state?.event_name ?? ''}
+        value={currentEvent?.event_name ?? ''}
       />
       <TextField
         error={!!errors.description}
@@ -104,41 +101,6 @@ const UpdatedActivity = () => {
         type="text"
         {...register('total_activity_value', { required: 'Field required.' })}
       />
-      <Typography
-        variant="h6"
-        align="center"
-        sx={{ marginTop: 5 }}
-      >
-        Same percentage for every participant?
-      </Typography>
-      <Grid container sx={{ marginTop: 0.3, justifyContent: 'center' }} spacing={3}>
-        <Grid item>
-          <Button
-            variant={isByPersentage ? 'contained' : 'outlined'}
-            onClick={() => { handleButtonClick(true) }}
-          >
-            Si
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant={isByPersentage ? 'outlined' : 'contained'}
-            onClick={() => { handleButtonClick(false) }}
-          >
-            No
-          </Button>
-        </Grid>
-      </Grid>
-      <Typography
-        variant="subtitle2"
-        align="center"
-        sx={{ marginBlock: 3 }}
-      >
-        {isByPersentage
-          ? 'The same contribution percentage will be applied to each participant'
-          : 'The amount to pay by participant will be asked when it is added'
-        }
-      </Typography>
       {alertState && (
         <Alert severity={alertState.alertType}>
           {alertState.message}
