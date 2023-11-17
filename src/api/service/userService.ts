@@ -15,6 +15,9 @@ export const getAllUsers = async () => {
 export const getUser = async () => {
   const url = `${k.api.BASE_URL}${k.api.GET_USER}`
   const { data, error } = await get(url)
+  if (data.status === 401) {
+    throw Error('Expired Token')
+  }
   if (error != null) {
     console.log('error getting user')
     return null
