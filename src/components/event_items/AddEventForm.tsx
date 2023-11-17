@@ -69,6 +69,7 @@ const AddEventForm = () => {
     }
     const files = document.getElementById('eventImage')
     void dispatch(createNewEvent(newEvent, files))
+    navigate('/')
   }
 
   return (

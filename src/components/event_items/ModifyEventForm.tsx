@@ -8,6 +8,11 @@ import { type AppDispatch, type RootState, updateEvent } from '../../redux';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event } from '../../models';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { type Dayjs } from 'dayjs';
 
 export interface UpdateInputs {
   eventName: string
@@ -24,6 +29,7 @@ const ModifyEventForm = () => {
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [event, setEvent] = useState<Event | null>(null);
+  const [eventDate, setEventDate] = useState<Dayjs | null | string>(null);
 
   useEffect(() => {
     if (!location.state) {
@@ -113,6 +119,22 @@ const ModifyEventForm = () => {
           </MenuItem>
         ))}
       </TextField>
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+        <DemoContainer components={['DatePicker', 'DatePicker']} sx={{ width: '100%' }}>
+          <DatePicker
+            label="Event Date"
+            value={eventDate}
+            sx={{ width: '100%' }}
+            onChange={setEventDate}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
+      <TextField
+        id="eventImage"
+        margin="normal"
+        fullWidth
+        type="file"
+      />
       <TextField
         margin="normal"
         // required
