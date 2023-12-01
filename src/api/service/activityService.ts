@@ -1,6 +1,6 @@
 import { get, post, put } from '..'
 import { k } from '../../helpers'
-import { type Activity } from '../../models'
+import { type ActivityTypeRequest, type Activity, type ActivityId } from '../../models'
 
 export const getActivitiesByEvent = async (eventId: string) => {
   const url = `${k.api.BASE_URL}${k.api.GET_ACTIVITIES}${eventId}`
@@ -36,4 +36,28 @@ export const updateActivity = async (updatedData: any) => {
 
   // Si no hay errores, se devuelve la data obtenida de la solicitud.
   return data;
+}
+
+export const getActivityContactsById = async (object: ActivityId) => {
+  const url = `${k.api.BASE_URL}${k.api.ACTIVITY_CONTACT}`
+
+  const { data, error } = await post(url, object)
+  if (error != null) {
+    console.log('error getting activity')
+    return null
+  }
+  return data;
+}
+
+export const addActivityContactApi = async (activityContact: ActivityTypeRequest): Promise<any | null> => {
+  const url = `${k.api.BASE_URL}${k.api.ADD_ACTIVITY_CONTACT}`
+
+  const { data, error } = await post(url, activityContact)
+
+  if (error !== null) {
+    console.log('error added activity contact: ', error)
+    return null
+  }
+
+  return data
 }

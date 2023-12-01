@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Alert, TextField } from '@mui/material'
+import { Alert, TextField, Autocomplete, MenuItem, Typography } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { type AppDispatch, type RootState, updateActivity } from '../../redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,12 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event, type ActivityUpdate, type Activity } from '../../models';
 import { useLocation, useNavigate } from 'react-router';
+import SearchIcon from '@mui/icons-material/Search';
+
+export interface DropDownValue {
+  label: string
+  value: string
+}
 
 export interface ActivityInputs {
   activity_id: string // Pa identificar la actividad
@@ -18,10 +24,12 @@ export interface ActivityInputs {
 
 const UpdatedActivity = () => {
   const { errorMessage, isLoading } = useSelector((state: RootState) => state.activities)
+  const { userContacts } = useSelector((state: RootState) => state.contacts)
   const { events } = useSelector((state: RootState) => state.event)
   const [currentEvent, setCurrentEvent] = useState<null | Event>(null)
   const [currentActivity, setCurrentActivity] = useState<null | Activity>(null)
   const dispatch = useDispatch<AppDispatch>()
+  const [selectedOption, setSelectedOption] = useState<DropDownValue | null>(null);
 
   const location = useLocation();
   const navigate = useNavigate()
@@ -71,6 +79,10 @@ const UpdatedActivity = () => {
     void dispatch(updateActivity(updatedActivity))
   }
 
+  const handleChange = (_event: any, newValue: DropDownValue | null) => {
+    setSelectedOption(newValue);
+  };
+
   return (
     <FormLayout props={{ title: 'Modify Activity', buttonText: 'Update', handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
@@ -100,6 +112,36 @@ const UpdatedActivity = () => {
         label="total_activity_value"
         type="text"
         {...register('total_activity_value', { required: 'Field required.' })}
+      />
+      <Autocomplete
+        style={{ width: '100%', marginTop: '20px' }}
+        value={selectedOption}
+        onChange={handleChange}
+        options={userContacts.map((contact) => ({ label: contact.contactNickname!, value: contact.relationId }))}
+        isOptionEqualToValue={(option, value) => option.value === value.value}
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <MenuItem {...props}>
+            {option.label}
+          </MenuItem>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Choose a friend"
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <>
+                  <SearchIcon />
+                  {params.InputProps.startAdornment}
+                </>
+              )
+            }}
+          />
+        )}
+        noOptionsText={<Typography>No options</Typography>}
       />
       {alertState && (
         <Alert severity={alertState.alertType}>

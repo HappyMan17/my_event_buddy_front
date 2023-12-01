@@ -15,3 +15,18 @@ export interface ActivityUpdate {
   is_by_percentage: boolean
   has_been_done: boolean
 }
+
+export interface ActivityId {
+  activitiy_id: string
+}
+
+export interface ActivityContact {
+  activity_contacts_id?: string
+  activity_id: string
+  user_id: string
+}
+
+export interface ActivityTypeRequest {
+  activity_id: string
+  user_id: string
+}

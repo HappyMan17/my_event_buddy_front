@@ -1,8 +1,8 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
-import { resetActivities, setActivity, setActivityError, setIsLoading, updateActivityData } from './activitySlice'
-import { createActivity, getActivitiesByEvent, updateActivity as updateActivityApi } from '../../../api'
+import { resetActivities, resetActivityContact, setActivity, setActivityError, setIsLoading, setActivityContact, updateActivityData } from './activitySlice'
+import { createActivity, getActivitiesByEvent, updateActivity as updateActivityApi, getActivityContactsById } from '../../../api'
 import { activityMapper } from '../../../mappers/'
-import { type ActivityUpdate, type Activity } from '../../../models'
+import { type ActivityUpdate, type Activity, type ActivityId, type ActivityContact } from '../../../models'
 
 export const getActivities = (eventId: string) => {
   return async (dispatch: Dispatch<AnyAction>) => {
@@ -19,6 +19,24 @@ export const getActivities = (eventId: string) => {
     void data.activities.map((activity: Activity) => {
       const newActivity = activityMapper(activity)
       dispatch(setActivity(newActivity))
+    })
+  }
+}
+
+export const getActivityContact = (object: ActivityId) => {
+  return async (dispatch: Dispatch<AnyAction>) => {
+    dispatch(setIsLoading())
+
+    const data = await getActivityContactsById(object)
+
+    if (!data) {
+      dispatch(resetActivityContact())
+      return
+    }
+    dispatch(resetActivityContact())
+    // eslint-disable-next-line array-callback-return
+    void data.event.map((eventContact: ActivityContact) => {
+      dispatch(setActivityContact(eventContact))
     })
   }
 }
