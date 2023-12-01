@@ -14,6 +14,8 @@ const constants = {
     GET_EVENT: '/api/event',
     EVENT_PROFILE_IMAGE: '/api/event/upload',
     UPDATE_EVENT: '/api/event/update',
+    EVENT_CONTACT: '/api/event/contacts',
+    ADD_EVENT_CONTACT: '/api/event/add/contact',
     // activities
     GET_ACTIVITIES: '/api/activity/',
     CREATE_ACTIVITY: '/api/activity/create',

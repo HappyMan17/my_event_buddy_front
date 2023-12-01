@@ -9,3 +9,18 @@ export interface Event {
   has_activity: boolean
   has_been_done?: boolean
 }
+
+export interface EventTypeRequest {
+  event_id: string
+  contactId: string
+}
+
+export interface EventId {
+  event_id: string
+}
+
+export interface EventContact {
+  event_contacts_id?: string
+  event_id: string
+  contact_id: string
+}

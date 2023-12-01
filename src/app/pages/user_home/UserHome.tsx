@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { type AppDispatch, getUserById, getEvents, type RootState } from '../../../redux'
+import { type AppDispatch, getUserById, getEvents, type RootState, getAllUserContacts } from '../../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import PageWithTable from '../layouts/PageWithTable'
 
@@ -9,6 +9,7 @@ const UserHome = () => {
   useEffect(() => {
     void dispatch(getUserById())
     void dispatch(getEvents())
+    void dispatch(getAllUserContacts())
   }, [])
 
   return (
