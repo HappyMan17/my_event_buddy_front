@@ -2,6 +2,7 @@ import { Grid, Drawer, List, ListItem, ListItemButton, ListItemText, Typography,
 import CancelIcon from '@mui/icons-material/Cancel';
 import { type NavItemType } from '../types';
 import { useNavigate } from 'react-router-dom';
+import { LanguageSelector } from '..';
 
 interface SideBarProps {
   navItems: NavItemType[]
@@ -69,6 +70,7 @@ export const SideBar: React.FC<SideBarProps> = ({
               </ListItemButton>
             </ListItem>
           )}
+          <LanguageSelector/>
         </Grid>
       </Drawer>
     </nav>

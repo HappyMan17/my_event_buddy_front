@@ -4,11 +4,13 @@ import { PageWithTable } from '../layouts'
 import { useLocation, useNavigate } from 'react-router'
 import { type Activity } from '../../../models'
 import { type AlertObject } from '../../../components/types'
+import { useTranslation } from 'react-i18next';
 // import { type AlertObject } from '../../../components/types'
 
 const ActivityPage = () => {
   const [activity, setActivity] = useState<null | Activity>(null)
   const [errorMessage, setErrorMessage] = useState<null | AlertObject>(null)
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate()
 
@@ -43,7 +45,7 @@ const ActivityPage = () => {
         align="center"
         sx={{ justifyContent: 'end' }}
       >
-        DESCRIPTION:
+        {t('activity_pages_description')}
       </Typography>
       <Typography variant="subtitle1" align="center" sx={{ marginBottom: 5 }}>
         { activity?.description ?? '' }
@@ -55,7 +57,7 @@ const ActivityPage = () => {
         align="center"
         sx={{ justifyContent: 'end' }}
       >
-        VALUE:
+        {t('activity_valor')}
       </Typography>
       <Typography variant="subtitle1" align="center" sx={{ marginBottom: 5 }}>
       { activity?.total_activity_value ?? '' }
@@ -67,10 +69,10 @@ const ActivityPage = () => {
         align="center"
         sx={{ justifyContent: 'end' }}
       >
-        PERCENTAGE:
+        {t('activity_porcentage')}
       </Typography>
       <Typography variant="subtitle1" align="center" sx={{ marginBottom: 5 }}>
-      { activity?.is_by_percentage ? 'Es por porcentajes iguales.' : 'Se asignan montos a mano.' }
+      { activity?.is_by_percentage ? t('samePercentage') : t('askAmount') }
       </Typography>
 
       <Grid container sx={{ justifyContent: 'center' }} spacing={3}>
@@ -79,19 +81,19 @@ const ActivityPage = () => {
             variant="contained"
             onClick={() => { handleButtonClick('/modify-activity'); }}
           >
-            Edit activity
+            {t('button_update_activity')}
           </Button>
         </Grid>
         <Grid item></Grid>
         <Grid item>
           <Button variant="contained" color="error">
-            Complete activity
+            {t('button_complete_activity')}
           </Button>
         </Grid>
       </Grid>
 
       <Typography variant="h4" align="center" sx={{ marginTop: 5 }}>
-        Contactos
+        {t('contacts')}
       </Typography>
     </Grid>
     {errorMessage && (

@@ -7,6 +7,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Activity, type Event } from '../../models';
 import { useLocation, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export interface ActivityInputs {
   event_id: string
@@ -19,6 +20,8 @@ const AddActivityForm = () => {
   const { errorMessage, isLoading } = useSelector((state: RootState) => state.activities)
   const dispatch = useDispatch<AppDispatch>()
   const [isByPersentage, setIsByPersentage] = useState<boolean>(true)
+
+  const { t } = useTranslation();
 
   const location = useLocation();
   const navigate = useNavigate()
@@ -62,13 +65,13 @@ const AddActivityForm = () => {
   }
 
   return (
-    <FormLayout props={{ title: 'Create Activity', buttonText: 'Create', handleSubmit: handleSubmit(onSubmit), isLoading }}>
+    <FormLayout props={{ title: (t('add_activity')), buttonText: (t('button_add_activity')), handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
         disabled
         margin="normal"
         fullWidth
         id="eventDescription"
-        label="Event"
+        label={t('event')}
         defaultValue={location.state?.event_name ?? ''}
       />
       <TextField
@@ -77,9 +80,9 @@ const AddActivityForm = () => {
         required
         fullWidth
         id="description"
-        label="description"
+        label={t('activity_description')}
         type="text"
-        {...register('description', { required: 'Field required.' })}
+        {...register('description', { required: (t('field_required')) })}
       />
       <TextField
         error={!!errors.total_activity_value}
@@ -87,16 +90,16 @@ const AddActivityForm = () => {
         required
         fullWidth
         id="total_activity_value"
-        label="total_activity_value"
+        label={t('total_activity')}
         type="text"
-        {...register('total_activity_value', { required: 'Field required.' })}
+        {...register('total_activity_value', { required: (t('field_required')) })}
       />
       <Typography
         variant="h6"
         align="center"
         sx={{ marginTop: 5 }}
       >
-        Same percentage for every participant?
+        {t('activity_text')}
       </Typography>
       <Grid container sx={{ marginTop: 0.3, justifyContent: 'center' }} spacing={3}>
         <Grid item>
@@ -122,8 +125,8 @@ const AddActivityForm = () => {
         sx={{ marginBlock: 3 }}
       >
         {isByPersentage
-          ? 'The same contribution percentage will be applied to each participant'
-          : 'The amount to pay by participant will be asked when it is added'
+          ? t('contribution_samePercentage')
+          : t('contribution_askAmount')
         }
       </Typography>
       {alertState && (

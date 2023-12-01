@@ -19,6 +19,11 @@ export default {
   register_error: 'User creation failed. Please try again.',
   register_successfully: 'User created successfully',
 
+  // User Home
+  table_events_title: 'Events table',
+  table_no_events_message: 'No Events Created Yet',
+
+  // SideBar Items
   // Profile
   // Update profile form
   modify_account: 'Modify Profile',
@@ -47,5 +52,32 @@ export default {
   helper_textevent_type: 'Please select your type',
   button_add_event: 'Create event',
   // Update event form
-  modify_event: 'Modify Event'
+  modify_event: 'Modify Event',
+  // EventPage
+  event_has_activities: 'The event has activities, so it cannot be modified',
+  button_complete_event: 'Complete Event',
+  activities: 'Activities',
+
+  // Activities
+  // Add Activity
+  add_activity: 'Create Activity',
+  event: 'Event',
+  activity_description: 'Description',
+  total_activity: 'Total Activity',
+  activity_text: 'Same percentage for every participant?',
+  contribution_samePercentage: 'The same contribution percentage will be applied to each participant',
+  contribution_askAmount: 'The same contribution percentage will be applied to each participant',
+  button_add_activity: 'Create',
+  // Update Activity
+  update_activity: 'Modify Activity',
+  botton_update_activity: 'Update',
+  // Activity Page
+  description: 'DESCRIPTION',
+  activity_valor: 'VALUE',
+  activity_porcentage: 'PERCENTAGE',
+  samePercentage: 'It is by equal percentages',
+  askAmount: 'Amounts are assigned manually',
+  button_update_activity: 'Update activity',
+  buttotn_complete_activity: 'Complete activity',
+  contacts: 'Contacts are'
 }

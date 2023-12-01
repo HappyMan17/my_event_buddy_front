@@ -8,10 +8,14 @@ import { type AppDispatch, type RootState, getActivities } from '../../../redux'
 import { deepOrange } from '@mui/material/colors';
 import { k } from '../../../helpers';
 import { type AlertObject } from '../../../components/types';
+import { useTranslation } from 'react-i18next';
 
 const EventPage = () => {
   const { activities } = useSelector((state: RootState) => state.activities)
   const [errorMessage, setErrorMessage] = useState<null | AlertObject>(null)
+
+  const { t } = useTranslation();
+
   const dispatch = useDispatch<AppDispatch>()
   const location = useLocation();
   const navigate = useNavigate()
@@ -60,7 +64,7 @@ const EventPage = () => {
           align="center"
           sx={{ justifyContent: 'end' }}
         >
-          DESCRIPTION:
+          {t('description')}
         </Typography>
         <Typography variant="subtitle1" align="center" sx={{ marginBottom: 5 }}>
           { event.description }
@@ -73,14 +77,14 @@ const EventPage = () => {
                 if (activities?.length > 0) {
                   setErrorMessage({
                     alertType: 'error',
-                    message: 'The event has activities, so it cannot be modified'
+                    message: (t('event_has_activities'))
                   })
                 } else {
                   handleButtonClick('/modify-event');
                 }
               }}
             >
-              Edit Event
+              {t('modify_event')}
             </Button>
           </Grid>
           <Grid item>
@@ -89,15 +93,17 @@ const EventPage = () => {
               color='success'
               onClick={() => { handleButtonClick('/add-activity'); }}
             >
-              Create Activity
+              {t('add_activity')}
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="error"> Complete Event </Button>
+            <Button variant="contained" color="error">
+              {t('button_complete_event')}
+            </Button>
           </Grid>
         </Grid>
         <Typography variant="h4" align="center" sx={{ marginTop: 5 }}>
-            Activities
+            {t('activities')}
         </Typography>
       </Grid>
       {errorMessage && (

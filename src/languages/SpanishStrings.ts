@@ -19,6 +19,11 @@ export default {
   register_error: 'Error en la creación del usuario. Por favor, inténtelo de nuevo.',
   register_successfully: 'Usuario creado correctamente',
 
+  // User Home
+  table_events_title: 'Tabla de Eventos',
+  table_no_events_message: 'Aún no hay eventos creados',
+
+  // SideBar Items
   // Profile
   // Update profile form
   modify_account: 'Modificar perfil',
@@ -47,5 +52,32 @@ export default {
   helper_textevent_type: 'Seleccione su tipo',
   button_add_event: 'Crear Evento',
   // Update event form
-  modify_event: 'Modificar evento'
+  modify_event: 'Modificar evento',
+  // EventPage
+  description: 'DESCRIPCIÓN',
+  event_has_activities: 'El evento tiene actividades, por lo que no se puede modificar',
+  button_complete_event: 'Completar evento',
+  activities: 'Actividad',
+
+  // Activities
+  // Add Activity
+  add_activity: 'Crear actividad',
+  event: 'Evento',
+  activity_description: 'Descripción',
+  total_activity: 'Total de la actividad',
+  activity_text: '¿El mismo porcentaje para cada participante?',
+  contribution_samePercentage: 'Se aplicará el mismo porcentaje de contribución a cada participante',
+  contribution_askAmount: 'El monto a pagar por el participante se preguntará cuando se agregue',
+  button_add_activity: 'Crear',
+  // Update Activity
+  update_activity: 'Modificar Actividad',
+  botton_update_activity: 'Actualizar',
+  // Activity Page
+  activity_valor: 'VALOR',
+  activity_porcentage: 'PORCENTAGE',
+  samePercentage: 'Es por porcentajes iguales.',
+  askAmount: 'Se asignan montos a mano',
+  button_update_activity: 'Editar Actividad',
+  button_complete_activity: 'Completar Actividad',
+  contacts: 'Contactos'
 }

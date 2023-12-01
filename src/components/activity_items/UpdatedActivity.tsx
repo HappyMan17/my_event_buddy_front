@@ -7,6 +7,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event, type ActivityUpdate, type Activity } from '../../models';
 import { useLocation, useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export interface ActivityInputs {
   activity_id: string // Pa identificar la actividad
@@ -20,6 +21,7 @@ const UpdatedActivity = () => {
   const { errorMessage, isLoading } = useSelector((state: RootState) => state.activities)
   const { events } = useSelector((state: RootState) => state.event)
   const [currentEvent, setCurrentEvent] = useState<null | Event>(null)
+  const { t } = useTranslation();
   const [currentActivity, setCurrentActivity] = useState<null | Activity>(null)
   const dispatch = useDispatch<AppDispatch>()
 
@@ -72,13 +74,13 @@ const UpdatedActivity = () => {
   }
 
   return (
-    <FormLayout props={{ title: 'Modify Activity', buttonText: 'Update', handleSubmit: handleSubmit(onSubmit), isLoading }}>
+    <FormLayout props={{ title: (t('update_activity')), buttonText: (t('botton_update_activity')), handleSubmit: handleSubmit(onSubmit), isLoading }}>
       <TextField
         disabled
         margin="normal"
         fullWidth
         id="eventDescription"
-        label="Event"
+        label={t('event')}
         value={currentEvent?.event_name ?? ''}
       />
       <TextField
@@ -87,9 +89,9 @@ const UpdatedActivity = () => {
         required
         fullWidth
         id="description"
-        label="description"
+        label={t('activity_description')}
         type="text"
-        {...register('description', { required: 'Field required.' })}
+        {...register('description', { required: (t('field_required')) })}
       />
       <TextField
         error={!!errors.total_activity_value}
@@ -97,9 +99,9 @@ const UpdatedActivity = () => {
         required
         fullWidth
         id="total_activity_value"
-        label="total_activity_value"
+        label={t('total_activity')}
         type="text"
-        {...register('total_activity_value', { required: 'Field required.' })}
+        {...register('total_activity_value', { required: (t('field_required')) })}
       />
       {alertState && (
         <Alert severity={alertState.alertType}>
