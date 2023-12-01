@@ -116,7 +116,7 @@ const EventPage = () => {
         >
           CONTACTS:
         </Typography>
-        <Grid container style={{ maxHeight: '200px' }}>
+        <Grid container style={{ maxHeight: '215px', overflow: 'scroll' }} gap={0.5} >
           {completeEventContacts
             ? completeEventContacts.map((contact) => (
               <Grid item key={contact.contactId} style={{ borderStyle: 'solid', borderWidth: '1px', width: '100%', display: 'flex', alignItems: 'center', padding: '8px', borderRadius: '5px' }}>
