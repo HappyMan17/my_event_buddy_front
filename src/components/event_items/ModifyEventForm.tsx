@@ -81,7 +81,7 @@ const ModifyEventForm = () => {
     void dispatch(updateEvent(updatedEvent))
     if (selectedOption && event) {
       void dispatch(addEventContact({
-        contactId: selectedOption.value,
+        contact_id: selectedOption.value,
         event_id: event.event_id!
       }))
     }
@@ -151,7 +151,7 @@ const ModifyEventForm = () => {
         style={{ width: '100%', marginTop: '20px' }}
         value={selectedOption}
         onChange={handleChange}
-        options={userContacts.map((contact) => ({ label: contact.contactNickname!, value: contact.contactId }))}
+        options={userContacts.map((contact) => ({ label: contact.contactNickname!, value: contact.relationId }))}
         isOptionEqualToValue={(option, value) => option.value === value.value}
         getOptionLabel={(option) => option.label}
         renderOption={(props, option) => (

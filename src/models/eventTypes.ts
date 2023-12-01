@@ -12,7 +12,7 @@ export interface Event {
 
 export interface EventTypeRequest {
   event_id: string
-  contactId: string
+  contact_id: string
 }
 
 export interface EventId {
