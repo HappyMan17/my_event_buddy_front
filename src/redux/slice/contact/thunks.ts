@@ -1,6 +1,6 @@
 import { type AnyAction, type Dispatch } from '@reduxjs/toolkit'
 import { getUserByEmail, createContact, getUserContacts } from '../../../api'
-import { setContactSelected, setErrorMessage, setIsLoading, setUserContacts } from './contactSlice'
+import { resetUserContacts, setContactSelected, setErrorMessage, setIsLoading, setUserContacts } from './contactSlice'
 import { contactMapper, userMapper } from '../../../mappers'
 import { type Contact } from '../../../models'
 
@@ -54,6 +54,7 @@ export const getAllUserContacts = () => {
     }
 
     dispatch(setIsLoading(false))
+    dispatch(resetUserContacts())
     data.map((contact: Contact) => dispatch(setUserContacts(contactMapper(contact))))
   }
 }

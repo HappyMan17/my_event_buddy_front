@@ -1,13 +1,19 @@
-import { Alert, MenuItem, TextField } from '@mui/material'
+import { Alert, Autocomplete, MenuItem, TextField, Typography } from '@mui/material'
 import { FormLayout } from '../FormLayout'
 import { useState, type ChangeEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { type AppDispatch, type RootState, updateEvent } from '../../redux';
+import { type AppDispatch, type RootState, updateEvent, addEventContact } from '../../redux';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type AlertObject } from '../types';
 import { type Event } from '../../models';
+import SearchIcon from '@mui/icons-material/Search';
+
+export interface DropDownValue {
+  label: string
+  value: string
+}
 
 export interface UpdateInputs {
   eventName: string
@@ -17,6 +23,7 @@ export interface UpdateInputs {
 
 const ModifyEventForm = () => {
   const { errorMessage, isLoading } = useSelector((state: RootState) => state.event)
+  const { userContacts } = useSelector((state: RootState) => state.contacts)
   const dispatch = useDispatch<AppDispatch>()
   const location = useLocation();
   const navigate = useNavigate()
@@ -24,6 +31,7 @@ const ModifyEventForm = () => {
   const [alertState, setAlertState] = useState<AlertObject | null>(null);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [event, setEvent] = useState<Event | null>(null);
+  const [selectedOption, setSelectedOption] = useState<DropDownValue | null>(null);
 
   useEffect(() => {
     if (!location.state) {
@@ -57,6 +65,10 @@ const ModifyEventForm = () => {
     }
   })
 
+  const handleChange = (_event: any, newValue: DropDownValue | null) => {
+    setSelectedOption(newValue);
+  };
+
   const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
     const updatedEvent: Event = {
       ...event!,
@@ -67,6 +79,12 @@ const ModifyEventForm = () => {
       has_been_done: false
     }
     void dispatch(updateEvent(updatedEvent))
+    if (selectedOption && event) {
+      void dispatch(addEventContact({
+        contact_id: selectedOption.value,
+        event_id: event.event_id!
+      }))
+    }
   }
 
   const handleCurrencyChange = (event: ChangeEvent<{ value: unknown }>) => {
@@ -128,6 +146,36 @@ const ModifyEventForm = () => {
         id="deleteContact"
         label={t('delete_contact')}
         autoComplete="email"
+      />
+      <Autocomplete
+        style={{ width: '100%', marginTop: '20px' }}
+        value={selectedOption}
+        onChange={handleChange}
+        options={userContacts.map((contact) => ({ label: contact.contactNickname!, value: contact.relationId }))}
+        isOptionEqualToValue={(option, value) => option.value === value.value}
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option) => (
+          <MenuItem {...props}>
+            {option.label}
+          </MenuItem>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Choose a friend"
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <>
+                  <SearchIcon />
+                  {params.InputProps.startAdornment}
+                </>
+              )
+            }}
+          />
+        )}
+        noOptionsText={<Typography>No options</Typography>}
       />
       {alertState && (
         <Alert severity={alertState.alertType}>
