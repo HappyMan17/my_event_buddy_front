@@ -1,15 +1,17 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { type Event } from '../../../models'
+import { type EventContact, type Event } from '../../../models'
 import { type AlertObject } from '../../../components/types'
 
 interface EventState {
   events: Event[]
+  eventContacts: EventContact[]
   isLoading: boolean
   errorMessage: AlertObject | null
 }
 
 const initialState: EventState = {
   events: [],
+  eventContacts: [],
   isLoading: false,
   errorMessage: null
 }
@@ -25,6 +27,19 @@ export const eventSlice = createSlice({
       state.isLoading = false
       state.errorMessage = action.payload
     },
+    setEventContact: (state, action: PayloadAction<EventContact>) => {
+      state.isLoading = false
+      state.errorMessage = null
+      const contacts = state.eventContacts.map(contact => contact.contact_id)
+      if (!contacts.includes(action.payload.contact_id)) {
+        state.eventContacts.push(action.payload)
+      }
+    },
+    resetEventContact: (state) => {
+      state.isLoading = false
+      state.errorMessage = null
+      state.eventContacts = []
+    },
     setEvent: (state, action: PayloadAction<Event>) => {
       state.isLoading = false
       state.errorMessage = null
@@ -38,6 +53,6 @@ export const eventSlice = createSlice({
   }
 })
 
-export const { setIsLoading, setEvent, setEventError, resetEvents } = eventSlice.actions
+export const { setIsLoading, setEvent, setEventError, resetEvents, setEventContact, resetEventContact } = eventSlice.actions
 
 export default eventSlice.reducer
